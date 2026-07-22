@@ -1,0 +1,38 @@
+name: Backend
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'server/**'
+  pull_request:
+    branches: ['*']
+    paths:
+      - 'server/**'
+
+jobs:
+  server-testing:
+    runs-on: ubuntu-22.04
+
+    #services:
+    #  postgres:
+    #    image: postgres:15-alpine3.20
+    #    env:
+    #      POSTGRES_USER: 'physaflow-test'
+    #      POSTGRES_PASSWORD: '1cf4eb8f04a84637'
+    #      POSTGRES_DB: 'physaflow-test-db'
+    #    ports:
+    #      - 5432:5432
+    #    options: >- 
+    #      --health-cmd pg_isready 
+    #      --health-interval 10s 
+    #      --health-timeout 5s 
+    #      --health-retries 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@e3d2460bbb42d7710191569f88069044cfb9d8cf
+        with: 
+          fetch-depth: 0
+
