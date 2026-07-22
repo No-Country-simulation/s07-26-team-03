@@ -32,7 +32,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@e3d2460bbb42d7710191569f88069044cfb9d8cf
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with: 
           fetch-depth: 0
 
