@@ -1,0 +1,28 @@
+name: Frontend
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'client/**'
+  pull_request:
+    branches: ['*']
+    paths:
+      - 'client/**'
+
+jobs:
+  type-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@e3d2460bbb42d7710191569f88069044cfb9d8cf
+        with: 
+          fetch-depth: 0
+
+      #- name: Type Check
+      #  uses: actions/setup-node@v3
+      #  with:
+      #    node-version: 20
+      #- run: npm ci
+      #- run: npx tsc -b --noEmit
