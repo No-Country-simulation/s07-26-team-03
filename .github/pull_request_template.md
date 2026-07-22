@@ -1,5 +1,5 @@
-## Ticket en Jira
-Closes # (ID del issue)
+## Ticket de Trello
+Cierra: [Nombre de la issue](link-de-la-tarjeta-de-trello)
 
 ## 📝 Descripción
 ## 📸 Screenshots / Video (Opcional pero recomendado para Front)
