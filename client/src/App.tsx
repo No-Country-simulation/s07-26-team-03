@@ -1,7 +1,7 @@
+import AppRouter from "./app/router/AppRouter";
+
 function App() {
-  return (
-   <h1 className='text-6xl text-center text-brand-primary-base '>App Stranded Capacity</h1>
-  )
+   return <AppRouter />;
 }
 
 export default App
