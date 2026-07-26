@@ -1,6 +1,7 @@
 import { type PropsWithChildren } from "react";
 
 import { QueryProvider } from "./QueryProvider";
+import { ToastProvider } from "./ToastProvider";
 
 export function AppProviders({
   children,
@@ -8,6 +9,8 @@ export function AppProviders({
   return (
     <QueryProvider>
       {children}
+
+      <ToastProvider />
     </QueryProvider>
   );
 }
