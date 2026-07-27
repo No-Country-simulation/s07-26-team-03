@@ -27,9 +27,9 @@ import { ROUTES } from "./route.constants";
 |
 */
 
-    import LandingPage from "@/pages/landing/LandingPage";
-    import CalculatorPage from "@/pages/calculator/CalculatorPage";
-    import NotFoundPage from "@/pages/errors/NotFoundPage";
+    import { LandingPage } from "@/features/landing";
+    import { CalculatorPage } from "@/features/calculator";
+    import { NotFoundPage } from "@/features/not-found";
 
 /*
 |--------------------------------------------------------------------------
@@ -38,11 +38,11 @@ import { ROUTES } from "./route.constants";
 */
 
 const LoginPage = lazy(
-    () => import("@/pages/auth/LoginPage"),
+    () => import("@/features/auth/pages/LoginPage"),
 );
 
 const DashboardPage = lazy(
-    () => import("@/pages/dashboard/DashboardPage"),
+    () => import("@/features/dashboard/pages/DashboardPage"),
 );
 
 export default function AppRoutes() {
