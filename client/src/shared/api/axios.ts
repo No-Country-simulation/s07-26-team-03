@@ -2,13 +2,13 @@ import axios from "axios";
 
 import { env } from "@/app/config/env";
 
-export const publicApi = axios.create({
+export const publicRoutes = axios.create({
 
     baseURL: env.API_URL
 
 });
 
-export const api = axios.create({
+export const protectedRoutes = axios.create({
   baseURL: env.API_URL,
   timeout: 30000,
   withCredentials: true,

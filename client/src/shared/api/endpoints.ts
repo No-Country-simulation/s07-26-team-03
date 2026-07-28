@@ -1,4 +1,4 @@
-export const ENDPOINTS={
+export const ENDPOINTS = {
 
     calculator:{
 
@@ -16,7 +16,9 @@ export const ENDPOINTS={
 
     auth:{
 
-        login:"/auth/login"
+        login:"/auth/login",
+
+        signup: "/auth/signup",
 
     }
 
