@@ -1,0 +1,66 @@
+@layer base {
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+
+    margin: 0;
+
+    background: var(--color-background);
+
+    color: var(--color-text);
+
+    font-family: var(--font-body);
+
+    text-rendering: optimizeLegibility;
+
+    -webkit-font-smoothing: antialiased;
+
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+
+    font-family: var(--font-heading);
+
+    color: var(--color-heading);
+
+  }
+
+  * {
+
+    border-color: var(--color-border);
+
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+
+    font: inherit;
+
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg{
+      display:block;
+      max-width:100%;
+  }
+
+}

@@ -1,0 +1,9 @@
+@keyframes fade-in {}
+
+@keyframes slide-up {}
+
+.fade-in {
+
+    animation: fade-in .3s ease;
+
+}
