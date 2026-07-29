@@ -7,11 +7,11 @@ const controller = new AbortController();
 export const ENDPOINTS = (options: EndpointOptions): Promise<AxiosResponse> => {
     if (options.kind === "POST") {
         if (options.endpoint === "auth/login") {
-            return protectedRoutes.post(
+            return protectedRoutes.post<AxiosResponse<{ accessToken: string }>>(
                 "/auth/login",
                 options.data,
                 { signal: controller.signal },
-            );
+            ) ;
         }
 
         if (options.endpoint === "auth/signup") {
