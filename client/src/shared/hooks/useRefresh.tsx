@@ -1,5 +1,5 @@
-import { AxiosError, type AxiosResponse } from "axios";
-import { ENDPOINTS } from "@shared/api/endpoints";
+import { AxiosError } from "axios";
+import { refreshSession } from "@/shared/api/public-endpoints";
 
 type options = {
   onSuccess?: VoidFunction;
@@ -10,7 +10,7 @@ type options = {
 const useRefresh = ({ onSuccess, onReject, setToken }: options ) => {
   const setRefresh = async () => {
     try {
-      const { data } = await ENDPOINTS({ kind: "GET", endpoint: "auth/refresh" }) as AxiosResponse<{ accessToken: string }>;
+      const { data } = await refreshSession();
       setToken?.(data.accessToken);
       onSuccess?.()
       return data;

@@ -1,5 +1,5 @@
 export * from "./axios";
 
-export * from "./endpoints";
+export * from "./public-endpoints";
 
 export * from "./errors";
