@@ -1,25 +1,54 @@
-export const ENDPOINTS = {
+import type { AxiosResponse } from "axios";
+import { protectedRoutes } from "./axios";
+import type { EndpointOptions } from "./types/api.types";
 
-    calculator:{
+const controller = new AbortController();
 
-        calculate:"/calculator/calculate",
+export const ENDPOINTS = (options: EndpointOptions): Promise<AxiosResponse> => {
+    if (options.kind === "POST") {
+        if (options.endpoint === "auth/login") {
+            return protectedRoutes.post(
+                "/auth/login",
+                options.data,
+                { signal: controller.signal },
+            );
+        }
 
-        scenarios:"/calculator/scenarios",
+        if (options.endpoint === "auth/signup") {
+            return protectedRoutes.post(
+                "/auth/signup",
+                options.data,
+                { signal: controller.signal },
+            );
+        }
 
-    },
+        if (options.endpoint === "calculator/calculate") {
+            return protectedRoutes.post(
+                "/calculator/calculate",
+                options.data,
+                { signal: controller.signal },
+            );
+        }
 
-    report:{
-
-        generate:"/reports"
-
-    },
-
-    auth:{
-
-        login:"/auth/login",
-
-        signup: "/auth/signup",
-
+        if (options.endpoint === "calculator/scenarios") {
+            return protectedRoutes.post(
+                "/calculator/scenarios",
+                options.data,
+                { signal: controller.signal },
+            );
+        }
     }
 
-} as const;
+    if (options.kind === "GET") {
+        if (options.endpoint === "auth/refresh") {
+            return protectedRoutes.get(
+                "/auth/refresh",
+                { signal: controller.signal },
+            );
+        }
+    }
+
+    throw new Error(
+        `Endpoint not implemented: ${options.kind} ${options.endpoint}`,
+    );
+};

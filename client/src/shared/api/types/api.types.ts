@@ -1,13 +1,59 @@
+export type EndpointBuilder<F extends string, E extends string> = `${F}/${E}`;
 
-// Enumeración de métodos HTTP disponibles
-export const HttpMethod = {
-  GET: "GET",
-  POST: "POST",
-  PUT: "PUT",
-  PATCH: "PATCH",
-  DELETE: "DELETE",
-} as const;
-export type HttpMethod = (typeof HttpMethod)[keyof typeof HttpMethod];
+type PostEndpoints = 
+  | EndpointBuilder<"auth", "login" | "signup">
+  | EndpointBuilder<"calculator", "calculate" | "scenarios">
+
+type GetEndpoints = 
+  | EndpointBuilder<"auth", "refresh">
+  | EndpointBuilder<"report", "generate">
+
+
+type ParamOptions = 
+  | {
+    kind: "params";
+    param: string;
+    query?: [];
+  }
+  | {
+    kind: "query";
+    param?: string;
+    query: [];
+  }
+
+export type EndpointOptions =
+  | {
+      kind: "POST";
+      endpoint: PostEndpoints;
+      param?: ParamOptions;
+      data: object;
+    }
+  | {
+      kind: "GET";
+      endpoint: GetEndpoints;
+      param?: ParamOptions;
+      data?: object;
+    }
+  | {
+      kind: "PUT";
+      endpoint: "auth" | "signup" | "refresh";
+      param?: ParamOptions;
+      data: object;
+    }
+  | {
+      kind: "PATCH";
+      endpoint: "auth" | "signup" | "refresh";
+      param?: ParamOptions;
+      data: object;
+    }
+  | {
+      kind: "DELETE";
+      endpoint: "auth" | "signup" | "refresh";
+      param?: ParamOptions;
+      data?: object;
+    };
+
+
 
 export interface ApiResponse<TData = unknown> {
   data: TData;
