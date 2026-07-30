@@ -1,82 +1,61 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
+@font-face {
+  font-family: "Inter";
+  src: url("../../assets/fonts/Inter/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 100 900;
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  src: url("../../assets/fonts/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400 900;
+}
+
 @theme {
+  --color-brand-primary-50: #FAFFFC;
+  --color-brand-primary-100: #F4FAF6;
+  --color-brand-primary-200: #E7F0EB;
+  --color-brand-primary-300: #9FBFA9;
+  --color-brand-primary-400: #6FA587;
+  --color-brand-primary-500: #0E6A37;
+  --color-brand-primary-600: #197742;
+  --color-brand-primary-700: #165F36;
+  --color-brand-primary-800: #124A2B;
+  --color-brand-primary-900: #0B321D;
 
-  /* =========
-    Brand
-  ========= */
+  --color-brand-primary: var(--color-brand-primary-500);
+  --color-brand-primary-hover: var(--color-brand-primary-600);
+  --color-brand-primary-active: var(--color-brand-primary-700);
 
+  --color-background: #F8F9FA;
+  --color-surface: #FFFFFF;
 
-    --color-brand-primary-50:  #FAFFFC;
-    --color-brand-primary-100: #F4FAF6;
-    --color-brand-primary-200: #E7F0EB;
-    --color-brand-primary-300: #9FBFA9;
-    --color-brand-primary-400: #6FA587;
+  --color-heading: #111827;
+  --color-text: #4B5563;
+  --color-text-muted: #737373;
+  --color-placeholder: #9CA3AF;
 
-    --color-brand-primary-500: #0E6A37; /* Color corporativo */
+  --color-border: #E5E7EB;
+  --color-border-hover: #D1D5DB;
+  --color-divider: #F3F4F6;
 
-    --color-brand-primary-600: #197742;
-    --color-brand-primary-700: #165F36;
-    --color-brand-primary-800: #124A2B;
-    --color-brand-primary-900: #0B321D;
+  --color-success: #128A4A;
+  --color-success-bg: #E8F5EE;
 
-  /* =========
-      TOKENS SEMANTIC
-  ========= */
+  --color-warning: #D97706;
+  --color-warning-bg: #FEF3C7;
 
-    --color-brand-primary:          var(--color-brand-primary-500);
-    --color-brand-primary-hover:    var(--color-brand-primary-600);
-    --color-brand-primary-active:   var(--color-brand-primary-700);
+  --color-error: #DC2626;
+  --color-error-bg: #FEF2F2;
 
-   /* =========
-    SURFACE
-    ========= */
-
-        --color-background:     #F8F9FA;
-        --color-surface:        #FFFFFF;
-
-    /* =========
-    TEXT
-    ========= */
-   
-        --color-text:           #4B5563;
-        --color-text-muted:     #737373;
-        --color-heading:        #111827;
-        --color-border:         #E5E7EB;
-        --color-placeholder:    #9CA3AF;
-
-    /* =========
-    BORDER
-    ========= */
-
-        --color-border:         #E5E7EB;
-        --color-border-hover:   #D1D5DB;
-        --color-divider:        #F3F4F6;
-
-    /* =========
-    FEEDBACK
-    ========= */
-
-    --color-success: #128A4A;
-    --color-success-bg: #E8F5EE;
-
-    --color-warning: #D97706;
-    --color-warning-bg: #FEF3C7;
-
-    --color-error: #DC2626;
-    --color-error-bg: #FEF2F2;
-
-    --color-info: #0284C7;
-    --color-info-bg: #E0F2FE;
-
-  /* =========
-      TYPOGRAPHY
-  ========= */
+  --color-info: #0284C7;
+  --color-info-bg: #E0F2FE;
 
   --font-heading: "Inter", system-ui, sans-serif;
-
   --font-body: "Inter", system-ui, sans-serif;
-
-  --font-accent: "Inter", sans-serif;
-
+  --font-accent: "Inter", system-ui, sans-serif;
+  --font-logo: "Playfair Display", serif;
 }

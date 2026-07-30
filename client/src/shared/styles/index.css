@@ -1,7 +1,5 @@
 @import "tailwindcss";
-/* @import "tailwindcss-animated"; */
 
-/* @import "./theme.css"; */
+@import "./theme.css";
 @import "./globals.css";
-/* @import "./animations.css"; */
-/* @import "./utilities.css"; */
+@import "./animations.css";
