@@ -1,0 +1,72 @@
+.container {
+  width: 100%;
+}
+
+.title {
+  margin: 0 0 16px 0;
+  color: #9CA3AF;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 24px;
+}
+
+.track {
+  position: relative;
+  height: 6px;
+  width: 100%;
+  background: #6FA587;
+  border-radius: 9999px;
+  overflow: visible;
+}
+
+.progress {
+  position: absolute;
+  top: 0;
+  height: 6px;
+  background: #0E6A37;
+  border-radius: 9999px;
+}
+
+.dot {
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  background: #0E6A37;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.labels {
+  position: relative;
+  width: 100%;
+  margin-top: 12px;
+  height: 16px;
+}
+
+.labels span {
+  position: absolute;
+  color: #9CA3AF;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.start {
+  left: 0;
+  transform: translateX(0);
+}
+
+.middle {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.end {
+  right: 0;
+  transform: translateX(0);
+}

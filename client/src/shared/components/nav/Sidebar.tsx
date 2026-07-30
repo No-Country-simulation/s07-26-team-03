@@ -10,7 +10,7 @@ export default function Sidebar() {
     };
 
     return (
-        <aside className="flex w-[380px] flex-col bg-surface px-10 py-10">
+        <aside className="flex w-[380px] flex-col bg-surface px-10 py-10 shadow-[0px_0.5px_8px_rgba(25,33,61,0.06)]">
             <div className="flex items-center gap-3">
                 <img
                     src={icon}
@@ -31,11 +31,10 @@ export default function Sidebar() {
                         by Datacenter
                     </span>
                 </div>
-
             </div>
 
             <div className="mt-16">
-                <h2 className="font-heading text-[32px] leading-[110%] font-semibold text-heading">
+                <h2 className="font-heading text-[32px] font-semibold leading-[110%] text-heading">
                     Let&apos;s assess your data center
                 </h2>
 
