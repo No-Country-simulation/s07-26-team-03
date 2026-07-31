@@ -1,0 +1,70 @@
+import { LuBuilding2 } from "react-icons/lu";
+import CheckIcon from "@/shared/components/icons/CheckIcon";
+import type { RadioCardItem } from "../../types/RadioCards.types";
+
+interface RadioCardProps extends RadioCardItem {
+  isSelected?: boolean;
+  onSelect?: (id: string) => void;
+}
+
+export default function RadioCard({
+  id,
+  title,
+  description,
+  Icon = LuBuilding2,
+  isSelected = false,
+  onSelect,
+}: RadioCardProps) {
+  return (
+    <div
+      onClick={() => onSelect && onSelect(id)}
+      className={`
+        relative flex h-[120px] w-full max-w-[130px] cursor-pointer flex-col
+        items-center justify-center rounded-2xl border p-2.5 transition-all duration-200
+        ${isSelected
+          ? "border-brand-primary bg-[#F4FAF6] shadow-[0px_2px_8px_rgba(14,106,55,0.12)]"
+          : "border-[#E5E7EB] bg-white hover:border-gray-300 shadow-[0px_1px_3px_rgba(0,0,0,0.05)]"
+        }
+      `}
+    >
+
+      <div
+        className={`
+          absolute right-2.5 top-2.5 flex h-4 w-4
+          items-center justify-center rounded-full border transition-colors
+          ${isSelected
+            ? "border-brand-primary bg-brand-primary text-white"
+            : "border-[#C1C7CD] bg-white"
+          }
+        `}
+      >
+        {isSelected && <CheckIcon />}
+      </div>
+
+      <div
+        className={`
+          flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-colors
+          ${isSelected
+            ? "bg-brand-primary text-white shadow-[inset_0px_-1.17px_1.17px_rgba(14,106,55,0.25)]"
+            : "bg-[#E5E7EB] text-[#4B5563]"
+          }
+        `}
+      >
+        <Icon className="h-4.5 w-4.5 stroke-current" />
+      </div>
+
+      <h3
+        className={`
+          mt-2 font-heading text-xs font-semibold text-center leading-tight
+          ${isSelected ? "text-brand-primary" : "text-heading"}
+        `}
+      >
+        {title}
+      </h3>
+
+      <p className="mt-0.5 font-body text-[11px] text-placeholder text-center leading-tight">
+        {description}
+      </p>
+    </div>
+  );
+}
