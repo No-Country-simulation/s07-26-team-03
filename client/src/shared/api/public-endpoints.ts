@@ -15,10 +15,10 @@ export const signup = (): Promise<AxiosResponse> => {
     ) ;
 }
 
-export const login = (): Promise<AxiosResponse<{ accessToken: string }>> => {
+export const login = (data: object): Promise<AxiosResponse<{ accessToken: string }>> => {
     return publicRoutes.post<{ accessToken: string }>(
         "/auth/login",
-        {},
+        data,
         {
             signal: controller.signal,
         }

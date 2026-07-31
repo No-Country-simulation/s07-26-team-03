@@ -1,5 +1,5 @@
 import { createContext, useState, type Dispatch, type SetStateAction, type ReactNode, useRef, useEffect } from "react";
-import useRefresh from "../hooks/useRefresh";
+import useRefresh from "@shared/hooks/useRefresh";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export interface IAuthContext {
