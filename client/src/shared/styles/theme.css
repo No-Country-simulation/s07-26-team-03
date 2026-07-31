@@ -30,6 +30,8 @@
   --color-brand-primary-hover: var(--color-brand-primary-600);
   --color-brand-primary-active: var(--color-brand-primary-700);
 
+  --background-image-layout: url("../../assets/background.png");
+
   --color-background: #F8F9FA;
   --color-surface: #FFFFFF;
 

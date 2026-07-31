@@ -12,7 +12,6 @@
 
   body {
     margin: 0;
-    background: var(--color-background) url("../../assets/background.png") center / cover no-repeat;
     color: var(--color-text);
     font-family: var(--font-body);
     text-rendering: optimizeLegibility;

@@ -1,4 +1,4 @@
-import EdificioIcon from "@/assets/icons/edificio.svg?react";
+import { LuBuilding2 } from "react-icons/lu";
 import CheckIcon from "@/shared/components/icons/CheckIcon";
 import type { RadioCardItem } from "../../types/RadioCards.types";
 
@@ -11,7 +11,7 @@ export default function RadioCard({
   id,
   title,
   description,
-  Icon = EdificioIcon,
+  Icon = LuBuilding2,
   isSelected = false,
   onSelect,
 }: RadioCardProps) {
@@ -19,24 +19,22 @@ export default function RadioCard({
     <div
       onClick={() => onSelect && onSelect(id)}
       className={`
-        relative flex h-[220px] cursor-pointer flex-col
-        items-center rounded-2xl border p-6 transition-colors
-        ${
-          isSelected
-            ? "border-[#0E6A37] bg-[#F4FAF6]"
-            : "border-[#E5E7EB] bg-white hover:border-gray-300"
+        relative flex h-[120px] w-full max-w-[130px] cursor-pointer flex-col
+        items-center justify-center rounded-2xl border p-2.5 transition-all duration-200
+        ${isSelected
+          ? "border-brand-primary bg-[#F4FAF6] shadow-[0px_2px_8px_rgba(14,106,55,0.12)]"
+          : "border-[#E5E7EB] bg-white hover:border-gray-300 shadow-[0px_1px_3px_rgba(0,0,0,0.05)]"
         }
       `}
     >
-     
+
       <div
         className={`
-          absolute right-5 top-5 flex h-5 w-5
-          items-center justify-center rounded-full border
-          ${
-            isSelected
-              ? "border-[#0E6A37] bg-[#0E6A37] text-white"
-              : "border-[#C1C7CD] bg-white"
+          absolute right-2.5 top-2.5 flex h-4 w-4
+          items-center justify-center rounded-full border transition-colors
+          ${isSelected
+            ? "border-brand-primary bg-brand-primary text-white"
+            : "border-[#C1C7CD] bg-white"
           }
         `}
       >
@@ -45,27 +43,26 @@ export default function RadioCard({
 
       <div
         className={`
-          mt-6 flex h-12 w-12 items-center justify-center rounded-full
-          ${
-            isSelected
-              ? "bg-[#0E6A37] text-white"
-              : "bg-[#E5E7EB] text-[#4B5563]"
+          flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-colors
+          ${isSelected
+            ? "bg-brand-primary text-white shadow-[inset_0px_-1.17px_1.17px_rgba(14,106,55,0.25)]"
+            : "bg-[#E5E7EB] text-[#4B5563]"
           }
         `}
       >
-        <Icon className="h-6 w-6" />
+        <Icon className="h-4.5 w-4.5 stroke-current" />
       </div>
 
       <h3
         className={`
-          mt-8 font-heading text-lg font-semibold
-          ${isSelected ? "text-[#0E6A37]" : "text-[#170F49]"}
+          mt-2 font-heading text-xs font-semibold text-center leading-tight
+          ${isSelected ? "text-brand-primary" : "text-heading"}
         `}
       >
         {title}
       </h3>
 
-      <p className="mt-2 font-body text-base text-[#4B5563] text-center">
+      <p className="mt-0.5 font-body text-[11px] text-placeholder text-center leading-tight">
         {description}
       </p>
     </div>

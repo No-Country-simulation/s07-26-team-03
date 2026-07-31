@@ -13,3 +13,13 @@ export interface RadioGroupConfig {
   subDescription?: string;
   cards: RadioCardItem[];
 }
+
+export interface RadioCardsProps {
+  group?: RadioGroupConfig;
+  title?: string;
+  description?: string;
+  subDescription?: string;
+  cards?: RadioCardItem[];
+  selectedId?: string;
+  onChange?: (id: string) => void;
+}

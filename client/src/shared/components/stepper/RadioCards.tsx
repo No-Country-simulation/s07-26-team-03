@@ -1,17 +1,7 @@
 import { useState } from "react";
 import RadioCard from "./RadioCard";
-import { UTILIZATION_GROUP } from "../../constants/RadioCards.constants";
-import type { RadioCardItem, RadioGroupConfig } from "../../types/RadioCards.types";
-
-interface RadioCardsProps {
-  group?: RadioGroupConfig;
-  title?: string;
-  description?: string;
-  subDescription?: string;
-  cards?: RadioCardItem[];
-  selectedId?: string;
-  onChange?: (id: string) => void;
-}
+import { UTILIZATION_GROUP } from "@/shared/constants/RadioCards.constants";
+import type { RadioCardsProps } from "@/shared/types/RadioCards.types";
 
 export default function RadioCards({
   group,
@@ -22,9 +12,12 @@ export default function RadioCards({
   selectedId,
   onChange,
 }: RadioCardsProps) {
-  const [internalSelected, setInternalSelected] = useState<string>(cards[0]?.id || "");
+  const [internalSelected, setInternalSelected] = useState<string>(
+    cards[0]?.id || ""
+  );
 
-  const activeSelected = selectedId !== undefined ? selectedId : internalSelected;
+  const activeSelected =
+    selectedId !== undefined ? selectedId : internalSelected;
 
   const handleSelect = (id: string) => {
     if (onChange) {
@@ -35,21 +28,19 @@ export default function RadioCards({
   };
 
   const gridColsClass =
-    {
-      1: "grid-cols-1",
-      2: "grid-cols-1 sm:grid-cols-2",
-      3: "grid-cols-1 md:grid-cols-3",
-      4: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
-      5: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-5",
-    }[cards.length] || "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4";
+    cards.length === 5
+      ? "grid-cols-5"
+      : cards.length === 4
+        ? "grid-cols-4"
+        : "grid-cols-3";
 
   return (
-    <div>
-      <h1 className="font-heading text-[32px] leading-[110%] font-bold text-[#170F49]">
+    <div className="w-full">
+      <h1 className="font-heading text-[32px] font-bold leading-[110%] text-heading">
         {title}
       </h1>
 
-      <p className="mt-2 font-body text-base leading-[150%] text-[#6F6C8F]">
+      <p className="mt-2 font-body text-base leading-[150%] text-text">
         {description}
         {subDescription && (
           <>
@@ -59,7 +50,7 @@ export default function RadioCards({
         )}
       </p>
 
-      <div className={`mt-8 grid gap-6 ${gridColsClass}`}>
+      <div className={`mt-8 grid ${gridColsClass} gap-3 sm:gap-4 justify-items-center`}>
         {cards.map((card) => (
           <RadioCard
             key={card.id}
