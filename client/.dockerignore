@@ -1,0 +1,9 @@
+*
+!/package*.json
+!/src
+!/tsconfig*.json
+!/vite.config.ts
+!/index.html
+!/nginx.conf
+!/scripts
+!/env.template.js
