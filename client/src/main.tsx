@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './shared/styles/index.css'
+import '@/shared/api/axios.ts'
 import App from './App.tsx'
 import { AppProviders } from './app/providers/AppProviders.tsx'
 

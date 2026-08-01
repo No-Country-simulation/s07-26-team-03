@@ -31,7 +31,7 @@ FROM nginx:1.30.4-alpine3.24 AS runner
 RUN apk add --no-cache gettext
 
 COPY --from=builder /app/dist /usr/share/nginx/html
-COPY env.template.js /usr/share/nginx/html/env.template.js
+COPY env.template.js /usr/share/nginx/html/env.js
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY scripts/entrypoint-docker.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
