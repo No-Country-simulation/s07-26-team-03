@@ -5,5 +5,5 @@
 !/vite.config.ts
 !/index.html
 !/nginx.conf
-!/scripts
-!/env.template.js
+!/entrypoint.sh
+!/env.js
