@@ -20,9 +20,9 @@ jobs:
         with: 
           fetch-depth: 0
 
-      #- name: Type Check
-      #  uses: actions/setup-node@v3
-      #  with:
-      #    node-version: 20
-      #- run: npm ci
-      #- run: npx tsc -b --noEmit
+      - name: Type Check
+        uses: actions/setup-node@670825a89dc0abd596e7a3abd0f5e3f6e5faf37c
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npx tsc -b --noEmit
