@@ -30,7 +30,19 @@
   --color-brand-primary-hover: var(--color-brand-primary-600);
   --color-brand-primary-active: var(--color-brand-primary-700);
 
+  --color-brand-accent: #C5922C;
+
   --background-image-layout: url("../../assets/background.png");
+
+  --background-image-layout-gradient:
+      linear-gradient(
+        180deg,
+        #000C15 0%,
+        #023A29 25%,
+        #618671 50%,
+        #023A2F 70%,
+        #012507 100%
+      );
 
   --color-background: #F8F9FA;
   --color-surface: #FFFFFF;
