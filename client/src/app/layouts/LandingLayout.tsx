@@ -1,6 +1,7 @@
 
 import { GradientSection } from "@/features/landing/components/gradient-section/GradientSection";
 import { Navbar } from "@/features/landing/components/navbar";
+import { Hero } from "@/features/landing/components/sections/hero/Hero";
 import { Outlet } from "react-router-dom";
 
 export default function LandingLayout() {
@@ -12,6 +13,7 @@ export default function LandingLayout() {
             {/* Header */}
             <GradientSection>
                 <Navbar />
+                <Hero />
             </GradientSection>
             
 

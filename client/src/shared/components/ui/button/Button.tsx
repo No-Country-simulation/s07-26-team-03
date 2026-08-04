@@ -12,8 +12,7 @@ import {
 import type { ButtonProps } from "./button.types";
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
+  ({
       children,
 
       variant = "filled",
@@ -34,9 +33,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       type = "button",
 
       ...props
-    },
-    ref
-  ) => {
+    }, ref ) => {
     const isDisabled = disabled || loading;
 
     return (

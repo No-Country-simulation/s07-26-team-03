@@ -7,6 +7,7 @@ import { Logo } from "@/shared/components/ui/logo/Logo";
 import { Container } from "@/shared/components/ui/container/Container";
 import { Button } from "@/shared/components/ui/button/Button";
 import { IoMenuOutline } from "react-icons/io5";
+import { NavAction } from "./components/NavAction";
 
 export function Navbar() {
   const menu = useMobileMenu();
@@ -22,15 +23,7 @@ export function Navbar() {
             items={navigationItems}
           />
 
-          <div className="hidden items-center gap-3 lg:flex">
-            <Button variant="outline" color="surface">
-              Login
-            </Button>
-
-            <Button color="success">
-              Get Started Free
-            </Button>
-          </div>
+          <NavAction />
 
           <Button
             variant="ghost"
