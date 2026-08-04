@@ -1,14 +1,3 @@
-
-// Enumeración de métodos HTTP disponibles
-export const HttpMethod = {
-  GET: "GET",
-  POST: "POST",
-  PUT: "PUT",
-  PATCH: "PATCH",
-  DELETE: "DELETE",
-} as const;
-export type HttpMethod = (typeof HttpMethod)[keyof typeof HttpMethod];
-
 export interface ApiResponse<TData = unknown> {
   data: TData;
   message: string;
