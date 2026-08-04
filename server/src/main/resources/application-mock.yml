@@ -1,0 +1,22 @@
+# Perfil mock para Sprint 0: arranca el server sin DB ni auth,
+# solo expone los stubs de US-006 y US-007 para que el FE integre.
+spring:
+  config:
+    activate:
+      on-profile: mock
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.jdbc.autoconfigure.DataSourceAutoConfiguration
+      - org.springframework.boot.hibernate.autoconfigure.HibernateJpaAutoConfiguration
+      - org.springframework.boot.flyway.autoconfigure.FlywayAutoConfiguration
+      - org.springframework.boot.data.jpa.autoconfigure.DataJpaRepositoriesAutoConfiguration
+      - org.springframework.boot.security.autoconfigure.SecurityAutoConfiguration
+      - org.springframework.boot.security.autoconfigure.UserDetailsServiceAutoConfiguration
+      - org.springframework.boot.security.autoconfigure.web.servlet.SecurityFilterAutoConfiguration
+      - org.springframework.boot.security.autoconfigure.web.servlet.ServletWebSecurityAutoConfiguration
+
+logging:
+  level:
+    com.physaflow: DEBUG
+    org.springframework.web: INFO
+    org.hibernate.SQL: WARN
