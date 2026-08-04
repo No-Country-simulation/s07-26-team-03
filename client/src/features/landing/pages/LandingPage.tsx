@@ -1,11 +1,10 @@
-
-import { Logo } from "@/shared/components/ui/logo/Logo"
+import { BenefitsSection } from "../components/sections/benefits/Benefits"
 
 const LandingPage = () => {
   return (
-    <div>LandingPage
-      <Logo></Logo>
-    </div>
+    <>
+      <BenefitsSection  className="max-w-"/>
+    </>
   )
 }
 

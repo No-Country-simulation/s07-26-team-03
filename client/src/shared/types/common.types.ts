@@ -9,4 +9,7 @@ export interface BaseComponentProps
     extends Baseprops,
     HTMLAttributes<HTMLElement> {}
 
-
+export type AlignmentVariant =
+    | "left"
+    | "right"
+    | "center";

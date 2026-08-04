@@ -13,7 +13,7 @@ export function Hero() {
       id="hero"
       className="relative overflow-hidden px-16 pt-12 pb-24 lg:pt-20"
     >
-      <Container fluid >
+      <Container >
         <div
           className="
             grid

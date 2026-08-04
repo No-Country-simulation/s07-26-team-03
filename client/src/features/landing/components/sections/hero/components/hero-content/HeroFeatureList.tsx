@@ -1,4 +1,4 @@
-import { FeatureItem } from "@/shared/components/feature-items";
+import { FeatureItem } from "@/shared/components/contents/feature-items";
 import { IoHourglassOutline, IoLocateOutline, IoStopwatchOutline } from "react-icons/io5";
 
 
@@ -8,7 +8,8 @@ export function HeroFeatureList() {
       className="
         grid
         gap-6
-        sm:grid-cols-2
+        grid-cols-1
+        sm:grid-cols-3
         lg:grid-cols-3
       "
     >
