@@ -1,0 +1,14 @@
+# IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.fleet/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
