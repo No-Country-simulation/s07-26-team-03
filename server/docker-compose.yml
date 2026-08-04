@@ -1,0 +1,20 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: xocris/physaflow-server:latest
+    container_name: physaflow-backend
+    ports:
+      - "${SERVER_PORT:-8080}:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-mock}
+      SERVER_PORT: 8080
+      # Sprint 1+: descomentar y poner valores reales
+      # DATABASE_URL: ${DATABASE_URL}
+      # DATABASE_USERNAME: ${DATABASE_USERNAME}
+      # DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      # PRICE_USD_PER_MWH: ${PRICE_USD_PER_MWH:-100.00}
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped

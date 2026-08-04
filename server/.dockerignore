@@ -1,0 +1,26 @@
+# Todo lo que no sea codigo fuente / build
+.git
+.gitignore
+.idea
+.vscode
+*.iml
+*.iws
+*.ipr
+
+# Build output local (lo genera el contenedor)
+target/
+build/
+
+# Logs
+*.log
+logs/
+
+# Archivos del repo padre (no son parte del server)
+README.md
+docs/
+*.md
+
+# Archivos sensibles
+.env
+.env.local
+application-secret.properties
