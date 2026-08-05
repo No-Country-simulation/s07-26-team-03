@@ -13,3 +13,10 @@ export type AlignmentVariant =
     | "left"
     | "right"
     | "center";
+
+
+export interface SectionContent {
+  badge: string;
+  title: string;
+  description: string;
+}

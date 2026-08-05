@@ -1,6 +1,6 @@
 
 
-import heroDashboard from "@/assets/heroDashboard.webp";
+import heroDashboard from "@/assets/images/heroDashboard.webp";
 
 
 import { HeroIllustration } from "./components/HeroIllustration";

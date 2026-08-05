@@ -1,3 +1,4 @@
+import type { SectionContent } from "@/shared/types/common.types";
 import type { ReactNode } from "react";
 
 export interface HowItWorksStep {
@@ -12,12 +13,6 @@ export interface HowItWorksStep {
   icon: ReactNode;
 }
 
-export interface HowItWorksContent {
-  badge: string;
-
-  title: string;
-
-  description: string;
-
-  steps: HowItWorksStep[];
+export interface HowItWorksContent extends SectionContent {
+    steps: HowItWorksStep[];
 }
