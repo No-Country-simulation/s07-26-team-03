@@ -6,8 +6,8 @@ export const CoolingType = {
 
 export type CoolingType = typeof CoolingType[keyof typeof CoolingType];
 
-export interface ICalculation {
-    facilityMv: number;
+export interface ICalculationRequest {
+    totalCacilityMv: number;
     utilizationPct: number;
     coolingType: CoolingType;
 }

@@ -1,6 +1,6 @@
 import type { AxiosResponse } from "axios";
 import { publicRoutes } from "./axios";
-import type { ICalculation } from "./types/request.interfaces";
+import type { ICalculationRequest, ICalculationResponse } from "./types";
 
 const controller = new AbortController();
 
@@ -38,8 +38,8 @@ export const refreshSession = (): Promise<AxiosResponse<{ accessToken: string }>
     ) ;
 }
 
-export const calculate = (data: ICalculation): Promise<AxiosResponse> => {
-    return publicRoutes.post<{ accessToken: string }>(
+export const calculate = (data: ICalculationRequest): Promise<AxiosResponse> => {
+    return publicRoutes.post<ICalculationResponse>(
         "calculator/calculate",
         data,
         {
