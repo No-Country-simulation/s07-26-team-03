@@ -8,7 +8,7 @@ import org.hibernate.type.SqlTypes;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "calculations")
@@ -44,12 +44,10 @@ public class Calculation {
     @Column(name = "waste_usd_high", precision = 15, scale = 2, nullable = false)
     private BigDecimal wasteUsdHigh;
 
-    // Hibernate 6 mapea esto de forma nativa al tipo JSONB de PostgreSQL
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "layers_payload", columnDefinition = "jsonb")
     private String layersPayload;
 
-    // Autorreferencia para soportar el módulo de comparación (Sprint 3)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_scenario_id")
     private Calculation parentScenario;
@@ -61,7 +59,20 @@ public class Calculation {
     @Column(name = "updated_at")
     private OffsetDateTime updatedAt;
 
-    // Implementación obligatoria de equals() y hashCode() basada en la PK (Natural/Assigned ID)
+    /**
+     * Callback JPA que garantiza la asignación automática del ID alfanumérico corto
+     * antes de cualquier operación de persistencia, previniendo el IdentifierGenerationException.
+     */
+    @PrePersist
+    public void prePersist() {
+        if (this.id == null || this.id.isBlank()) {
+            this.id = java.util.UUID.randomUUID().toString().replace("-", "").substring(0, 12);
+        }
+        if (this.coolingType != null) {
+            this.coolingType = this.coolingType.toLowerCase().trim();
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -72,5 +83,9 @@ public class Calculation {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    public void setCoolingType(String coolingType) {
+        this.coolingType = coolingType != null ? coolingType.toLowerCase().trim() : null;
     }
 }
