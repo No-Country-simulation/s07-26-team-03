@@ -28,7 +28,7 @@ export function NavigationItem({
 
   return (
     <a
-      href="#how-it-works"
+      href={item.href}
       onClick={onClick}
       className={className}
     >

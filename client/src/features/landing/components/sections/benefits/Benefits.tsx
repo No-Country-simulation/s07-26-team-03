@@ -10,7 +10,7 @@ export interface BenefitsSectionProps {
 
 export const BenefitsSection = ({ className }: BenefitsSectionProps) => {
   return (
-    <section className={clsx(
+    <section id="features" className={clsx(
       'py-16 md:py-20 lg:py-24 px-4 md:px-8 bg-white',
       className
     )}>

@@ -2,7 +2,7 @@ import type {
   HTMLAttributes,
   ReactNode,
 } from "react";
-import type { ChecklistProps } from "../ui/checklist";
+import type { ChecklistProps } from "../../ui/checklist";
 
 
 export interface CallToActionCardProps

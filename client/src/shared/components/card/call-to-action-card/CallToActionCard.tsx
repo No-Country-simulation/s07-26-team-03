@@ -2,8 +2,8 @@ import { cn } from "@/shared/lib/cn";
 
 import { callToActionCardStyles } from "./call-to-action-card.styles";
 import type { CallToActionCardProps } from "./call-to-action-card.types";
-import { Checklist } from "../ui/checklist";
-import { IconWrapper } from "../ui/icon-wrapper/IconWrapper";
+import { Checklist } from "../../ui/checklist";
+import { IconWrapper } from "../../ui/icon-wrapper/IconWrapper";
 
 export function CallToActionCard({
   icon,

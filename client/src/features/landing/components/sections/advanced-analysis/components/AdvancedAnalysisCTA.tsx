@@ -1,5 +1,5 @@
 
-import { CallToActionCard } from "@/shared/components/CallToActionCard";
+import { CallToActionCard } from "@/shared/components/card/call-to-action-card";
 import { advancedAnalysisContent } from "../advanced-analysis.data";
 import { IoArrowForwardOutline } from "react-icons/io5";
 import { Button } from "@/shared/components/ui/button/Button";
