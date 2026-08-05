@@ -1,9 +1,17 @@
+import { GradientSection } from "../components/gradient-section/GradientSection"
 import { BenefitsSection } from "../components/sections/benefits/Benefits"
+import { Hero } from "../components/sections/hero/Hero"
+import { HowItWorks } from "../components/sections/how-it-works"
 
 const LandingPage = () => {
   return (
     <>
-      <BenefitsSection  className="max-w-"/>
+      <GradientSection>
+        <Hero />
+      </GradientSection>
+                
+      <BenefitsSection  />
+      <HowItWorks />
     </>
   )
 }

@@ -13,7 +13,7 @@ export function Navbar() {
   const menu = useMobileMenu();
 
   return (
-   <header className="sticky top-0 z-50 border-b border-border backdrop-blur-md">
+   <header className="sticky top-0 z-50 border-b border-border bg-brand-primary-dark backdrop-blur-md">
       <Container>
         <div className="flex h-20 items-center justify-between">
 

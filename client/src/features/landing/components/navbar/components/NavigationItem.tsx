@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 import { cn } from "@/shared/lib/cn";
 
 import type { NavigationItemProps } from "../navbar.types";
@@ -29,12 +27,19 @@ export function NavigationItem({
   }
 
   return (
-    <Link
-      to={item.href}
+    <a
+      href="#how-it-works"
       onClick={onClick}
       className={className}
     >
       {item.label}
-    </Link>
+    </a>
+    // <Link
+    //   to={item.href}
+    //   onClick={onClick}
+    //   className={className}
+    // >
+    //   {item.label}
+    // </Link>
   );
 }

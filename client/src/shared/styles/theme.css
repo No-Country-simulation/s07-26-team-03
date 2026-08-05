@@ -25,6 +25,7 @@
   --color-brand-primary-700: #165F36;
   --color-brand-primary-800: #124A2B;
   --color-brand-primary-900: #0B321D;
+  --color-brand-primary-dark: #040A08;
 
   --color-brand-primary: var(--color-brand-primary-500);
   --color-brand-primary-hover: var(--color-brand-primary-600);
@@ -35,14 +36,15 @@
   --background-image-layout: url("../../assets/background.png");
 
   --background-image-layout-gradient:
-      linear-gradient(
-        180deg,
-        #000C15 0%,
-        #023A29 35%,
-        #023A2F 50%,
-        #023A2F 65%,
-        #012507 100%
-      );
+  linear-gradient(
+    180deg,
+    #040A08 0%,
+    #08130E 18%,
+    #0B321D 45%,
+    #0B321D 55%,
+    #06100B 88%,
+    #020403 100%
+  );
 
   --color-background: #F8F9FA;
   --color-surface: #FFFFFF;
