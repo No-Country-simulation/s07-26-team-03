@@ -5,10 +5,10 @@ export const NavAction = () => {
   const navigate = useNavigate();
   return (
    
-   <div className="hidden items-center gap-3 lg:flex">
+   <>
         <Button 
         variant="outline" 
-        color="surface"
+        color="success"
          onClick={() => navigate('/login')}
          >
         Login
@@ -20,6 +20,6 @@ export const NavAction = () => {
         >
         Get Started Free
         </Button>
-    </div>
+    </>
   )
 }

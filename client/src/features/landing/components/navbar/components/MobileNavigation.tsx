@@ -3,6 +3,7 @@ import { NavigationItem } from "./NavigationItem";
 import { cn } from "@/shared/lib/cn";
 
 import type { MobileNavigationProps } from "../navbar.types";
+import { NavAction } from "./NavAction";
 
 export function MobileNavigation({
   items,
@@ -41,6 +42,9 @@ export function MobileNavigation({
             />
           ))}
         </nav>
+        <div className="lg:hidden items-center justify-center gap-3 flex pb-4">
+            <NavAction />
+          </div>
       </div>
     </>
   );

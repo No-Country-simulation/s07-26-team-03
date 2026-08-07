@@ -23,7 +23,9 @@ export function Navbar() {
             items={navigationItems}
           />
 
-          <NavAction />
+          <div className="hidden items-center gap-3 lg:flex">
+            <NavAction />
+          </div>
 
           <Button
             variant="ghost"
