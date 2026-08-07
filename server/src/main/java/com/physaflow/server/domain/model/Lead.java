@@ -1,14 +1,18 @@
 package com.physaflow.server.domain.model;
 
+import com.physaflow.server.domain.model.enums.LeadStatus;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UuidGenerator;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
-@Table(name = "leads")
+@Table(name = "lead")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,30 +21,40 @@ import java.util.Objects;
 public class Lead {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
+    @UuidGenerator
     @Column(name = "id", updatable = false, nullable = false)
-    private Long id;
+    private UUID id;
 
-    // Acoplamiento referencial fuerte. Si se borra el cálculo, la BD hará CASCADE.
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "calculation_id", nullable = false, updatable = false)
-    private Calculation calculation;
-
-    @Column(name = "email", length = 255, nullable = false)
+    @Column(name = "email", length = 255, nullable = false, unique = true)
     private String email;
 
-    @Column(name = "unlock_token", length = 32, nullable = false, unique = true)
-    private String unlockToken;
+    @Column(name = "name", length = 255)
+    private String name;
 
-    // PostgreSQL INET puede mapearse limpiamente a String si no necesitamos operaciones de red en Java
-    @Column(name = "ip_address", columnDefinition = "inet")
-    private String ipAddress;
+    @Column(name = "company", length = 255)
+    private String company;
 
-    @CreationTimestamp
-    @Column(name = "created_at", updatable = false, nullable = false)
-    private OffsetDateTime createdAt;
+    @Column(name = "role", length = 255)
+    private String role;
 
-    // Implementación de equals() y hashCode() para entidades con PK autogenerada
+    @Column(name = "email_verified", nullable = false)
+    private boolean emailVerified;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", length = 50, nullable = false)
+    private LeadStatus status;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "lead", fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<Assessment> assessments = new ArrayList<>();
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
