@@ -2,8 +2,8 @@ import type { ResultCardProps } from "../../types/ResultCard.types";
 
 export default function ResultCard({
   data = {
-    facilitySize: { value: "7.5MW", label: "Large" },
-    utilization: { value: "60%", label: "Healthy" },
+    facilitySize: { value: 7.5, label: "Large" },
+    utilization: { value: 60, label: "Healthy" },
     coolingType: { value: "AIR COOLING" },
   },
 }: ResultCardProps) {
@@ -44,7 +44,7 @@ export default function ResultCard({
           </span>
           <div className="flex w-full items-center justify-between font-body text-base">
             <span className="font-semibold text-[#0E6A37]">
-              {data.facilitySize.value}
+              {data.facilitySize.value}MV
             </span>
             <span className="text-[#6F6C8F]">
               {data.facilitySize.label}
@@ -58,7 +58,7 @@ export default function ResultCard({
           </span>
           <div className="flex w-full items-center justify-between font-body text-base">
             <span className="font-semibold text-[#0E6A37]">
-              {data.utilization.value}
+              {data.utilization.value}%
             </span>
             <span className="text-[#6F6C8F]">
               {data.utilization.label}

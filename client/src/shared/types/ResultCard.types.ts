@@ -1,10 +1,10 @@
 export interface FacilitySizeData {
-  value: string;
+  value: number;
   label: string;
 }
 
 export interface UtilizationData {
-  value: string;
+  value: number;
   label: string;
 }
 
