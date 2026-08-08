@@ -1,10 +1,11 @@
 import ProgressStepper from "@/shared/components/stepper/ProgressStepper";
 import RadioCards from "@/shared/components/stepper/RadioCards";
 import ProgressBar from "@/shared/components/stepper/Progressbar";
+import AssessmentCard from "@/shared/components/stepper/AssessmentCard";
 import ResultCard from "@/shared/components/stepper/ResultCard";
-import { useCalculator } from "@/shared/hooks/useCalculator";
-import InfoCard from "@/shared/components/stepper/InfoCard";
 import type { CoolingType, IDataForCalculation } from "@/shared/api";
+
+import { useCalculator } from "@/shared/hooks/useCalculator";
 
 const CalculatorPage = () => {
   const {
@@ -76,7 +77,7 @@ const CalculatorPage = () => {
         )}
 
         {stepIndex === 2 && !resultCard && (
-          <ResultCard
+          <AssessmentCard
             data={{
               facilitySize: {
                 label: getCurrentCardConfig(0).title,
@@ -95,7 +96,7 @@ const CalculatorPage = () => {
 
         {resultCard && (
           <>
-            <ResultCard
+            <AssessmentCard
               data={{
                 facilitySize: {
                   label: getCurrentCardConfig(0).title,
@@ -110,7 +111,7 @@ const CalculatorPage = () => {
                 },
               }}
             />
-            <InfoCard />
+            <ResultCard />
           </>
         )}
       </section>
