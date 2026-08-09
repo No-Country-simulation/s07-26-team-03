@@ -8,8 +8,8 @@ export interface RadioCardItem {
 }
 
 export interface RadioGroupConfig {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   subDescription?: string;
   cards: RadioCardItem[];
 }
