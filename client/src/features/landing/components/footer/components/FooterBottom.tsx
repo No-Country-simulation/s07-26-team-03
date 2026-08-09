@@ -9,7 +9,8 @@ export function FooterBottom() {
         gap-6
         border-t
         border-white/10
-        pt-8
+        pt-4
+        lg:pt-8
         text-sm
         text-surface/70
         md:flex-row
