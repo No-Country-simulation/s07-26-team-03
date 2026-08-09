@@ -112,13 +112,23 @@ const CalculatorPage = () => {
               }}
             />
             <ResultCard />
+            <ProgressBar
+              key={`step-0-${formData[0]}`} 
+              title="Anual financial impact range"
+              startValue={1.24}
+              activeValue={1.46}
+              endValue={1.68}
+              unit="M"
+              dolarSign={true}
+              toggle={resultCard}
+            />
           </>
         )}
       </section>
 
       <footer className="flex items-center justify-between">
         <p className="font-body text-base text-placeholder">
-          Step {stepIndex + 1} of {totalSteps}
+          Step {resultCard ? totalSteps + 1 : stepIndex + 1} of {totalSteps + 1}
         </p>
 
         <div className="flex gap-4">
@@ -156,9 +166,39 @@ const CalculatorPage = () => {
             <button
               type="button"
               onClick={handleExport}
-              className="flex h-[40px] w-[165px] items-center justify-center rounded-[8px] bg-brand-primary text-base font-medium text-white transition-opacity hover:opacity-90"
+              className="inline-flex items-center h-[40px] w-[165px] justify-between rounded-[8px] bg-brand-primary px-4 py-2 text-white transition-opacity hover:opacity-90"
             >
-              Shared Report
+              <span className="text-[15px]">Shared Report</span>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="shrink-0"
+              >
+                <rect
+                  x="5"
+                  y="10"
+                  width="14"
+                  height="10"
+                  rx="2"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                />
+                <path
+                  d="M8 10V7.5C8 5.29 9.79 3.5 12 3.5C14.21 3.5 16 5.29 16 7.5V10"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                />
+                <circle
+                  cx="12"
+                  cy="15"
+                  r="1"
+                  fill="currentColor"
+                />
+              </svg>
             </button>
           }
         </div>
