@@ -11,8 +11,10 @@ export function Footer() {
     <footer
       className="
         bg-layout-gradient
-        pt-20
-        pb-10
+        pt-6
+        pb-6
+        lg:pt-20
+        lg:pb-10
         text-surface
       "
     >
@@ -30,13 +32,13 @@ export function Footer() {
             className="
               flex
               flex-col
-              gap-10
+              lg:gap-10
               lg:flex-row
               lg:items-start
               lg:justify-between
             "
           >
-            <div className="space-y-8">
+            <div className="space-y-4 lg:space-y-8">
               <FooterBrand />
 
               <FooterNavigation />

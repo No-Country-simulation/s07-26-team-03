@@ -129,13 +129,15 @@ export default function AppRoutes() {
                     404
                 =========================== */}
 
-                <Route
+                <Route element={<LandingLayout />}>
+                    <Route
 
-                    path="*"
+                        path="*"
 
-                    element={<NotFoundPage />}
+                        element={<NotFoundPage />}
 
-                />
+                    />
+                </Route>
 
             </Routes>
 

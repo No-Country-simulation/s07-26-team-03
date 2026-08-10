@@ -3,6 +3,8 @@ export interface ProgressBarProps {
   startValue?: number;
   activeValue?: number;
   endValue?: number;
+  dolarSign?: boolean;
+  toggle?: boolean;
   unit?: string;
   onChange?: (value: number) => void;
 }

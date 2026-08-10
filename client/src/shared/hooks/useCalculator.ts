@@ -13,7 +13,9 @@ export const STEPS_CONFIG = [
 ];
 
 export function useCalculator() {
-    const [stepIndex, setStepIndex] = useState(0);
+    const [stepIndex, setStepIndex] = useState<number>(0);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [resultCard, setResultCard] = useState<boolean>(false);
 
     const [formData, setFormData] = useState<{ [key: number]: string }>({
         0: "medium",
@@ -43,15 +45,20 @@ export function useCalculator() {
 
     const handleNext = () => {
         if (stepIndex === totalSteps - 1) {
-            alert("Calculando...");
-            return;
-        }
-        setStepIndex((prev) => prev + 1);
+            setIsLoading((prev) => !prev);
+            setTimeout(() => {
+                setIsLoading((prev) => !prev);
+                setResultCard((prev) => !prev)
+            }, 1000)
+        } 
+        else setStepIndex((prev) => prev + 1);
     };
 
     const handleBack = () => {
-        if (stepIndex > 0) {
+        if (stepIndex > 0 && !resultCard) {
             setStepIndex((prev) => prev - 1);
+        } else {
+            setResultCard((prev) => !prev);
         }
     };
 
@@ -82,6 +89,8 @@ export function useCalculator() {
 
     return {
         stepIndex,
+        resultCard,
+        isLoading,
         totalSteps,
         currentGroup,
         currentCard,

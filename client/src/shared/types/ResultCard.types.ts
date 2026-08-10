@@ -1,21 +1,22 @@
-export interface FacilitySizeData {
-  value: string;
+export interface EstimatedStrandedCapacity {
+  percentage: string;
+  result: string;
   label: string;
 }
 
-export interface UtilizationData {
-  value: string;
-  label: string;
+export interface EstimatedAnnualCost {
+  result: string;
 }
 
-export interface CoolingTypeData {
-  value: string;
+export interface CapacityScore {
+  result: string;
+  label: string;
 }
 
 export interface ResultCardData {
-  facilitySize: FacilitySizeData;
-  utilization: UtilizationData;
-  coolingType: CoolingTypeData;
+  strandedCapacity: EstimatedStrandedCapacity;
+  annualCost: EstimatedAnnualCost;
+  capacityScore: CapacityScore;
 }
 
 export interface ResultCardProps {
