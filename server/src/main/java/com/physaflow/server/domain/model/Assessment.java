@@ -39,9 +39,8 @@ public class Assessment {
     @Column(name = "facility_mw", precision = 10, scale = 2)
     private BigDecimal facilityMw;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "utilization", length = 50)
-    private UtilizationLevel utilization;
+    @Column(name = "utilization", precision = 5, scale = 2, nullable = false)
+    private BigDecimal utilization;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "cooling_type", length = 50)

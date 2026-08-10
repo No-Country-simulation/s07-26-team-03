@@ -4,5 +4,6 @@ public enum CapacityScore {
     EXCELLENT,
     GOOD,
     MODERATE,
+    DEFICIENT,
     CRITICAL
 }
