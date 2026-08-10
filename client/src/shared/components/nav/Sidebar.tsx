@@ -1,9 +1,6 @@
-import { LuClock, LuLockKeyholeOpen, LuChartColumn, LuHeadphones } from "react-icons/lu";
-import icon from "@/assets/icons/icon.svg";
+import { LuClock, LuLockKeyholeOpen, LuChartColumn } from "react-icons/lu";
+import { SidebarHeader, SidebarFooter } from "./SidebarComponents";
 
-/**
- * Componente Sidebar.
- */
 export default function Sidebar() {
     const handleHelp = () => {
         alert("Sección en proceso...");
@@ -12,26 +9,7 @@ export default function Sidebar() {
     return (
         <aside className="flex w-full flex-col justify-between bg-surface shadow-[0px_0.5px_8px_rgba(25,33,61,0.06)] md:min-h-screen md:w-[380px] md:min-w-[380px]">
             <div>
-                <header className="flex h-[88px] w-full items-center justify-center">
-                    <div className="flex items-center gap-3">
-                        <img
-                            src={icon}
-                            alt="Capacity IQ"
-                            className="h-12 w-12 object-contain"
-                        />
-                        <div className="flex items-baseline text-[24px]">
-                            <span className="font-logo font-bold text-brand-primary">
-                                Capacity
-                            </span>
-                            <span className="ml-1 font-logo font-bold text-[#C5922C]">
-                                IQ
-                            </span>
-                            <span className="ml-2 font-body text-sm font-normal text-text">
-                                by Datacenter
-                            </span>
-                        </div>
-                    </div>
-                </header>
+                <SidebarHeader />
 
                 <main className="mx-auto flex h-[438px] w-[302px] flex-col justify-between pt-6">
                     <div>
@@ -92,26 +70,7 @@ export default function Sidebar() {
                 </main>
             </div>
 
-            <footer className="px-[38px] pb-10 pt-6">
-                <button
-                    type="button"
-                    onClick={handleHelp}
-                    className="flex w-full items-center justify-between text-left transition-opacity hover:opacity-80"
-                >
-                    <div>
-                        <h4 className="font-heading text-base font-bold leading-[115%] text-brand-primary">
-                            Need a help?
-                        </h4>
-                        <p className="mt-2 font-body text-sm text-[#6F6C8F]">
-                            Chat with live support
-                        </p>
-                    </div>
-
-                    <div className="flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full bg-[#E5E7EB] text-[#4B5563]">
-                        <LuHeadphones className="h-5 w-5" />
-                    </div>
-                </button>
-            </footer>
+            <SidebarFooter onHelpClick={handleHelp} />
         </aside>
     );
 }

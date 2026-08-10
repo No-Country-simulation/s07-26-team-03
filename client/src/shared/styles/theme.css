@@ -14,6 +14,20 @@
   font-weight: 400 900;
 }
 
+@font-face {
+  font-family: "Poppins";
+  src: url("../../assets/fonts/Poppins/Poppins-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("../../assets/fonts/Poppins/Poppins-SemiBold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 600;
+}
+
 @theme {
   --color-brand-primary-50: #FAFFFC;
   --color-brand-primary-100: #F4FAF6;
@@ -36,15 +50,15 @@
   --background-image-layout: url("../../assets/background.png");
 
   --background-image-layout-gradient:
-  linear-gradient(
-    180deg,
-    #040A08 0%,
-    #08130E 18%,
-    #0B321D 45%,
-    #0B321D 55%,
-    #06100B 88%,
-    #020403 100%
-  );
+    linear-gradient(
+      180deg,
+      #040A08 0%,
+      #08130E 18%,
+      #0B321D 45%,
+      #0B321D 55%,
+      #06100B 88%,
+      #020403 100%
+    );
 
   --color-background: #F8F9FA;
   --color-surface: #FFFFFF;
@@ -74,4 +88,16 @@
   --font-body: "Inter", system-ui, sans-serif;
   --font-accent: "Inter", system-ui, sans-serif;
   --font-logo: "Playfair Display", serif;
+  --font-poppins: "Poppins", sans-serif;
+
+  --shadow-card-figma: 0px 12px 40px rgba(25, 33, 61, 0.05);
+}
+
+.register-card-border {
+  border: 1px solid transparent;
+  background-image:
+    linear-gradient(var(--color-surface, #ffffff), var(--color-surface, #ffffff)),
+    linear-gradient(180deg, #BABABA 0%, #FFFFFF 100%);
+  background-origin: padding-box, border-box;
+  background-clip: padding-box, border-box;
 }
