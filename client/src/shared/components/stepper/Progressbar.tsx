@@ -8,6 +8,7 @@ export default function ProgressBar({
     dolarSign = false,
     unit = "MW",
     toggle = false,
+    className = "",
     onChange,
 }: ProgressBarProps) {
     const range = endValue - startValue;
@@ -95,7 +96,7 @@ export default function ProgressBar({
                     step={(endValue - startValue) / 100}
                     value={activeValue}
                     onChange={handleSliderChange}
-                    className="absolute left-0 top-9 z-20 h-2 w-full cursor-pointer opacity-0"
+                    className={`${className} absolute left-0 top-9 z-20 h-2 w-full opacity-0`}
                 />
 
                 {/* Valores mínimo y máximo */}

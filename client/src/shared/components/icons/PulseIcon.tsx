@@ -16,15 +16,12 @@ export const PulseIcon = ({
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
-      {/* Fondo */}
       <circle
         cx="16"
         cy="16"
         r="15"
         className="fill-current/10 stroke-current/20"
       />
-
-      {/* Pulso */}
       <path
         d="M8 17.5
            C9.5 17.5 10.5 17.5 11.5 15
