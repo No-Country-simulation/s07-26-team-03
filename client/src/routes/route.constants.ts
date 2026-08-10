@@ -1,18 +1,21 @@
 export const ROUTES = {
 
-    ROOT:"/",
+    ROOT: "/",
 
-    LOGIN:"/login",
+    LOGIN: "/login",
+    REGISTER: "/register",
+    VERIFY: "/verify",
 
-    CALCULATOR:"/calculator",
+    CALCULATOR: "/calculator",
+    SHARED: "/sharedResult", //Este es el que deberia utilizar el boton del calculator, no el otro.
 
-    DASHBOARD:"/dashboard",
+    DASHBOARD: "/dashboard",
 
-    REPORTS:"/dashboard/reports",
+    REPORTS: "/dashboard/reports",
 
-    SETTINGS:"/dashboard/settings",
+    SETTINGS: "/dashboard/settings",
 
 } as const;
 
 export type RoutePath =
-  (typeof ROUTES)[keyof typeof ROUTES];
+    (typeof ROUTES)[keyof typeof ROUTES];

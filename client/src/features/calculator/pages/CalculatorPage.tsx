@@ -5,7 +5,7 @@ import AssessmentCard from "@/shared/components/stepper/AssessmentCard";
 import ResultCard from "@/shared/components/stepper/ResultCard";
 // import type { CoolingType, IDataForCalculation } from "@/shared/api";
 
-import { useCalculator } from "@/shared/hooks/useCalculator";
+import { useCalculator } from "@/shared/hooks/calculator/useCalculator";
 import { useState } from "react";
 import { Modal } from "@/shared/components/ui/modal/Modal";
 

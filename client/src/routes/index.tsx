@@ -27,9 +27,9 @@ import { ROUTES } from "./route.constants";
 |
 */
 
-    import { LandingPage } from "@/features/landing";
-    import { CalculatorPage } from "@/features/calculator";
-    import { NotFoundPage } from "@/features/not-found";
+import { LandingPage } from "@/features/landing";
+import { CalculatorPage } from "@/features/calculator";
+import { NotFoundPage } from "@/features/not-found";
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +39,18 @@ import { ROUTES } from "./route.constants";
 
 const LoginPage = lazy(
     () => import("@/features/auth/pages/LoginPage"),
+);
+
+const RegisterPage = lazy(
+    () => import("@/features/auth/pages/RegisterPage"),
+);
+
+const VerifyPage = lazy(
+    () => import("@/features/auth/pages/VerifyPage"),
+);
+
+const SharedPage = lazy(
+    () => import("@/features/calculator/pages/ShareResult"),
 );
 
 const DashboardPage = lazy(
@@ -74,35 +86,34 @@ export default function AppRoutes() {
                 =========================== */}
 
                 <Route element={<CalculatorLayout />}>
-
                     <Route
-
                         path={ROUTES.CALCULATOR}
-
                         element={<CalculatorPage />}
-
                     />
-
+                    <Route
+                        path={ROUTES.SHARED}
+                        element={<SharedPage />}
+                    />
                 </Route>
 
                 {/* ==========================
                     PUBLIC
                 =========================== */}
-
                 <Route element={<PublicRoute />}>
-
                     <Route element={<BlankLayout />}>
-
                         <Route
-
                             path={ROUTES.LOGIN}
-
                             element={<LoginPage />}
-
                         />
-
+                        <Route
+                            path={ROUTES.REGISTER}
+                            element={<RegisterPage />}
+                        />
+                        <Route
+                            path={ROUTES.VERIFY}
+                            element={<VerifyPage />}
+                        />
                     </Route>
-
                 </Route>
 
                 {/* ==========================
@@ -139,9 +150,9 @@ export default function AppRoutes() {
                     />
                 </Route>
 
-            </Routes>
+            </Routes >
 
-        </Suspense>
+        </Suspense >
 
     );
 
