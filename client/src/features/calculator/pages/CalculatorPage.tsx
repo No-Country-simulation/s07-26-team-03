@@ -55,7 +55,7 @@ const CalculatorPage = () => {
 
   return (
     <>
-      <div className="mx-auto my-30 flex min-h-[600px] w-full max-w-[800px] flex-col gap-10 rounded-[32px] bg-white p-8 shadow-[0_2px_15px_rgba(25,33,61,0.1)]">
+      <div className="mx-auto my-30 flex min-h-[600px] w-full max-w-[800px] flex-col gap-10 rounded-[32px] p-8 shadow-[0_2px_15px_rgba(25,33,61,0.1)]">
         <ProgressStepper currentStep={currentStep} />
 
         <section className="flex flex-1 flex-col justify-between gap-6">
@@ -151,7 +151,7 @@ const CalculatorPage = () => {
               <button
                 type="button"
                 onClick={handleBack}
-                className="flex h-[40px] w-[120px] items-center justify-center rounded-[8px] border border-brand-primary text-base font-medium text-brand-primary transition-colors hover:bg-gray-50"
+                className="flex h-[40px] w-[120px] items-center justify-center rounded-[8px] border border-brand-primary text-base font-medium text-brand-primary hover:bg-gray-50 transition-colors dark:border-green-600 dark:text-green-600 dark:hover:bg-gray-900 dark:hover:border-white dark:hover:text-white cursor-pointer"
               >
                 Back
               </button>
@@ -170,7 +170,7 @@ const CalculatorPage = () => {
               <button
                 type="button"
                 onClick={handleNext}
-                className="flex h-[40px] w-[165px] items-center justify-center rounded-[8px] bg-brand-primary text-base font-medium text-white transition-opacity hover:opacity-90"
+                className="flex h-[40px] w-[165px] items-center justify-center rounded-[8px] bg-brand-primary text-base font-medium text-white transition-opacity hover:opacity-90 cursor-pointer"
               >
                 {stepIndex === totalSteps - 1 ? "Calculate" : "Next"}
               </button>

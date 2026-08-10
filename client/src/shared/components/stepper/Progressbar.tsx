@@ -32,7 +32,7 @@ export default function ProgressBar({
 
     return (
         <div className="w-full">
-            <p className="mb-4 font-heading text-base font-semibold text-heading">
+            <p className="mb-4 font-heading text-base font-semibold text-heading dark:text-[#f4faf6d1]">
                 {title}
             </p>
 

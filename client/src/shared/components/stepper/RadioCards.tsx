@@ -36,11 +36,11 @@ export default function RadioCards({
 
   return (
     <div className="w-full">
-      <h1 className="font-heading text-[32px] font-bold leading-[110%] text-heading">
+      <h1 className="font-heading text-[32px] font-bold leading-[110%] text-heading dark:text-white">
         {title}
       </h1>
 
-      <p className="mt-2 font-body text-base leading-[150%] text-text">
+      <p className="mt-2 font-body text-base leading-[150%] text-text dark:text-[#f4faf6d1]">
         {description}
         {subDescription && (
           <>

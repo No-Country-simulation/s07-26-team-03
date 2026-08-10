@@ -22,8 +22,8 @@ export default function RadioCard({
         relative flex h-[120px] w-full max-w-[130px] cursor-pointer flex-col
         items-center justify-center rounded-2xl border p-2.5 transition-all duration-200
         ${isSelected
-          ? "border-brand-primary bg-[#F4FAF6] shadow-[0px_2px_8px_rgba(14,106,55,0.12)]"
-          : "border-[#E5E7EB] bg-white hover:border-gray-300 shadow-[0px_1px_3px_rgba(0,0,0,0.05)]"
+          ? "border-brand-primary bg-[#F4FAF6] dark:bg-[#f4faf60d] shadow-[0px_2px_8px_rgba(14,106,55,0.12)]"
+          : "border-[#E5E7EB] bg-white dark:bg-black hover:border-gray-300 shadow-[0px_1px_3px_rgba(0,0,0,0.05)]"
         }
       `}
     >
