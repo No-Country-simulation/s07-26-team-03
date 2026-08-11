@@ -27,10 +27,12 @@ const CalculatorPage = () => {
     handleCardChange,
     handleSliderChange,
     getCurrentCardConfig,
+    isModalOpen,
+    setIsModalOpen,
+    shareUrl,
+    setShareUrl
   } = useCalculatorContext();
 
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [shareUrl, setShareUrl] = useState<string>("");
   const { alertMessage, handleCopy } = useShareResult();
 
   const currentFineTuneValue =

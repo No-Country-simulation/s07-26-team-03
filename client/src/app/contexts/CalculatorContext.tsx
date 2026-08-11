@@ -1,8 +1,12 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import { useCalculator } from "@/shared/hooks/calculator/useCalculator";
 
-type CalculatorContextType = ReturnType<typeof useCalculator>;
-
+type CalculatorContextType = ReturnType<typeof useCalculator> & {
+  isModalOpen: boolean;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  shareUrl: string;
+  setShareUrl: React.Dispatch<React.SetStateAction<string>>;
+};
 const CalculatorContext = createContext<CalculatorContextType | undefined>(
   undefined
 );
@@ -12,10 +16,12 @@ export const CalculatorProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [shareUrl, setShareUrl] = useState<string>("");
   const calculator = useCalculator();
 
   return (
-    <CalculatorContext.Provider value={calculator}>
+    <CalculatorContext.Provider value={{ ...calculator, isModalOpen, setIsModalOpen, shareUrl, setShareUrl }}>
       {children}
     </CalculatorContext.Provider>
   );
