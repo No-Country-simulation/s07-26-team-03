@@ -1,5 +1,4 @@
 import { useOutsideClick } from '@/shared/hooks/useOutsideClick';
-import { cloneElement } from 'react';
 import { createPortal } from 'react-dom';
 
 type ModalProps = {
@@ -28,7 +27,7 @@ export const Modal = ({
       className={`${className} w-full z-10 fixed inset-0 bg-black/70 transition duration-300 ease-out`}
     >
       <div ref={ref}>
-        <div>{cloneElement(children)}</div>
+        <div>{children}</div>
       </div>
     </div>,
     document.getElementById('portal')!

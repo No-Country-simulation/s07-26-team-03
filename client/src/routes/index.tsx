@@ -49,10 +49,6 @@ const VerifyPage = lazy(
     () => import("@/features/auth/pages/VerifyPage"),
 );
 
-const SharedPage = lazy(
-    () => import("@/features/calculator/pages/ShareResult"),
-);
-
 const DashboardPage = lazy(
     () => import("@/features/dashboard/pages/DashboardPage"),
 );
@@ -89,10 +85,6 @@ export default function AppRoutes() {
                     <Route
                         path={ROUTES.CALCULATOR}
                         element={<CalculatorPage />}
-                    />
-                    <Route
-                        path={ROUTES.SHARED}
-                        element={<SharedPage />}
                     />
                 </Route>
 

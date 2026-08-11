@@ -1,10 +1,16 @@
 import { LuClock, LuLockKeyholeOpen, LuChartColumn, LuHeadphones } from "react-icons/lu";
 import icon from "@/assets/icons/icon.svg";
+import { LockIcon } from "@/shared/components/icons/LockIcon";
+import { RightArrowIcon } from "@/shared/components/icons/RightArrowIcon";
+
+type SidebarProps = {
+  resultCard?: boolean;
+}
 
 /**
  * Componente Sidebar.
  */
-export default function Sidebar() {
+export default function Sidebar({ resultCard }: SidebarProps) {
     const handleHelp = () => {
         alert("Sección en proceso...");
     };
@@ -46,7 +52,7 @@ export default function Sidebar() {
                         </p>
                     </div>
 
-                    <ul className="mt-[45px] flex flex-col gap-8">
+                    <ul className="mt-[45px] flex flex-col gap-8 mb-6">
                         <li className="flex items-start gap-4">
                             <div className="flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full bg-[#E7F0EB] text-brand-primary shadow-[inset_0px_-1.17px_1.17px_rgba(14,106,55,0.25)]">
                                 <LuClock className="h-5 w-5" />
@@ -89,6 +95,18 @@ export default function Sidebar() {
                             </div>
                         </li>
                     </ul>
+                    {resultCard &&
+                        <div className="flex justify-center">
+                            <button
+                                type="button"
+                                className="inline-flex items-center h-[40px] w-[250px] justify-between rounded-[8px] bg-brand-primary px-4 py-2 text-white transition-opacity hover:opacity-90 cursor-pointer"
+                            >
+                                <LockIcon size={24} />
+                                <span className="text-[15px]">Unlock Full Analysis</span>
+                                <RightArrowIcon size={24} />
+                            </button>
+                        </div>
+                    }
                 </main>
             </div>
 
