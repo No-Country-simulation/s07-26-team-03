@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface LeadRepository extends JpaRepository<Lead, UUID> {
+public interface    LeadRepository extends JpaRepository<Lead, UUID> {
     // Al extender JpaRepository ya tienes métodos como findById(), getReferenceById(), save(), etc.
 }
