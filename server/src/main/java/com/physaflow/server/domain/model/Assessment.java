@@ -29,8 +29,8 @@ public class Assessment {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "lead_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lead_id")
     private Lead lead;
 
     @Column(name = "session_id")
@@ -39,9 +39,8 @@ public class Assessment {
     @Column(name = "facility_mw", precision = 10, scale = 2)
     private BigDecimal facilityMw;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "utilization", length = 50)
-    private UtilizationLevel utilization;
+    @Column(name = "utilization", precision = 5, scale = 2, nullable = false)
+    private BigDecimal utilization;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "cooling_type", length = 50)

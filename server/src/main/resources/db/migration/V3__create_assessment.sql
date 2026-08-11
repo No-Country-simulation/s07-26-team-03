@@ -5,7 +5,7 @@ CREATE TABLE assessment (
     lead_id          UUID           NOT NULL REFERENCES lead(id) ON DELETE CASCADE,
     session_id       UUID,
     facility_mw      NUMERIC(10,2),
-    utilization      VARCHAR(50),
+    utilization      NUMERIC(5,2),
     cooling_type     VARCHAR(50),
     status           VARCHAR(50)    NOT NULL,
     expires_at       TIMESTAMP,
