@@ -11,10 +11,8 @@ import java.util.UUID;
 
 public record AssessmentRequest(
 
-        @NotNull(message = "Session ID is required for client tracking")
         UUID sessionId,
 
-        @NotNull(message = "Lead ID is required for client tracking")
         UUID leadId,
 
         @NotNull(message = "Facility capacity in MW is required")

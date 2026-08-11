@@ -7,6 +7,7 @@ import com.physaflow.server.application.exception.ConfigurationNotFoundException
 import com.physaflow.server.domain.model.Assessment;
 import com.physaflow.server.domain.model.AssessmentResult;
 import com.physaflow.server.domain.model.CalculationConfiguration;
+import com.physaflow.server.domain.model.Lead;
 import com.physaflow.server.domain.model.enums.AssessmentStatus;
 import com.physaflow.server.domain.model.enums.CapacityScore;
 import com.physaflow.server.domain.model.enums.CoolingType;
@@ -45,14 +46,26 @@ public class AssessmentService {
 
     @Transactional
     public AssessmentInitializeResponse saveAssessment(AssessmentRequest request) {
-        log.debug("Persistiendo nuevo Assessment para Facility MW: {}", request.facilityMw());
+        log.info("Procesando cálculo inicial anónimo para Facility MW: {}", request.facilityMw());
 
+        // 1. Autogeneración de sesión si el cliente opera de forma anónima
+        UUID sessionId = (request.sessionId() != null) ? request.sessionId() : UUID.randomUUID();
+
+        // 2. Resolución defensiva del Lead (Opcional en la Etapa 1)
+        Lead lead = null;
+        if (request.leadId() != null) {
+            lead = leadRepository.findById(request.leadId())
+                    .orElseThrow(() -> new EntityNotFoundException("Lead no encontrado con ID: " + request.leadId()));
+        }
+
+        // 3. Control de marcas de tiempo inmutables
         LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);
         LocalDateTime expiration = now.plusHours(24);
 
+        // 4. Construcción de la entidad
         Assessment assessment = Assessment.builder()
-                .sessionId(request.sessionId())
-                .lead(leadRepository.getReferenceById(request.leadId()))
+                .sessionId(sessionId)
+                .lead(lead)
                 .facilityMw(request.facilityMw())
                 .utilization(request.utilization())
                 .coolingType(request.coolingType())
@@ -62,15 +75,19 @@ public class AssessmentService {
                 .expiresAt(expiration)
                 .build();
 
+        // 5. Persistencia ACID optimizada
         Assessment savedAssessment = assessmentRepository.save(assessment);
 
-        log.info("Assessment guardado exitosamente. ID: {}, Session: {}",
+        log.info("Assessment registrado exitosamente. ID: {}, Session: {}",
                 savedAssessment.getId(), savedAssessment.getSessionId());
+
+        // 6. Extracción segura del ID del lead para evitar NullPointerException
+        UUID resolvedLeadId = (savedAssessment.getLead() != null) ? savedAssessment.getLead().getId() : null;
 
         return new AssessmentInitializeResponse(
                 savedAssessment.getId(),
                 savedAssessment.getSessionId(),
-                savedAssessment.getLead().getId(),
+                resolvedLeadId,
                 savedAssessment.getStatus(),
                 savedAssessment.getExpiresAt()
         );
