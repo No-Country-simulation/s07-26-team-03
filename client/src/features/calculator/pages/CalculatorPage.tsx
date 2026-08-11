@@ -8,6 +8,7 @@ import ResultCard from "@/shared/components/stepper/ResultCard";
 import { useCalculator } from "@/shared/hooks/calculator/useCalculator";
 import { useState } from "react";
 import { Modal } from "@/shared/components/ui/modal/Modal";
+import { useShareResult } from "@/shared/hooks/calculator/useShareResult";
 
 const CalculatorPage = () => {
   const {
@@ -27,8 +28,8 @@ const CalculatorPage = () => {
   } = useCalculator();
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [copied, setCopied] = useState<boolean>(false);
   const [shareUrl, setShareUrl] = useState<string>("");
+  const { link, copied, alertMessage, handleCopy } = useShareResult();
 
   const currentFineTuneValue =
     fineTuneValues[stepIndex] ?? currentCard.range?.default ?? 0;
@@ -38,16 +39,6 @@ const CalculatorPage = () => {
   const handleModal = () => {
     setIsModalOpen(true);
   }
-
-  const handleCopy = async () => {
-    await navigator.clipboard.writeText(shareUrl);
-
-    setCopied((prev) => !prev);
-
-    setTimeout(() => {
-      setCopied((prev) => !prev);
-    }, 2000);
-  };
 
   const handleExport = () => {
     setShareUrl("http://shrareurl.com")
@@ -226,60 +217,61 @@ const CalculatorPage = () => {
         onCloseModal={() => setIsModalOpen(false)}
         className="fixed inset-0 flex items-center justify-center"
       >
-
-        <div className="bg-white w-[100%] max-w-[460px] px-[32px] py-[48px] rounded-[12px] space-y-6">
-          <h1 className="text-[20px] font-bold text-center">
-            Share your Basic Result
-          </h1>
-
-          <p className="text-[14px] text-center text-justify">
-            Copy the link below to share your CapacityIQ Basic Results
-            with colleagues, clients, or stakeholders. Anyone with this
-            link will be able to view the shared report.
-          </p>
-
-          <div className="flex h-8 w-full items-center box-border rounded-[3px] border border-[#d8d8d8] bg-white px-2 pl-3">
-            <span className="flex-1 min-w-0 overflow-hidden whitespace-nowrap text-ellipsis text-[14px] text-[#9b9b9b]">
-              {shareUrl}
-            </span>
-
-            <button
-              type="button"
-              className="share-result__copy-button"
-              aria-label="Copy link"
-              onClick={handleCopy}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
-                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
-              </svg>
-            </button>
-          </div>
-
-          <div className="mt-[14px] flex items-center gap-[3px] text-[10px] leading-none text-[#555555]">
-            <span className="text-[20px] leading-none">◷</span>
-            <span className="text-[14px]">
-              This link expires in 30 days.
-            </span>
-          </div>
-
-          {copied && (
-            <span className="mt-2 block text-[14px] text-[#0E6A37]">
-              Link copied!
+        <>
+          {alertMessage && (
+            <span className="absolute left-1/2 top-6 z-50 -translate-x-1/2 animate-bounce rounded-lg bg-[#171819] px-4 py-2 font-poppins text-xs font-medium text-white shadow-lg">
+              {alertMessage}
             </span>
           )}
-        </div>
+
+          <div className="bg-white w-[100%] max-w-[460px] px-[32px] py-[48px] rounded-[12px] space-y-6">
+            <h1 className="text-[20px] font-bold text-center">
+              Share your Basic Result
+            </h1>
+
+            <p className="text-[14px] text-center text-justify">
+              Copy the link below to share your CapacityIQ Basic Results
+              with colleagues, clients, or stakeholders. Anyone with this
+              link will be able to view the shared report.
+            </p>
+
+            <div className="flex h-8 w-full items-center box-border rounded-[3px] border border-[#d8d8d8] bg-white px-2 pl-3">
+              <span className="flex-1 min-w-0 overflow-hidden whitespace-nowrap text-ellipsis text-[14px] text-[#9b9b9b]">
+                {shareUrl}
+              </span>
+
+              <button
+                type="button"
+                className="share-result__copy-button"
+                aria-label="Copy link"
+                onClick={handleCopy}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                  <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="mt-[14px] flex items-center gap-[3px] text-[10px] leading-none text-[#555555]">
+              <span className="text-[20px] leading-none">◷</span>
+              <span className="text-[14px]">
+                This link expires in 30 days.
+              </span>
+            </div>
+          </div>
+        </>
       </Modal>
     </>
   );
