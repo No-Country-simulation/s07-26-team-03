@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { LuClock, LuLockKeyholeOpen, LuChartColumn, LuHeadphones } from "react-icons/lu";
 import icon from "@/assets/icons/icon.svg";
 import { LockIcon } from "@/shared/components/icons/LockIcon";
@@ -11,6 +12,7 @@ type SidebarProps = {
  * Componente Sidebar.
  */
 export default function Sidebar({ resultCard }: SidebarProps) {
+    const navigate = useNavigate();
     const handleHelp = () => {
         alert("Sección en proceso...");
     };
@@ -99,6 +101,7 @@ export default function Sidebar({ resultCard }: SidebarProps) {
                         <div className="flex justify-center">
                             <button
                                 type="button"
+                                onClick={() => navigate("/register")}
                                 className="inline-flex items-center h-[40px] w-[250px] justify-between rounded-[8px] bg-brand-primary px-4 py-2 text-white transition-opacity hover:opacity-90 cursor-pointer"
                             >
                                 <LockIcon size={24} />

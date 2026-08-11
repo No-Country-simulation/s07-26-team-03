@@ -1,13 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { useRegisterActions } from "../../../shared/hooks/auth/useRegisterActions";
 
 export default function RegisterPage() {
+    const navigate = useNavigate();
     const {
         handleGoogleAuth,
         handleFacebookAuth,
         handleContinue,
-        handleLoginNavigation,
     } = useRegisterActions();
 
     return (
@@ -21,7 +22,7 @@ export default function RegisterPage() {
                     <button
                         type="button"
                         onClick={handleGoogleAuth}
-                        className="flex h-[48px] flex-1 items-center justify-center gap-2 rounded-[8px] bg-brand-primary font-poppins text-[16px] font-semibold text-[#A0A0AB] transition-opacity hover:opacity-95"
+                        className="flex h-[48px] flex-1 items-center justify-center gap-2 rounded-[8px] bg-brand-primary font-poppins text-[16px] font-semibold text-[#A0A0AB] transition-opacity hover:opacity-95 cursor-pointer"
                     >
                         <FcGoogle className="h-5 w-5" />
                         Google
@@ -30,7 +31,7 @@ export default function RegisterPage() {
                     <button
                         type="button"
                         onClick={handleFacebookAuth}
-                        className="flex h-[48px] flex-1 items-center justify-center gap-2 rounded-[8px] bg-brand-primary font-poppins text-[16px] font-semibold text-[#A0A0AB] transition-opacity hover:opacity-95"
+                        className="flex h-[48px] flex-1 items-center justify-center gap-2 rounded-[8px] bg-brand-primary font-poppins text-[16px] font-semibold text-[#A0A0AB] transition-opacity hover:opacity-95 cursor-pointer"
                     >
                         <FaFacebook className="h-5 w-5 text-[#1877F2]" />
                         Facebook
@@ -60,7 +61,7 @@ export default function RegisterPage() {
                 <button
                     type="button"
                     onClick={handleContinue}
-                    className="mb-6 flex h-[48px] w-full items-center justify-center rounded-[8px] bg-brand-primary font-poppins font-normal text-white transition-colors hover:bg-brand-primary-hover active:bg-brand-primary-active"
+                    className="mb-6 flex h-[48px] w-full items-center justify-center rounded-[8px] bg-brand-primary font-poppins font-normal text-white transition-colors hover:bg-brand-primary-hover active:bg-brand-primary-active cursor-pointer"
                 >
                     Continue
                 </button>
@@ -68,8 +69,7 @@ export default function RegisterPage() {
                 <p className="font-poppins text-[16px] font-normal text-[#70707B]">
                     Already Register your Email ?{" "}
                     <a
-                        href="#login"
-                        onClick={handleLoginNavigation}
+                        onClick={() => navigate("/login")}
                         className="font-poppins text-[16px] font-normal text-[#A0A0AB] underline underline-offset-2 hover:text-brand-primary"
                     >
                         Log in
