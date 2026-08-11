@@ -70,7 +70,7 @@ export default function RegisterPage() {
                     Already Register your Email ?{" "}
                     <a
                         onClick={() => navigate("/login")}
-                        className="font-poppins text-[16px] font-normal text-[#A0A0AB] underline underline-offset-2 hover:text-brand-primary"
+                        className="font-poppins text-[16px] font-normal text-[#A0A0AB] underline underline-offset-2 hover:text-brand-primary cursor-pointer"
                     >
                         Log in
                     </a>
