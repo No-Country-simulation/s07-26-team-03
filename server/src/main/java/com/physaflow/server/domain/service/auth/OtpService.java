@@ -142,4 +142,8 @@ public class OtpService {
 
         otpCodeRepository.save(otp);
     }
+
+    public long getExpirationSeconds() {
+        return OTP_EXPIRATION_MINUTES * 60L;
+    }
 }

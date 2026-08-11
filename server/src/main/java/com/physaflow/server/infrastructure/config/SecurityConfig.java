@@ -40,8 +40,8 @@ public class SecurityConfig {
     public static final List<PublicEndpoint> PUBLIC_ENDPOINTS = List.of(
             new PublicEndpoint("/api/v1/assessments", HttpMethod.POST),
             new PublicEndpoint("/api/v1/assessments/**", HttpMethod.GET),
-            new PublicEndpoint("/api/auth/request-otp", HttpMethod.POST),
-            new PublicEndpoint("/api/auth/verify-otp", HttpMethod.POST),
+            new PublicEndpoint("/api/v1/auth/request-otp", HttpMethod.POST),
+            new PublicEndpoint("/api/v1/auth/verify-otp", HttpMethod.POST),
             new PublicEndpoint("/swagger-ui/**", HttpMethod.GET),
             new PublicEndpoint("/swagger-ui.html", HttpMethod.GET),
             new PublicEndpoint("/v3/api-docs/**", HttpMethod.GET),

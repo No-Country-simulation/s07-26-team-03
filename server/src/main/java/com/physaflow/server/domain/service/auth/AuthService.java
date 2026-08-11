@@ -2,6 +2,7 @@ package com.physaflow.server.domain.service.auth;
 
 
 import com.physaflow.server.application.dto.auth.AuthenticationResponse;
+import com.physaflow.server.application.dto.auth.RequestOtpResponse;
 import com.physaflow.server.application.exception.business.auth.InvalidCredentialsException;
 import com.physaflow.server.application.exception.http.BadRequestException;
 import com.physaflow.server.domain.model.Lead;
@@ -43,7 +44,7 @@ public class AuthService {
      * @param "assessmentId" Assessment opcional que se desea desbloquear
      */
 
-    public void requestOtp( String email, UUID assessmentId) {
+    public RequestOtpResponse requestOtp(String email, UUID assessmentId) {
 
         String normalizedEmail = normalizeEmail(email);
         log.info("Requesting OTP for email: {}", normalizedEmail);
@@ -78,6 +79,11 @@ public class AuthService {
                 lead.getEmail(),
                 code,
                 purpose
+        );
+
+        return new RequestOtpResponse(
+                "A verification code has been sent to your email.",
+                otpService.getExpirationSeconds()
         );
     }
 
