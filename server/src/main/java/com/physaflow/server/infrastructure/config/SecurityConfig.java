@@ -1,6 +1,9 @@
 package com.physaflow.server.infrastructure.config;
 
 
+import com.physaflow.server.infrastructure.security.SecurityFilter;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +12,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -25,17 +31,28 @@ public class SecurityConfig {
     @Value("${frontend.cors.url}")
     private String frontendCors;
 
+    private final SecurityFilter securityFilter;
+
+    public SecurityConfig(SecurityFilter securityFilter) {
+        this.securityFilter = securityFilter;
+    }
+
     public static final List<PublicEndpoint> PUBLIC_ENDPOINTS = List.of(
-            new PublicEndpoint("/api/calculate", HttpMethod.POST),
-            new PublicEndpoint("/api/recalculate", HttpMethod.POST),
+            new PublicEndpoint("/api/v1/assessments", HttpMethod.POST),
+            new PublicEndpoint("/api/v1/assessments/**", HttpMethod.GET),
             new PublicEndpoint("/api/auth/request-otp", HttpMethod.POST),
             new PublicEndpoint("/api/auth/verify-otp", HttpMethod.POST),
-            new PublicEndpoint("/api/v1/**", HttpMethod.GET),
             new PublicEndpoint("/swagger-ui/**", HttpMethod.GET),
             new PublicEndpoint("/swagger-ui.html", HttpMethod.GET),
             new PublicEndpoint("/v3/api-docs/**", HttpMethod.GET),
             new PublicEndpoint("/error", HttpMethod.GET)
     );
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -51,8 +68,9 @@ public class SecurityConfig {
                             auth.requestMatchers(endpoint.method(), endpoint.url()).permitAll()
                     );
                     // Requerir autenticación para cualquier otro endpoint
-                    auth.anyRequest().permitAll();
-                });
+                    auth.anyRequest().authenticated();
+                })
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

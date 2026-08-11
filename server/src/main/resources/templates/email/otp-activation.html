@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Activate your PhysaFlow account</title> </head>
+
+<body style="margin:0; padding:0; background-color:#f4f7f5; font-family:Arial, Helvetica, sans-serif; color:#1f2937;">
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f4f7f5; padding:40px 20px;"> <tr> <td align="center">
+
+    <table width="100%" cellpadding="0" cellspacing="0" border="0"
+           style="max-width:560px; background-color:#ffffff; border-radius:12px; overflow:hidden;">
+
+        <!-- Header -->
+        <tr>
+            <td style="padding:28px 32px; background-color:#0E6A37; text-align:center;">
+                <div style="font-size:26px; font-weight:bold; color:#ffffff;">
+                    {{APP_NAME}}
+                </div>
+            </td>
+        </tr>
+
+        <!-- Content -->
+        <tr>
+            <td style="padding:40px 32px;">
+
+                <h1 style="margin:0 0 16px; font-size:24px; color:#111827;">
+                    Activate your account
+                </h1>
+
+                <p style="margin:0 0 16px; font-size:16px; line-height:1.6;">
+                    Welcome to {{APP_NAME}}.
+                </p>
+
+                <p style="margin:0 0 24px; font-size:16px; line-height:1.6;">
+                    Use the verification code below to activate your account.
+                </p>
+
+                <!-- OTP -->
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td align="center"
+                            style="padding:24px; background-color:#f0f7f3; border:1px solid #d8e8df; border-radius:8px;">
+
+                            <div style="font-size:32px; font-weight:bold; letter-spacing:8px; color:#0E6A37;">
+                                {{OTP_CODE}}
+                            </div>
+
+                        </td>
+                    </tr>
+                </table>
+
+                <p style="margin:24px 0 8px; font-size:14px; line-height:1.5; color:#4b5563;">
+                    This code will expire in <strong>{{OTP_EXPIRATION_MINUTES}} minutes</strong>.
+                </p>
+
+                <p style="margin:0; font-size:14px; line-height:1.5; color:#4b5563;">
+                    If you did not request this code, you can safely ignore this email.
+                </p>
+
+                <p style="margin:24px 0 0; font-size:14px; line-height:1.5; color:#4b5563;">
+                    For your security, never share this code with anyone.
+                </p>
+
+            </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+            <td style="padding:20px 32px; background-color:#f9fafb; text-align:center;">
+
+                <p style="margin:0 0 8px; font-size:12px; color:#6b7280;">
+                    © {{CURRENT_YEAR}} {{APP_NAME}}. All rights reserved.
+                </p>
+
+                <p style="margin:0; font-size:12px; color:#6b7280;">
+                    If you need help, contact
+                    <a href="mailto:{{SUPPORT_EMAIL}}"
+                       style="color:#0E6A37; text-decoration:none;">
+                        {{SUPPORT_EMAIL}}
+                    </a>
+                </p>
+
+            </td>
+        </tr>
+
+    </table>
+
+</td>
+</tr>
+
+</table>
+
+</body> </html>

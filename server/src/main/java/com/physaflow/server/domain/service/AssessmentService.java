@@ -4,6 +4,8 @@ import com.physaflow.server.application.dto.assessment.AssessmentInitializeRespo
 import com.physaflow.server.application.dto.assessment.AssessmentRequest;
 import com.physaflow.server.application.dto.assessment.AssessmentResultResponse;
 import com.physaflow.server.application.exception.ConfigurationNotFoundException;
+import com.physaflow.server.application.exception.business.entity.EntityNotFoundException;
+import com.physaflow.server.application.exception.http.ConflictException;
 import com.physaflow.server.domain.model.Assessment;
 import com.physaflow.server.domain.model.AssessmentResult;
 import com.physaflow.server.domain.model.CalculationConfiguration;
@@ -15,7 +17,6 @@ import com.physaflow.server.infrastructure.repository.AssessmentRepository;
 import com.physaflow.server.infrastructure.repository.AssessmentResultRepository;
 import com.physaflow.server.infrastructure.repository.CalculationConfigurationRepository;
 import com.physaflow.server.infrastructure.repository.LeadRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -245,4 +246,39 @@ public class AssessmentService {
             case EXCELLENT -> "Tu facility opera cerca del punto óptimo de eficiencia. Quedan oportunidades menores de ajuste — explora el análisis completo para encontrar los últimos puntos de capacidad recuperable.";
         };
     }
+
+    public void associateWithLead( UUID assessmentId, Lead lead) {
+
+        Assessment assessment = assessmentRepository
+                .findById(assessmentId)
+                .orElseThrow(() ->
+                        new EntityNotFoundException("Assessment not found.")
+                );
+
+        // Assessment todavía anónimo.
+        if (assessment.getLead() == null) {
+
+            assessment.setLead(lead);
+            assessmentRepository.save(assessment);
+
+            log.info(
+                    "Assessment {} associated with lead {}",
+                    assessmentId,
+                    lead.getId()
+            );
+
+            return;
+        }
+
+        // Assessment ya pertenece al mismo Lead.
+        if (assessment.getLead().getId().equals(lead.getId())) {
+            return;
+        }
+
+        // Assessment pertenece a otro Lead.
+        throw new ConflictException(
+                "Assessment is already assigned to another user."
+        );
+    }
+
 }
