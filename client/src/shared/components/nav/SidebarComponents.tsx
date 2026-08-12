@@ -31,17 +31,17 @@ export const SidebarHeader: React.FC = () => (
 );
 
 export const SidebarFooter: React.FC<SidebarFooterProps> = ({ onHelpClick }) => (
-  <footer className="px-[38px] pb-10 pt-6">
+  <footer className="px-4 pb-10 pt-6">
     <button
       type="button"
       onClick={onHelpClick}
-      className="flex w-full items-center justify-between text-left transition-opacity hover:opacity-80"
+      className="flex w-full items-center justify-between text-left transition-opacity hover:opacity-80 gap-2"
     >
-      <div>
+      <div className="flex-1 min-w-0">
         <h4 className="font-heading text-sm font-bold leading-[115%] text-brand-primary">
           Need a help?
         </h4>
-        <p className="mt-1 font-body text-xs text-[#6F6C8F]">
+        <p className="mt-1 font-body text-xs text-[#6F6C8F] whitespace-nowrap">
           Chat with live support
         </p>
       </div>
@@ -63,8 +63,8 @@ export const NavItem: React.FC<NavItemProps> = ({
     type="button"
     onClick={onClick}
     className={`flex w-full items-center justify-center gap-3 rounded-[12px] px-4 py-3 text-sm font-medium transition-colors ${active
-        ? "border border-brand-primary/20 bg-[#E7F0EB] font-semibold text-brand-primary"
-        : "text-[#6B7280] hover:bg-gray-100 hover:text-heading"
+      ? "border border-brand-primary/20 bg-[#E7F0EB] font-semibold text-brand-primary"
+      : "text-[#6B7280] hover:bg-gray-100 hover:text-heading"
       }`}
   >
     <Icon className={`h-5 w-5 shrink-0 ${active ? "text-brand-primary" : "text-[#6B7280]"}`} />

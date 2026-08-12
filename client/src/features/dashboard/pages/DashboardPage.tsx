@@ -3,6 +3,7 @@ import { useOutletContext } from "react-router-dom";
 import type { DashboardTab } from "@/shared/interfaces/sidebar.interface";
 import { CapacityFlowCard } from "./CapacityFlowCard";
 import { CompareScenariosCard } from "./CompareScenariosCard";
+import { CalculatorCards } from "../../calculator/pages/CalculatorCards";
 
 interface DashboardContext {
   activeTab: DashboardTab;
@@ -48,7 +49,7 @@ const DashboardPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleRecalculate}
-                  className="flex items-center gap-2 rounded-lg border border-heading bg-white px-3 py-1.5 font-body text-sm font-medium text-heading transition-colors hover:bg-gray-50 active:bg-gray-100 whitespace-nowrap"
+                  className="flex items-center gap-2 rounded-lg border border-[#E5E7EB] bg-[#F8F9FA] px-3 py-1.5 font-body text-sm font-medium text-[#4B5563] transition-colors hover:bg-gray-100 active:bg-gray-200 whitespace-nowrap"
                 >
                   <svg
                     width="16"
@@ -76,12 +77,9 @@ const DashboardPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="font-body text-text">
-            renderizando cards de calculador...
-          </div>
+          <CalculatorCards />
 
-          {/* Grid layout: Columna flexible ilimitada + Columna fija de 302px */}
-          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_302px] items-start gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_280px] items-start gap-6">
             <CapacityFlowCard />
             <CompareScenariosCard />
           </div>

@@ -1,59 +1,59 @@
 import React from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import { LuLayers, LuLayoutGrid } from "react-icons/lu";
-import candadoIcon from "@/assets/icons/candado.png";
+import candadoIcon from "@/assets/icons/padlock.png";
 import { useCapacityFlowActions } from "@/shared/hooks/dashboard/useCapacityFlowActions";
+import { CapacityLossesCards } from "./CapacityLossesCards";
 
 export const CapacityFlowCard: React.FC = () => {
   const { handleFlowView, handleBreakdownView, handleMoreOptions } =
     useCapacityFlowActions();
 
   return (
-    <div className="w-full min-w-0 rounded-none bg-white p-6 shadow-[0px_0.5px_1px_rgba(25,33,61,0.04)] flex flex-col justify-between gap-6">
-      <div className="relative flex flex-col gap-1 w-full min-w-0">
-        <h2 className="font-heading text-[18px] font-bold text-heading pr-72 leading-snug">
-          Capacity Flow: Where your Capacity Goes
-        </h2>
+    <div className="w-full min-w-0 rounded-none bg-white p-4 md:p-6 shadow-[4px_4px_4px_rgba(177,177,177,0.15)] flex flex-col gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 w-full mb-1">
+        <div className="flex flex-col gap-0.5 min-w-0 flex-1">
+          <h2 className="font-heading text-[17px] md:text-[18px] font-bold text-heading leading-tight">
+            Capacity Flow: Where your Capacity Goes
+          </h2>
+          <p className="font-body text-xs md:text-sm text-text-muted">
+            Deep dive into your capacity across all layers
+          </p>
+        </div>
 
-        <p className="font-body text-sm text-text-muted">
-          Deep dive into your capacity across all layers
-        </p>
-
-        <div className="absolute top-1/2 -translate-y-1/2 -right-3 z-10 flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-1 shrink-0 justify-end -mr-2 md:-mr-3">
           <button
             type="button"
             onClick={handleFlowView}
-            className="flex items-center gap-2 rounded-lg border border-brand-primary bg-[#F4FAF6] px-3 py-1.5 font-body text-sm font-medium text-brand-primary transition-colors hover:bg-[#E2F2E9] whitespace-nowrap"
+            className="flex items-center gap-1.5 rounded-[4px] border border-brand-primary bg-[#F4FAF6] px-2.5 py-1.5 font-body text-xs md:text-sm font-medium text-brand-primary transition-colors hover:bg-[#E2F2E9] whitespace-nowrap"
           >
-            <LuLayers className="h-4.5 w-4.5 shrink-0" />
+            <LuLayers className="h-4 w-4 shrink-0" />
             <span>Flow View</span>
           </button>
 
           <button
             type="button"
             onClick={handleBreakdownView}
-            className="flex items-center gap-2 rounded-lg border border-[#4B5563] bg-[#4B5563] px-3 py-1.5 font-body text-sm font-medium text-white transition-colors hover:bg-[#374151] whitespace-nowrap"
+            className="flex items-center gap-1.5 rounded-[4px] border border-[#E5E7EB] bg-[#F8F9FA] px-2.5 py-1.5 font-body text-xs md:text-sm font-medium text-[#4B5563] transition-colors hover:bg-gray-200 whitespace-nowrap"
           >
-            <LuLayoutGrid className="h-4.5 w-4.5 shrink-0" />
+            <LuLayoutGrid className="h-4 w-4 shrink-0 text-[#4B5563]" />
             <span>Breakdown View</span>
           </button>
 
           <button
             type="button"
             onClick={handleMoreOptions}
-            className="flex h-9 w-9 items-center justify-center rounded-lg text-heading transition-colors hover:bg-gray-100 shrink-0"
+            className="flex h-8 w-8 items-center justify-center rounded-[4px] text-[#4B5563] shrink-0"
             aria-label="More options"
           >
-            <HiDotsVertical className="h-5 w-5 shrink-0 stroke-[1.5]" />
+            <HiDotsVertical className="h-5 w-5 shrink-0 text-[#4B5563]" />
           </button>
         </div>
       </div>
 
-      <div className="font-body text-sm text-text-muted py-8">
-        cargando metricas...
-      </div>
+      <CapacityLossesCards />
 
-      <div className="flex items-center gap-4 rounded-[10px] bg-[#F4FAF6] p-4 text-[#21272A]">
+      <div className="flex items-center gap-4 rounded-[10px] bg-[#F4FAF6] p-4 text-[#21272A] mt-2">
         <img
           src={candadoIcon}
           alt="Candado Insight"
@@ -61,7 +61,7 @@ export const CapacityFlowCard: React.FC = () => {
         />
 
         <p className="font-body text-sm leading-snug">
-          <span className="font-bold">Key Insight:</span> Your biggest opportunity lies in IT inneficiencies. Right-sizing your infraestruture and optimizing server utilization could recover up to 3.0 MV capacity.
+          <span className="font-bold">Key Insight:</span> Your biggest opportunity lies in IT inefficiencies. Right-sizing your infrastructure and optimizing server utilization could recover up to 3.0 MW capacity.
         </p>
       </div>
     </div>

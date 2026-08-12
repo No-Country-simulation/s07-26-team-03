@@ -24,12 +24,12 @@ export default function DashboardSidebar({
   };
 
   return (
-   <aside className="fixed inset-y-0 left-0 z-30 flex h-screen w-[233px] min-w-[233px] max-w-[233px] flex-col justify-between border-r border-gray-100 bg-surface shadow-[0px_0.5px_8px_rgba(25,33,61,0.06)] shrink-0">
+    <aside className="fixed inset-y-0 left-0 z-30 flex h-screen w-[233px] min-w-[233px] max-w-[233px] flex-col justify-between border-r border-gray-100 bg-surface shadow-[0px_0.5px_8px_rgba(25,33,61,0.06)] shrink-0">
       <div className="flex flex-col overflow-y-auto">
         <SidebarHeader />
 
         <main className="flex flex-col gap-5 px-4 pt-2">
-          <div className="flex items-center gap-3 rounded-[12px] px-3 py-2 text-brand-primary">
+          <div className="flex items-center justify-center gap-3 rounded-[12px] px-3 py-2 text-brand-primary">
             <LuGauge className="h-5 w-5 shrink-0 text-brand-primary" />
             <span className="font-heading text-sm font-bold uppercase tracking-wide">
               Overview

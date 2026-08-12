@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import DashboardSidebar from "@/shared/components/nav/DashboardSidebar";
 import TopBar from "@/shared/components/nav/TopBar";
-
 import type { DashboardTab } from "@/shared/interfaces/sidebar.interface";
 
 export default function DashboardLayout() {
@@ -14,11 +13,9 @@ export default function DashboardLayout() {
                 activeTab={activeTab}
                 onSelectTab={(tab) => setActiveTab(tab)}
             />
-
-            <div className="flex flex-1 flex-col ml-[233px] w-[calc(100%-233px)] min-h-screen">
+            <div className="flex flex-1 flex-col pl-[233px] min-w-0 min-h-screen">
                 <TopBar />
-
-                <main className="flex-1 p-8 overflow-y-auto">
+                <main className="flex-1 p-6 lg:p-8 min-w-0 overflow-y-auto">
                     <Outlet context={{ activeTab, setActiveTab }} />
                 </main>
             </div>

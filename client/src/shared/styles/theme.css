@@ -97,7 +97,8 @@
   border: 1px solid transparent;
   background-image:
     linear-gradient(var(--color-surface, #ffffff), var(--color-surface, #ffffff)),
-    linear-gradient(180deg, #BABABA 0%, #FFFFFF 100%);
+    linear-gradient(180deg, #FFFFFF 0%, #BABABA 100%);
   background-origin: padding-box, border-box;
   background-clip: padding-box, border-box;
+  border-radius: 0px;
 }
