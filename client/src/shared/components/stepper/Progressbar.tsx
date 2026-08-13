@@ -8,6 +8,7 @@ export default function ProgressBar({
     dolarSign = false,
     unit = "MW",
     toggle = false,
+    className = "",
     onChange,
 }: ProgressBarProps) {
     const range = endValue - startValue;
@@ -80,7 +81,7 @@ export default function ProgressBar({
 
                     {/* Thumb */}
                     <div
-                        className="absolute top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#0E6A37] bg-[#0E6A37] shadow-[inset_0px_-1.17px_1.17px_rgba(14,106,55,0.25)] transition-all duration-150"
+                        className="absolute top-1 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#0E6A37] bg-[#0E6A37] shadow-[inset_0px_-1.17px_1.17px_rgba(14,106,55,0.25)] transition-all duration-150"
                         style={{
                             left: `${activePercentage}%`,
                         }}
@@ -95,25 +96,23 @@ export default function ProgressBar({
                     step={(endValue - startValue) / 100}
                     value={activeValue}
                     onChange={handleSliderChange}
-                    className="absolute left-0 top-9 z-20 h-2 w-full cursor-pointer opacity-0"
+                    className={`${className} absolute left-0 top-9 z-20 h-2 w-full opacity-0`}
                 />
 
                 {/* Valores mínimo y máximo */}
                 <div className="relative mt-3 flex w-full items-center justify-between text-xs font-medium text-[#9CA3AF]">
                     <span>
-                        {dolarSign && "$"}
-                        {startValue} {unit}
+                        {dolarSign && "$"} {startValue} {unit}
                     </span>
 
                     {!toggle && (
                         <span
-                            className="absolute -top-7 -translate-x-1/2 whitespace-nowrap font-semibold text-[#0E6A37] transition-all duration-150"
+                            className="absolute top-2 -translate-x-1/2 whitespace-nowrap font-semibold text-[#0E6A37] transition-all duration-150"
                             style={{
                                 left: `${activePercentage}%`,
                             }}
                         >
-                            {dolarSign && "$"}
-                            {activeValue} {unit}
+                            {dolarSign && "$"} {activeValue} {unit}
                         </span>
                     )}
 

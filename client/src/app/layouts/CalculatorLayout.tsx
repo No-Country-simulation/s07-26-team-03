@@ -1,7 +1,12 @@
+<<<<<<< HEAD
 import { Outlet } from "react-router-dom";
 import Sidebar from "@/shared/components/nav/Sidebar";
 import Toggle from "@/shared/components/buttons/Toggle";
 import { useDarkMode } from "@/shared/hooks/useDarkMode";
+=======
+import { CalculatorProvider } from "../contexts/CalculatorContext";
+import CalculatorLayoutContent from "@/app/layouts/CalculatorLayoutContent"
+>>>>>>> client-dev
 
 /**
  * Layout principal de la calculadora.
@@ -11,6 +16,7 @@ export default function CalculatorLayout() {
     const { isDark, toggleDarkMode} = useDarkMode();
 
     return (
+<<<<<<< HEAD
         <div className="flex min-h-screen flex-col bg-background bg-layout bg-cover bg-center bg-no-repeat dark:bg-black dark:bg-none md:flex-row">
             <Sidebar />
 
@@ -30,5 +36,10 @@ export default function CalculatorLayout() {
                 </footer>
             </div>
         </div>
+=======
+        <CalculatorProvider>
+            <CalculatorLayoutContent/>
+        </CalculatorProvider>
+>>>>>>> client-dev
     );
 }
