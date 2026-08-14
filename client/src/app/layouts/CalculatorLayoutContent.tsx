@@ -7,7 +7,7 @@ export default function CalculatorLayoutContent() {
     const { isDark, toggleDarkMode} = useDarkMode();
 
     return (
-        <div className="flex min-h-screen flex-col bg-background dark:bg-black light:bg-layout light:bg-cover bg-center bg-no-repeat md:flex-row">
+        <div className="flex min-h-screen flex-col bg-background dark:bg-black bg-layout dark:bg-layout-dark bg-cover bg-center bg-no-repeat md:flex-row">
             <CalculatorSidebar />
 
             <div className="flex flex-1 flex-col">

@@ -49,7 +49,7 @@ const CalculatorPage = () => {
 
   return (
     <>
-      <div className="mx-auto my-30 flex min-h-[600px] w-full max-w-[800px] flex-col gap-10 rounded-[32px] bg-white dark:bg-black p-8 shadow-[0_2px_15px_rgba(25,33,61,0.1)]">
+      <div className="mx-auto my-30 flex min-h-[600px] w-full max-w-[800px] flex-col gap-10 rounded-[32px] bg-white dark:bg-black border dark:border-gray-600 p-8 shadow-[0_2px_15px_rgba(25,33,61,0.1)]">
         {/* Barra de pasos */}
         <ProgressStepper currentStep={currentStep} />
 
