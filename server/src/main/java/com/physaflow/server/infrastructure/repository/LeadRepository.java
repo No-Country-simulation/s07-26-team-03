@@ -5,9 +5,14 @@ import com.physaflow.server.domain.model.Lead;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface LeadRepository extends JpaRepository<Lead, UUID> {
+public interface    LeadRepository extends JpaRepository<Lead, UUID> {
     // Al extender JpaRepository ya tienes métodos como findById(), getReferenceById(), save(), etc.
+
+    Optional<Lead> findByEmailIgnoreCase(String email);
+
+    boolean existsByEmailIgnoreCase(String email);
 }
