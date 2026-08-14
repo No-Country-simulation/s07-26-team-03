@@ -1,4 +1,3 @@
-import { Outlet } from "react-router-dom";
 import { LuHeadphones } from "react-icons/lu";
 import icon from "@/assets/icons/icon.svg";
 

@@ -16,7 +16,7 @@ export default function ProgressStepper({
 
   return (
     <div className="relative w-full">
-      <div className="absolute left-5 right-5 top-5 z-0 h-1 -translate-y-1/2 bg-[#E5E7EB]">
+      <div className="absolute left-5 right-5 top-5 z-0 h-1 -translate-y-1/2 bg-[#E5E7EB] dark:bg-[#252525]">
         <div
           className="h-full bg-[#0E6A37] transition-all duration-300 ease-in-out"
           style={{ width: `${progressPercent}%` }}
@@ -38,7 +38,7 @@ export default function ProgressStepper({
                   rounded-full border text-sm font-semibold transition-all duration-200
                   ${completed
                     ? "border-[#0E6A37] bg-[#0E6A37] text-white shadow-[inset_0px_-1.17px_1.17px_rgba(14,106,55,0.25)]"
-                    : "border-[#E5E7EB] bg-[#E5E7EB] text-[#4B5563]"
+                    : "border-[#E5E7EB] bg-[#E5E7EB] dark:border-[#252525] dark:bg-[#252525] text-[#4B5563] dark:text-white"
                   }
                 `}
               >
@@ -50,7 +50,7 @@ export default function ProgressStepper({
                   mt-3 text-sm transition-colors duration-200
                   ${completed
                     ? "font-semibold text-[#0E6A37]"
-                    : "font-normal text-[#9CA3AF]"
+                    : "font-normal text-[#9CA3AF] dark:text-gray-300"
                   }
                 `}
               >

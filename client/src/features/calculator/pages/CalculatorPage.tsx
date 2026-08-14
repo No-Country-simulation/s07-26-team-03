@@ -7,7 +7,6 @@ import { CopyIcon } from "@/shared/components/icons/CopyIcon";
 import { LockIcon } from "@/shared/components/icons/LockIcon";
 // import type { CoolingType, IDataForCalculation } from "@/shared/api";
 
-import { useState } from "react";
 import { Modal } from "@/shared/components/ui/modal/Modal";
 import { useShareResult } from "@/shared/hooks/calculator/useShareResult";
 import { useCalculatorContext } from "@/app/contexts/CalculatorContext";
@@ -50,7 +49,7 @@ const CalculatorPage = () => {
 
   return (
     <>
-      <div className="mx-auto my-30 flex min-h-[600px] w-full max-w-[800px] flex-col gap-10 rounded-[32px] bg-white p-8 shadow-[0_2px_15px_rgba(25,33,61,0.1)]">
+      <div className="mx-auto my-30 flex min-h-[600px] w-full max-w-[800px] flex-col gap-10 rounded-[32px] bg-white dark:bg-black p-8 shadow-[0_2px_15px_rgba(25,33,61,0.1)]">
         {/* Barra de pasos */}
         <ProgressStepper currentStep={currentStep} />
 

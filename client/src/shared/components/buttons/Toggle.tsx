@@ -9,9 +9,39 @@ const Toggle = ({ onClick, isActive, className }: ToggleProps) => {
   return (
     <button
       type="button"
+      role="switch"
+      aria-checked={isActive}
       onClick={onClick}
-      className={`${className} rounded-lg bg-gray-100 px-4 py-2 text-gray-900 dark:bg-gray-800 dark:text-white`}
+      className={`
+        relative
+        flex
+        h-[30px]
+        w-[52px]
+        items-center
+        rounded-full
+        bg-gray-300
+        dark:bg-gray-900
+        p-[3px]
+        transition-colors
+        duration-200
+        ${className}
+      `}
+
     >
+      <span
+        className={`
+          block
+          h-[24px]
+          w-[24px]
+          shrink-0
+          rounded-full
+          bg-white
+          shadow-md
+          transition-transform
+          duration-200
+          ${isActive ? "translate-x-[22px]" : "translate-x-0"}
+        `}
+      />
     </button>
   );
 };
