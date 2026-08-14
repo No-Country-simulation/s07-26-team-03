@@ -15,4 +15,7 @@ public interface CalculationConfigurationRepository extends JpaRepository<Calcul
     @Cacheable(value = "activeCalculationConfig", unless = "#result == null")
     @Query("SELECT c FROM CalculationConfiguration c WHERE c.active = true ORDER BY c.createdAt DESC")
     Optional<CalculationConfiguration> findActiveConfiguration();
+
+
+    Optional<CalculationConfiguration> findByActiveTrue();
 }

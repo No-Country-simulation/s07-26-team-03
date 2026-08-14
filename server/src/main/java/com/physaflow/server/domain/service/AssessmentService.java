@@ -17,6 +17,7 @@ import com.physaflow.server.infrastructure.repository.AssessmentRepository;
 import com.physaflow.server.infrastructure.repository.AssessmentResultRepository;
 import com.physaflow.server.infrastructure.repository.CalculationConfigurationRepository;
 import com.physaflow.server.infrastructure.repository.LeadRepository;
+import com.physaflow.server.infrastructure.security.SecurityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,7 @@ public class AssessmentService {
     private final AssessmentResultRepository assessmentResultRepository;
     private final CalculationConfigurationRepository configurationRepository;
     private final LeadRepository leadRepository;
+    private final SecurityService securityService;
 
     private static final String ALGORITHM_VERSION = "v1.2.0-core";
 
@@ -280,5 +282,28 @@ public class AssessmentService {
                 "Assessment is already assigned to another user."
         );
     }
+
+    public Assessment findByIdForCurrentUser(UUID assessmentId) {
+
+        Lead currentLead =  securityService.getAuthenticatedLead();
+        log.info(
+                "Assessment {} associated with lead {}.",
+                assessmentId,
+                currentLead.getId()
+        );
+
+
+        return assessmentRepository
+                .findByIdAndLeadId(
+                        assessmentId,
+                        currentLead.getId()
+                )
+                .orElseThrow(() ->
+                        new EntityNotFoundException(
+                                "Assessment not found."
+                        )
+                );
+    }
+
 
 }
