@@ -26,7 +26,7 @@ export default function CalculatorResultsSidebarContent() {
                     What’s Next?
                 </h2>
 
-                <p className="mt-5 font-body text-base leading-[140%] text-text">
+                <p className="mt-5 font-body text-base leading-[140%] text-text dark:text-gray-400">
                     This is a quick overview of your potential stranded capacity and
                     financial impact. Unlock the full analysis for deeper insights and
                     recommendations.
