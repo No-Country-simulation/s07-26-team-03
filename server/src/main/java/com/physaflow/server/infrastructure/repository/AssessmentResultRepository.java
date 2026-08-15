@@ -13,5 +13,7 @@ public interface AssessmentResultRepository extends JpaRepository<AssessmentResu
 
     Optional<AssessmentResult> findByAssessmentId(UUID assessmentId);
 
+    boolean existsByAssessmentId(UUID assessmentId);
+
     List<AssessmentResult> findAllByAssessmentIdOrderByCalculatedAtAsc(UUID assessmentId);
 }
