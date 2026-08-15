@@ -7,8 +7,8 @@ export const ROUTES = {
     VERIFY: "/verify",
 
     CALCULATOR: "/calculator",
-    SHARED: "/sharedResult", //Este es el que deberia utilizar el boton del calculator, no el otro.
-
+    SHARED: "/sharedResult", 
+    
     DASHBOARD: "/dashboard",
 
     REPORTS: "/dashboard/reports",
