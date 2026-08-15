@@ -1,0 +1,56 @@
+# ==========================================
+# Control de Versiones
+# ==========================================
+.git
+.gitignore
+.github/
+
+# ==========================================
+# Maven / Compilación Local
+# ==========================================
+# Ignorar el directorio target generado en el host local.
+# Queremos que la etapa 'builder' de Docker compile desde cero o use su propia caché.
+target/
+*.jar
+*.war
+*.ear
+*.class
+
+# Permitimos el wrapper de Maven (necesario para el build offline en Docker)
+!.mvn/wrapper/maven-wrapper.jar
+
+# ==========================================
+# Archivos de IDE (IntelliJ, Eclipse, VS Code)
+# ==========================================
+.idea/
+*.iml
+*.iws
+.settings/
+.classpath
+.project
+.vscode/
+*.sublime-*
+
+# ==========================================
+# Seguridad y Configuraciones Locales
+# ==========================================
+# Prevenir que variables de entorno locales o perfiles de desarrollo
+# se filtren al contenedor de producción.
+*.env
+*.env.*
+application-local.yml
+application-docker.yml
+docker-compose.yml
+
+# ==========================================
+# Logs y Archivos Temporales de SO
+# ==========================================
+logs/
+*.log
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

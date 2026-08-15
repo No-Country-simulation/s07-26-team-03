@@ -1,0 +1,43 @@
+name: physaflow-server
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: physaflow-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME:-physaflow_db}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-admin}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-physaflow_dev}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: xocris/physaflow-server:latest
+    container_name: physaflow-backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-dev}
+      SERVER_PORT: 8080
+      DB_HOST: db
+      DB_PORT: 5432
+    ports:
+      - "${SERVER_PORT:-8080}:8080"
+    volumes:
+      - ./logs:/app/logs
+
+volumes:
+  pg_data:

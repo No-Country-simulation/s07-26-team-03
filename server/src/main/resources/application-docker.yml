@@ -1,0 +1,43 @@
+spring:
+  datasource:
+
+    url: jdbc:postgresql://localhost:5432/physaflow_db
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      # Optimizaciones críticas para Virtual Threads (Java 21)
+      pool-name: PhysaFlow-HikariPool
+      maximum-pool-size: 25 # Suficiente para picos virales locales
+      minimum-idle: 5
+      connection-timeout: 20000
+      idle-timeout: 300000
+      max-lifetime: 1200000
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      # Flyway es la única fuente de verdad para el DDL. Hibernate solo valida.
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+        generate_statistics: false
+        jdbc:
+          # Procesamiento por lotes para escrituras masivas (útil en analítica)
+          batch_size: 50
+          order_inserts: true
+          order_updates: true
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+
+logging:
+  level:
+    com.physaflow: DEBUG
+    # Habilitar para auditar el rendimiento de las consultas generadas por JPA
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
