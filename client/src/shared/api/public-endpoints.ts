@@ -1,6 +1,7 @@
 import type { AxiosResponse } from "axios";
 import { publicRoutes } from "./axios";
-import type { IDataForCalculation } from "./types/request.interfaces";
+import type { IAssessmentData } from "./types/request.interfaces";
+import type { IAssessmentResponse } from "./types/response.interface";
 
 const controller = new AbortController();
 
@@ -38,18 +39,12 @@ export const refreshSession = (): Promise<AxiosResponse<{ accessToken: string }>
     ) ;
 }
 
-export const calculate = (data: IDataForCalculation): Promise<AxiosResponse> => {
-    return publicRoutes.post<{ accessToken: string }>(
-        "calculator/calculate",
+export const sendAssessmentRequest = (data: IAssessmentData): Promise<AxiosResponse<IAssessmentResponse>> => {
+    return publicRoutes.post<IAssessmentResponse>(
+        "assessments",
         data,
         {
             signal: controller.signal,
         }
-    ) ;
-}
-
-export const getScenarios = (): Promise<AxiosResponse> => {
-    return publicRoutes.get(
-        "/calculator/scenarios",
-    ) ;
+    );
 }

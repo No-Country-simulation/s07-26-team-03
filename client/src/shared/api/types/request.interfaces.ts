@@ -1,13 +1,13 @@
 export const CoolingType = {
-  AIR: "air",
-  LIQUID: "liquid",
-  IMMERSION: "immersion",
+  AIR: "AIR",
+  LIQUID: "LIQUID",
+  IMMERSION: "IMMERSION",
 } as const;
 
 export type CoolingType = typeof CoolingType[keyof typeof CoolingType];
 
-export interface IDataForCalculation {
-    facilityMv: string;
-    utilizationPct: string;
+export interface IAssessmentData {
+    facilityMw: number;
+    utilization: number;
     coolingType: CoolingType;
 }

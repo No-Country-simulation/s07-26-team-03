@@ -1,16 +1,20 @@
-import type { ResultCardProps } from "@/shared/types/ResultCard.types";
 import { StatusBadge } from "../badges/Badges";
 import { PulseIcon } from "../icons/PulseIcon";
 import { MoneyIcon } from "../icons/MoneyIcon";
 import { StarIcon } from "../icons/StarIcon";
+import type { IAssessmentResponse } from "@/shared/api/types/response.interface";
 
-export default function ResultCard({
-  data = {
-    strandedCapacity: { result: "6.2MV", percentage: "50%", label: "High" },
-    annualCost: { result: "$1.24 - 1.68M" },
-    capacityScore: { result: "-B", label: "Moderate" }
-  },
-}: ResultCardProps) {
+interface ResultCardProps {
+  data?: IAssessmentResponse;
+}
+
+export default function ResultCard({ data }: ResultCardProps) {
+  if (!data) return null;
+
+  const formatMillions = (value: number) => {
+    return `${(value / 1_000_000).toFixed(2)}M`;
+  };
+
   return (
     <div className="w-full rounded-[24px] border border-[#E5E7EB] bg-white p-6 shadow-[0px_0.5px_8px_rgba(25,33,61,0.06)]">
       <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -21,12 +25,12 @@ export default function ResultCard({
           </span>
           <div className="flex w-full items-center justify-between font-body text-base">
             <span className="text-[#0E6A37] font-bold text-[20px]">
-              {data.strandedCapacity.percentage}
+              {data.strandedPercent}%
             </span>
           </div>
           <div className="flex w-full items-center justify-between font-body text-base">
             <span className="font-bold text-[16px] text-black ">
-              {data.strandedCapacity.result}
+              {data.facilityMw}MV
             </span>
             <StatusBadge />
           </div>
@@ -44,7 +48,7 @@ export default function ResultCard({
           </span>
           <div className="flex w-full items-center justify-between font-body text-base">
             <span className="text-[#ea8800] font-bold text-[20px]">
-              {data.annualCost.result}
+              {formatMillions(data.annualCostMin)} - {formatMillions(data.annualCostMax)}
             </span>
           </div>
           <div className="flex w-full items-center justify-between font-body text-base">
@@ -66,11 +70,11 @@ export default function ResultCard({
           </span>
           <div className="flex w-full items-center justify-between font-body text-base">
             <span className="text-black font-bold text-[20px]">
-              {data.capacityScore.result}
+              {data.capacityScore}
             </span>
           </div>
           <div className="flex w-full items-center justify-between font-body text-base">
-            <StatusBadge label={data.capacityScore.label} />
+            <StatusBadge label={"Moderate"} />
           </div>
           <div className="flex w-full items-center justify-between font-body text-base">
             <span className="font-bold text-[12px] text-gray-400">

@@ -5,16 +5,16 @@ import AssessmentCard from "@/shared/components/stepper/AssessmentCard";
 import ResultCard from "@/shared/components/stepper/ResultCard";
 import { CopyIcon } from "@/shared/components/icons/CopyIcon";
 import { LockIcon } from "@/shared/components/icons/LockIcon";
-// import type { CoolingType, IDataForCalculation } from "@/shared/api";
 
-import { useState } from "react";
 import { Modal } from "@/shared/components/ui/modal/Modal";
 import { useShareResult } from "@/shared/hooks/calculator/useShareResult";
 import { useCalculatorContext } from "@/app/contexts/CalculatorContext";
+import type { CoolingType } from "@/shared/api";
 
 const CalculatorPage = () => {
   const {
     stepIndex,
+    results,
     resultCard,
     isLoading,
     totalSteps,
@@ -26,6 +26,7 @@ const CalculatorPage = () => {
     handleBack,
     handleCardChange,
     handleSliderChange,
+    handleRequest,
     getCurrentCardConfig,
     isModalOpen,
     setIsModalOpen,
@@ -44,9 +45,17 @@ const CalculatorPage = () => {
     setIsModalOpen(true);
   }
 
-  const handleExport = () => {
-    setShareUrl("http://shrareurl.com")
+  const sendRequest = () => {
+    const data = {
+      facilityMw: fineTuneValues[0],
+      utilization: fineTuneValues[1],
+      coolingType: formData[2].toUpperCase() as CoolingType,
+    }
+    handleRequest(data);
+    setShareUrl("http://shrareurl.com");
   };
+
+  if (resultCard) console.log(results);
 
   return (
     <>
@@ -126,7 +135,7 @@ const CalculatorPage = () => {
                   },
                 }}
               />
-              <ResultCard />
+              <ResultCard data={results} />
               <ProgressBar
                 key={`step-0-${formData[0]}`} 
                 title="Anual financial impact range"
@@ -173,7 +182,7 @@ const CalculatorPage = () => {
             {!isLoading && !resultCard &&
               <button
                 type="button"
-                onClick={handleNext}
+                onClick={stepIndex === totalSteps - 1  ? sendRequest : handleNext}
                 className="flex h-[40px] w-[165px] items-center justify-center rounded-[8px] bg-brand-primary text-base font-medium text-white transition-opacity hover:opacity-90 cursor-pointer"
               >
                 {stepIndex === totalSteps - 1 ? "Calculate" : "Next"}
@@ -186,7 +195,6 @@ const CalculatorPage = () => {
                 type="button"
                 onClick={() => {
                   handleModal();
-                  handleExport();
                 }}
                 className="inline-flex items-center h-[40px] w-[165px] justify-between rounded-[8px] bg-brand-primary px-4 py-2 text-white transition-opacity hover:opacity-90 cursor-pointer"
               >
