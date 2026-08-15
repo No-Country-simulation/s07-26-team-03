@@ -8,6 +8,7 @@ export const ROUTES = {
 
     CALCULATOR: "/calculator",
     SHARED: "/sharedResult", 
+    RESULTS: "/results/:id",
     
     DASHBOARD: "/dashboard",
 

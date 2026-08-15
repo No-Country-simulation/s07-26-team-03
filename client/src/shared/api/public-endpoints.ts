@@ -48,3 +48,7 @@ export const sendAssessmentRequest = (data: IAssessmentData): Promise<AxiosRespo
         }
     );
 }
+
+export const getAssessmentSavedResults = (id: string): Promise<AxiosResponse<IAssessmentResponse>> => {
+    return publicRoutes.get<IAssessmentResponse>(`assessments/${id}`);
+}

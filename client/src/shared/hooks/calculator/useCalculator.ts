@@ -5,7 +5,7 @@ import {
     COOLING_TYPE_GROUP,
     type CustomRadioCardItem,
 } from "@/shared/constants/RadioCards.constants";
-import { sendAssessmentRequest } from '@/shared/api/public-endpoints';
+import { sendAssessmentRequest, getAssessmentSavedResults } from '@/shared/api/public-endpoints';
 import type { IAssessmentData } from "@/shared/api";
 import type { IAssessmentResponse } from "@/shared/api/types/response.interface";
 import type { AxiosError } from "axios";
@@ -48,6 +48,20 @@ export function useCalculator() {
     };
 
     const currentCard = getCurrentCardConfig(stepIndex);
+
+    const handleSavedResults = async (id: string) => {
+        const response = getAssessmentSavedResults(id);
+        response.then(({ data }) => {
+            setResults(data);
+            setResultCard((prev) => !prev);
+        })
+        .catch((err: AxiosError) => {
+            console.log(err);
+        })
+        .finally(() => {
+            setIsLoading((prev) => !prev);
+        })
+    }
 
     const handleRequest = async (data: IAssessmentData) => {
         setIsLoading((prev) => !prev);
@@ -116,6 +130,8 @@ export function useCalculator() {
         handleCardChange,
         handleSliderChange,
         handleRequest,
+        handleSavedResults,
         getCurrentCardConfig,
+        setResultCard,
     };
 }
