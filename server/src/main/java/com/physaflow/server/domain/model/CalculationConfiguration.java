@@ -63,6 +63,12 @@ public class CalculationConfiguration {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(name = "scenario_utilization_increment", precision = 5, scale = 2, nullable = false)
+    private BigDecimal scenarioUtilizationIncrement;
+
+    @Column(name = "scenario_max_utilization", precision = 5, scale = 2, nullable = false)
+    private BigDecimal scenarioMaxUtilization;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

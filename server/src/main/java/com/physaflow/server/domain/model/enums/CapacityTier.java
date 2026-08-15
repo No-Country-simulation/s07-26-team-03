@@ -1,9 +1,10 @@
 package com.physaflow.server.domain.model.enums;
 
-public enum RecommendationPriority {
-    HIGH,
-    MEDIUM,
+public enum CapacityTier {
+
+    EXCELLENT,
+    GOOD,
     MODERATE,
-    LOW,
+    DEFICIENT,
     CRITICAL
 }

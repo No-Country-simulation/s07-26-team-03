@@ -1,6 +1,7 @@
 package com.physaflow.server.domain.model;
 
 import com.physaflow.server.domain.model.enums.CoolingType;
+import com.physaflow.server.domain.model.enums.ScenarioType;
 import com.physaflow.server.domain.model.enums.UtilizationLevel;
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,15 +31,18 @@ public class Scenario {
     @JoinColumn(name = "assessment_id", nullable = false)
     private Assessment assessment;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", length = 50, nullable = false)
+    private ScenarioType type;
+
     @Column(name = "name", length = 255, nullable = false)
     private String name;
 
     @Column(name = "facility_mw", precision = 10, scale = 2)
     private BigDecimal facilityMw;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "utilization", length = 50)
-    private UtilizationLevel utilization;
+    @Column(name = "utilization", precision = 5, scale = 2, nullable = false)
+    private BigDecimal utilization;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "cooling_type", length = 50)
@@ -49,6 +53,14 @@ public class Scenario {
 
     @OneToOne(mappedBy = "scenario", fetch = FetchType.LAZY)
     private ScenarioResult result;
+
+    @Column(name = "sort_order", nullable = false)
+    private Integer sortOrder;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
 
     @Override
     public boolean equals(Object o) {

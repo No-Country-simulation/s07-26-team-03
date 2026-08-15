@@ -13,6 +13,9 @@ import com.physaflow.server.domain.model.Lead;
 import com.physaflow.server.domain.model.enums.AssessmentStatus;
 import com.physaflow.server.domain.model.enums.CapacityScore;
 import com.physaflow.server.domain.model.enums.CoolingType;
+import com.physaflow.server.domain.model.types.CalculationInput;
+import com.physaflow.server.domain.model.types.CalculationResult;
+import com.physaflow.server.domain.service.calculation.CalculationEngine;
 import com.physaflow.server.infrastructure.repository.AssessmentRepository;
 import com.physaflow.server.infrastructure.repository.AssessmentResultRepository;
 import com.physaflow.server.infrastructure.repository.CalculationConfigurationRepository;
@@ -39,6 +42,7 @@ public class AssessmentService {
     private final CalculationConfigurationRepository configurationRepository;
     private final LeadRepository leadRepository;
     private final SecurityService securityService;
+    private final CalculationEngine calculationEngine;
 
     private static final String ALGORITHM_VERSION = "v1.2.0-core";
 
@@ -95,6 +99,75 @@ public class AssessmentService {
                 savedAssessment.getExpiresAt()
         );
     }
+
+    @Transactional
+    public AssessmentResultResponse calculateBasicAnalisys(UUID assessmentId) {
+
+
+        Assessment assessment = assessmentRepository.findById(assessmentId)
+                        .orElseThrow(() ->
+                                new EntityNotFoundException(
+                                        "Assessment no encontrado con ID: "
+                                                + assessmentId
+                                )
+                        );
+
+        CalculationConfiguration configuration = configurationRepository.findActiveConfiguration()
+                        .orElseThrow(() ->
+                                new ConfigurationNotFoundException(
+                                        "No se encontró configuración activa del motor."
+                                )
+                        );
+
+        CalculationInput input =
+                new CalculationInput(
+                        assessment.getFacilityMw(),
+                        assessment.getUtilization(),
+                        assessment.getCoolingType()
+                );
+
+        CalculationResult calculation =
+                calculationEngine.calculate(
+                        input,
+                        configuration
+                );
+
+
+        AssessmentResult result =
+                AssessmentResult.builder()
+                        .assessment(assessment)
+                        .configuration(configuration)
+                        .strandedPercent(calculation.strandedPercent())
+                        .strandedMw(calculation.strandedMw())
+                        .annualCostMin(calculation.annualCostMin())
+                        .annualCostMax(calculation.annualCostMax())
+                        .capacityScore(calculation.capacityScore().score())
+                        .recommendationSummary(calculation.recommendationSummary().description())
+                        .algorithmVersion(ALGORITHM_VERSION)
+                        .calculatedAt(LocalDateTime.now(ZoneOffset.UTC))
+                        .build();
+
+        assessmentResultRepository.save(result);
+
+
+        return new AssessmentResultResponse(
+                result.getId(),
+                configuration.getId(),
+                assessment.getId(),
+                assessment.getFacilityMw(),
+                assessment.getUtilization(),
+                assessment.getCoolingType(),
+                result.getStrandedPercent(),
+                result.getStrandedMw(),
+                result.getAnnualCostMin(),
+                result.getAnnualCostMax(),
+                result.getCapacityScore().name(),
+                result.getRecommendationSummary(),
+                result.getAlgorithmVersion(),
+                result.getCalculatedAt()
+        );
+    }
+
 
     @Transactional
     public AssessmentResultResponse calculateAndSaveResult(UUID assessmentId) {
@@ -224,7 +297,7 @@ public class AssessmentService {
             case AIR -> new BigDecimal("0.75");
             case HYBRID -> new BigDecimal("0.85");
             case LIQUID -> new BigDecimal("0.90");
-            case INMERSION -> new BigDecimal("0.95");
+            case IMMERSION -> new BigDecimal("0.95");
         };
     }
 
@@ -232,20 +305,20 @@ public class AssessmentService {
         if (strandedPercent == null) {
             throw new IllegalArgumentException("El porcentaje de capacidad varada no puede ser nulo para la evaluación de puntaje.");
         }
-        if (strandedPercent.compareTo(NINETY) > 0) return CapacityScore.CRITICAL;
-        if (strandedPercent.compareTo(SEVENTY) > 0) return CapacityScore.DEFICIENT;
-        if (strandedPercent.compareTo(FIFTY) > 0) return CapacityScore.MODERATE;
-        if (strandedPercent.compareTo(THIRTY) > 0) return CapacityScore.GOOD;
-        return CapacityScore.EXCELLENT;
+        if (strandedPercent.compareTo(NINETY) > 0) return CapacityScore.F;
+        if (strandedPercent.compareTo(SEVENTY) > 0) return CapacityScore.D;
+        if (strandedPercent.compareTo(FIFTY) > 0) return CapacityScore.C;
+        if (strandedPercent.compareTo(THIRTY) > 0) return CapacityScore.B;
+        return CapacityScore.A_PLUS;
     }
 
     private String generateRecommendation(CapacityScore score) {
         return switch (score) {
-            case CRITICAL -> "La capacidad varada es críticamente alta. Se recomienda acción inmediata — comienza por el desglose por capas para identificar la mayor fuente de pérdida.";
-            case DEFICIENT -> "Tu facility está perdiendo una cantidad sustancial de capacidad y presupuesto cada año. Recomendamos un análisis completo por capas y un plan de right-sizing como prioridad.";
-            case MODERATE -> "Hay espacio para una mejora significativa. Una porción importante de tu capacidad instalada no está generando valor — revisa el desglose por capas para ubicar dónde ocurren las mayores pérdidas.";
-            case GOOD -> "Tu facility rinde por encima del promedio, pero aún hay una cantidad relevante de capacidad varada. Revisa las capas de IT y workload para identificar oportunidades de right-sizing.";
-            case EXCELLENT -> "Tu facility opera cerca del punto óptimo de eficiencia. Quedan oportunidades menores de ajuste — explora el análisis completo para encontrar los últimos puntos de capacidad recuperable.";
+            case F -> "La capacidad varada es críticamente alta. Se recomienda acción inmediata — comienza por el desglose por capas para identificar la mayor fuente de pérdida.";
+            case D -> "Tu facility está perdiendo una cantidad sustancial de capacidad y presupuesto cada año. Recomendamos un análisis completo por capas y un plan de right-sizing como prioridad.";
+            case C, C_PLUS -> "Hay espacio para una mejora significativa. Una porción importante de tu capacidad instalada no está generando valor — revisa el desglose por capas para ubicar dónde ocurren las mayores pérdidas.";
+            case A, A_PLUS, A_MINUS -> "Tu facility opera cerca del punto óptimo de eficiencia. Quedan oportunidades menores de ajuste — explora el análisis completo para encontrar los últimos puntos de capacidad recuperable.";
+            case B, B_PLUS, B_MINUS -> "Tu facility rinde por encima del promedio, pero aún hay una cantidad relevante de capacidad varada. Revisa las capas de IT y workload para identificar oportunidades de right-sizing.";
         };
     }
 

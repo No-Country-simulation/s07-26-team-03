@@ -9,10 +9,11 @@ import com.physaflow.server.domain.model.Assessment;
 import com.physaflow.server.domain.model.CalculationConfiguration;
 import com.physaflow.server.domain.model.LayerAnalysis;
 import com.physaflow.server.domain.model.LossFactor;
+import com.physaflow.server.domain.model.types.CalculationInput;
 import com.physaflow.server.domain.model.types.LayerAnalysisCalculationResult;
 import com.physaflow.server.domain.model.types.LayerCalculationResult;
 import com.physaflow.server.domain.model.types.LossFactorCalculationResult;
-import com.physaflow.server.domain.service.calculation.LayerAnalysisCalculationEngine;
+import com.physaflow.server.domain.service.calculation.LayerCalculationService;
 import com.physaflow.server.infrastructure.repository.CalculationConfigurationRepository;
 import com.physaflow.server.infrastructure.repository.LayerAnalysisRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,7 @@ public class LayerAnalysisService {
 
     private final CalculationConfigurationRepository calculationConfigurationRepository;
     private final LayerAnalysisRepository layerAnalysisRepository;
-    private final LayerAnalysisCalculationEngine calculationEngine;
+    private final LayerCalculationService calculationEngine;
     private final LayerAnalysisMapper layerAnalysisMapper;
     private final AssessmentService assessmentService;
 
@@ -55,9 +56,16 @@ public class LayerAnalysisService {
                                 )
                         );
 
+        CalculationInput input =
+                new CalculationInput(
+                        assessment.getFacilityMw(),
+                        assessment.getUtilization(),
+                        assessment.getCoolingType()
+                );
+
         LayerAnalysisCalculationResult result =
                 calculationEngine.calculate(
-                        assessment,
+                        input,
                         configuration
                 );
 

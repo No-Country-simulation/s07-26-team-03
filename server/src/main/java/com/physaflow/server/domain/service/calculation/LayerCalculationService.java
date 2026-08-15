@@ -1,9 +1,9 @@
 package com.physaflow.server.domain.service.calculation;
 
-import com.physaflow.server.domain.model.Assessment;
 import com.physaflow.server.domain.model.CalculationConfiguration;
 import com.physaflow.server.domain.model.enums.CoolingType;
 import com.physaflow.server.domain.model.enums.LayerType;
+import com.physaflow.server.domain.model.types.CalculationInput;
 import com.physaflow.server.domain.model.types.LayerAnalysisCalculationResult;
 import com.physaflow.server.domain.model.types.LayerCalculationResult;
 import com.physaflow.server.domain.model.types.LossFactorCalculationResult;
@@ -11,11 +11,10 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class LayerAnalysisCalculationEngine {
+public class LayerCalculationService {
 
     private static final int SCALE = 6;
 
@@ -30,20 +29,19 @@ public class LayerAnalysisCalculationEngine {
 
     private final LossDistributionCalculationService lossDistributionCalculationService;
 
-    public LayerAnalysisCalculationEngine(LossDistributionCalculationService lossDistributionCalculationService) {
+    public LayerCalculationService(LossDistributionCalculationService lossDistributionCalculationService) {
         this.lossDistributionCalculationService = lossDistributionCalculationService;
     }
 
     public LayerAnalysisCalculationResult calculate(
-            Assessment assessment,
+            CalculationInput input,
             CalculationConfiguration configuration
     ) {
 
-        BigDecimal facilityMw =
-                assessment.getFacilityMw();
+        BigDecimal facilityMw = input.facilityMw();
 
         BigDecimal utilizationDecimal =
-                assessment.getUtilization()
+                input.utilization()
                         .divide(
                                 HUNDRED,
                                 SCALE,
@@ -52,7 +50,7 @@ public class LayerAnalysisCalculationEngine {
 
         BigDecimal coolingFactor =
                 getCoolingFactor(
-                        assessment.getCoolingType(),
+                        input.coolingType(),
                         configuration
                 );
 
@@ -231,7 +229,7 @@ public class LayerAnalysisCalculationEngine {
             case LIQUID ->
                     configuration.getLiquidCoolingFactor();
 
-            case INMERSION ->
+            case IMMERSION ->
                     configuration.getInmersionCoolingFactor();
         };
     }
@@ -249,108 +247,6 @@ public class LayerAnalysisCalculationEngine {
         return lossMw
                 .divide(inputMw, SCALE, RoundingMode.HALF_UP)
                 .multiply(HUNDRED);
-    }
-
-    private List<LossFactorCalculationResult> calculateFacilityLossFactors(
-            BigDecimal inputMw,
-            BigDecimal facilityEfficiency,
-            BigDecimal coolingFactor
-    ) {
-
-        /*
-         * First loss: facility efficiency
-         */
-        BigDecimal afterEfficiency =
-                inputMw.multiply(facilityEfficiency);
-
-        BigDecimal efficiencyLoss =
-                inputMw.subtract(afterEfficiency);
-
-        /*
-         * Second loss: cooling
-         */
-        BigDecimal coolingLoss =
-                afterEfficiency.subtract(
-                        afterEfficiency.multiply(coolingFactor)
-                );
-
-        BigDecimal efficiencyImpact =
-                calculateLossPercent(
-                        efficiencyLoss,
-                        inputMw
-                );
-
-        BigDecimal coolingImpact =
-                calculateLossPercent(
-                        coolingLoss,
-                        inputMw
-                );
-
-        List<LossFactorCalculationResult> factors =
-                new ArrayList<>();
-
-        factors.add(
-                new LossFactorCalculationResult(
-                        "Facility efficiency",
-                        round(efficiencyImpact),
-                        round(efficiencyLoss)
-                )
-        );
-
-        factors.add(
-                new LossFactorCalculationResult(
-                        "Cooling",
-                        round(coolingImpact),
-                        round(coolingLoss)
-                )
-        );
-
-        return factors;
-    }
-
-    private List<LossFactorCalculationResult> calculateWorkloadLossFactors(
-            BigDecimal inputMw,
-            BigDecimal workloadEfficiency,
-            BigDecimal utilizationDecimal
-    ) {
-
-        BigDecimal afterEfficiency =
-                inputMw.multiply(workloadEfficiency);
-
-        BigDecimal efficiencyLoss =
-                inputMw.subtract(afterEfficiency);
-
-        BigDecimal utilizationLoss =
-                afterEfficiency.subtract(
-                        afterEfficiency.multiply(utilizationDecimal)
-                );
-
-        BigDecimal efficiencyImpact =
-                calculateLossPercent(
-                        efficiencyLoss,
-                        inputMw
-                );
-
-        BigDecimal utilizationImpact =
-                calculateLossPercent(
-                        utilizationLoss,
-                        inputMw
-                );
-
-        return List.of(
-
-                new LossFactorCalculationResult(
-                        "Workload efficiency",
-                        round(efficiencyImpact),
-                        round(efficiencyLoss)
-                ),
-
-                new LossFactorCalculationResult(
-                        "Utilization",
-                        round(utilizationImpact),
-                        round(utilizationLoss)
-                )
-        );
     }
 
     private void validateCalculationConsistency(

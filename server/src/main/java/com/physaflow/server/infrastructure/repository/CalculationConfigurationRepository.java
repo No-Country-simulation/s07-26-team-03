@@ -17,5 +17,5 @@ public interface CalculationConfigurationRepository extends JpaRepository<Calcul
     Optional<CalculationConfiguration> findActiveConfiguration();
 
 
-    Optional<CalculationConfiguration> findByActiveTrue();
+    Optional<CalculationConfiguration> findFirstByActiveTrueOrderByCreatedAtDesc();
 }
