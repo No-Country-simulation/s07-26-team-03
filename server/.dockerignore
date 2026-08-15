@@ -1,0 +1,14 @@
+target/
+.git/
+.gitignore
+.dockerignore
+.env
+.env.*
+!.env.example
+logs/
+.idea/
+.vscode/
+*.log
+*.iml
+HELP.md
+REAME.md
