@@ -4,5 +4,5 @@ public enum CoolingType {
     AIR,
     HYBRID,
     LIQUID,
-    INMERSION
+    IMMERSION
 }

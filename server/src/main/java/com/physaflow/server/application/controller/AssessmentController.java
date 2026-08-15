@@ -41,7 +41,8 @@ public class AssessmentController {
                 .toUri();
 
         // 3. Ejecuta el motor matemático y persiste el resultado
-        AssessmentResultResponse assessmentResult = assessmentService.calculateAndSaveResult(response.id());
+//        AssessmentResultResponse assessmentResult = assessmentService.calculateAndSaveResult(response.id());
+        AssessmentResultResponse assessmentResult = assessmentService.calculateBasicAnalisys(response.id());
 
         // 4. Retorna 201 Created con Location y el payload de resultados
         return ResponseEntity.created(location).body(assessmentResult);

@@ -47,4 +47,8 @@ public class LossFactor {
     public int hashCode() {
         return getClass().hashCode();
     }
+
+    void assignTo(LayerAnalysis layerAnalysis) {
+        this.layerAnalysis = layerAnalysis;
+    }
 }

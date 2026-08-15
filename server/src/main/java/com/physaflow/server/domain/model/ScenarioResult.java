@@ -34,12 +34,31 @@ public class ScenarioResult {
     @Column(name = "stranded_mw", precision = 10, scale = 2)
     private BigDecimal strandedMw;
 
-    @Column(name = "annual_cost", precision = 15, scale = 2)
-    private BigDecimal annualCost;
+    @Column(name = "annual_cost_min", precision = 15, scale = 2, nullable = false)
+    private BigDecimal annualCostMin;
+
+    @Column(name = "annual_cost_max", precision = 15, scale = 2, nullable = false)
+    private BigDecimal annualCostMax;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "capacity_score", length = 50)
     private CapacityScore capacityScore;
+
+    /*
+     * Comparison against CURRENT_STATE.
+     */
+
+    @Column(name = "stranded_mw_recovered", precision = 10, scale = 2)
+    private BigDecimal strandedMwRecovered;
+
+    @Column(name = "stranded_percent_reduction", precision = 6, scale = 2)
+    private BigDecimal strandedPercentReduction;
+
+    @Column(name = "annual_cost_savings_min", precision = 15, scale = 2)
+    private BigDecimal annualCostSavingsMin;
+
+    @Column(name = "annual_cost_savings_max", precision = 15, scale = 2)
+    private BigDecimal annualCostSavingsMax;
 
     @Override
     public boolean equals(Object o) {

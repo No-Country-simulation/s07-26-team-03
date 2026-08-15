@@ -1,5 +1,6 @@
 package com.physaflow.server.domain.model;
 
+import com.physaflow.server.domain.model.enums.LayerType;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
@@ -29,8 +30,9 @@ public class LayerAnalysis {
     @JoinColumn(name = "assessment_id", nullable = false)
     private Assessment assessment;
 
-    @Column(name = "layer", length = 100, nullable = false)
-    private String layer;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "layer", nullable = false)
+    private LayerType layer;
 
     @Column(name = "input_mw", precision = 10, scale = 2)
     private BigDecimal inputMw;
@@ -47,7 +49,7 @@ public class LayerAnalysis {
     @Column(name = "display_order", nullable = false)
     private Integer displayOrder;
 
-    @OneToMany(mappedBy = "layerAnalysis", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "layerAnalysis", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<LossFactor> lossFactors = new ArrayList<>();
 
@@ -62,4 +64,14 @@ public class LayerAnalysis {
     public int hashCode() {
         return getClass().hashCode();
     }
+
+    public void addLossFactor(LossFactor lossFactor) {
+        lossFactor.assignTo(this);
+        this.lossFactors.add(lossFactor);
+    }
+
+    public List<LossFactor> getLossFactors() {
+        return List.copyOf(lossFactors);
+    }
+
 }
