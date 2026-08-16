@@ -7,12 +7,17 @@ export const CoolingType = {
 export type CoolingType = typeof CoolingType[keyof typeof CoolingType];
 
 export interface IAssessmentData {
-    facilityMw: number;
-    utilization: number;
-    coolingType: CoolingType;
+  facilityMw: number;
+  utilization: number;
+  coolingType: CoolingType;
 }
 
 export interface IAssessmentRegisterData {
   email: string;
   assessmentId: string;
+}
+
+export interface IVerifyData {
+  email: string;
+  code: string;
 }

@@ -1,7 +1,7 @@
 import type { AxiosResponse } from "axios";
 import { publicRoutes } from "./axios";
-import type { IAssessmentData, IAssessmentRegisterData } from "./types/request.interfaces";
-import type { IAssessmentRegisterResponse, IAssessmentResponse } from "./types/response.interface";
+import type { IAssessmentData, IAssessmentRegisterData, IVerifyData } from "./types/request.interfaces";
+import type { IAssessmentRegisterResponse, IAssessmentResponse, IVerifyResponse } from "./types/response.interface";
 
 const controller = new AbortController();
 
@@ -16,10 +16,10 @@ export const assessmentRegister = (data: IAssessmentRegisterData): Promise<Axios
     ) ;
 }
 
-export const login = (): Promise<AxiosResponse<{ accessToken: string }>> => {
-    return publicRoutes.post<{ accessToken: string }>(
-        "/auth/request-opt",
-        {},
+export const verify = (data: IVerifyData): Promise<AxiosResponse<IVerifyResponse>> => {
+    return publicRoutes.post<IVerifyResponse>(
+        "/auth/veriry-opt",
+        data,
         {
             signal: controller.signal,
         }

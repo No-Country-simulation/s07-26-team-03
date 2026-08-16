@@ -19,3 +19,9 @@ export interface IAssessmentRegisterResponse {
   message: string;
   expiresInSeconds: number;
 }
+
+export interface IVerifyResponse {
+  accessToken: string;
+  tokenType: string;
+  expiresIn: number;
+}

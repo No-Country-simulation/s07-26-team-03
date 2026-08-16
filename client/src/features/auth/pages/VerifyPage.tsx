@@ -3,6 +3,10 @@ import { useVerificationActions } from "../../../shared/hooks/auth/useVerificati
 export default function VerifyPage() {
     const { code, inputRefs, handleChange, handleKeyDown, handlePaste, handleVerify } = useVerificationActions();
 
+    const verify = () => {
+        handleVerify("");
+    }
+
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm p-4">
             <div className="register-card-border flex h-[358px] w-[540px] flex-col items-center justify-center rounded-[20px] bg-surface p-8 text-center shadow-card-figma border border-[#E5E7EB]">
@@ -41,7 +45,7 @@ export default function VerifyPage() {
 
                 <button
                     type="button"
-                    onClick={handleVerify}
+                    onClick={verify}
                     className="flex h-[48px] w-[438px] items-center justify-center rounded-[8px] bg-brand-primary font-poppins font-semibold text-white transition-colors hover:bg-brand-primary-hover active:bg-brand-primary-active"
                 >
                     Verify

@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import type { KeyboardEvent, ClipboardEvent } from "react";
 import type { UseVerificationActionsReturn } from "../../interfaces/verification.interface";
+import { verify } from "@/shared/api";
 
 export function useVerificationActions(): UseVerificationActionsReturn {
     const [code, setCode] = useState<string[]>(["", "", "", "", "", ""]);
@@ -50,8 +51,8 @@ export function useVerificationActions(): UseVerificationActionsReturn {
         inputRefs.current[nextIndex]?.focus();
     };
 
-    const handleVerify = (): void => {
-        alert(`Verificando código: ${code.join("")}`);
+    const handleVerify = (email: string): void => {
+        verify({ code: code.join(""), email });
     };
 
     return {
