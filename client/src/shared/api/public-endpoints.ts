@@ -7,8 +7,9 @@ const controller = new AbortController();
 
 
 export const assessmentRegister = (data: IAssessmentRegisterData): Promise<AxiosResponse<IAssessmentRegisterResponse>> => {
+    console.log(data);
     return publicRoutes.post<IAssessmentRegisterResponse>(
-        "/auth/request-opt",
+        "auth/request-otp",
         data,
         {
             signal: controller.signal,
@@ -17,9 +18,10 @@ export const assessmentRegister = (data: IAssessmentRegisterData): Promise<Axios
 }
 
 export const verify = (data: IVerifyData): Promise<AxiosResponse<IVerifyResponse>> => {
+    console.log(data);
     return publicRoutes.post<IVerifyResponse>(
-        "/auth/veriry-opt",
-        data,
+        "auth/verify-otp",
+        { email: data.email, code: data.code },
         {
             signal: controller.signal,
         }

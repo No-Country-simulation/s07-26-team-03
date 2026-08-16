@@ -1,11 +1,18 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import type { KeyboardEvent, ClipboardEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import type { UseVerificationActionsReturn } from "../../interfaces/verification.interface";
 import { verify } from "@/shared/api";
+import type { AxiosError } from "axios";
+import AuthContext from "@/shared/context/AuthContext";
 
 export function useVerificationActions(): UseVerificationActionsReturn {
     const [code, setCode] = useState<string[]>(["", "", "", "", "", ""]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+    const { setAccessToken } = useContext(AuthContext);
+
+    const navigate = useNavigate();
 
     const handleChange = (value: string, index: number): void => {
         const cleanValue = value.replace(/\D/g, "").slice(-1);
@@ -52,12 +59,23 @@ export function useVerificationActions(): UseVerificationActionsReturn {
     };
 
     const handleVerify = (email: string): void => {
-        verify({ code: code.join(""), email });
+        const response = verify({ email, code: code.join("") });
+        setIsLoading((prev) => !prev);
+        response
+            .then(({ data }) => {
+                setAccessToken(data.accessToken);
+                navigate("/dashboard");
+            }).catch((err: AxiosError) => {
+                console.log(err.message)
+            }).finally(() => {
+                setIsLoading((prev) => !prev)
+            })
     };
 
     return {
         code,
         inputRefs,
+        isLoading,
         handleChange,
         handleKeyDown,
         handlePaste,

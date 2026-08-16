@@ -7,4 +7,5 @@ export interface UseVerificationActionsReturn {
     handleKeyDown: (e: KeyboardEvent<HTMLInputElement>, index: number) => void;
     handlePaste: (e: ClipboardEvent<HTMLInputElement>) => void;
     handleVerify: (email: string) => void;
+    isLoading: boolean;
 }

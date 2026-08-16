@@ -1,10 +1,15 @@
+import { useLocation } from "react-router-dom";
 import { useVerificationActions } from "../../../shared/hooks/auth/useVerificationActions";
 
 export default function VerifyPage() {
     const { code, inputRefs, handleChange, handleKeyDown, handlePaste, handleVerify } = useVerificationActions();
 
+    const location = useLocation();
+
+    const email = location.state["email"] as string;
+
     const verify = () => {
-        handleVerify("");
+        handleVerify(email);
     }
 
     return (
