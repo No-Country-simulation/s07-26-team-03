@@ -1,13 +1,21 @@
-import type { MouseEvent } from "react";
+import { useState, type MouseEvent } from "react";
+import { assessmentRegister } from '@/shared/api/public-endpoints';
+import type { IAssessmentRegisterData } from "@/shared/api";
+import type { AxiosError } from "axios";
+import type { IAssessmentRegisterResponse } from "@/shared/api/types/response.interface";
 
 export interface UseRegisterActionsReturn {
     handleGoogleAuth: () => void;
     handleFacebookAuth: () => void;
-    handleContinue: () => void;
+    handleContinue: (data: IAssessmentRegisterData) => void;
     handleLoginNavigation: (e: MouseEvent<HTMLAnchorElement>) => void;
+    isLoading: boolean;
+    data?: IAssessmentRegisterResponse;
 }
 
 export function useRegisterActions(): UseRegisterActionsReturn {
+    const [data, setData] = useState<IAssessmentRegisterResponse>();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const handleGoogleAuth = (): void => {
         alert("Cargando autenticación con Google...");
     };
@@ -16,8 +24,13 @@ export function useRegisterActions(): UseRegisterActionsReturn {
         alert("Cargando autenticación con Facebook...");
     };
 
-    const handleContinue = (): void => {
-        alert("Cargando dashboard...");
+    const handleContinue = (data: IAssessmentRegisterData) => {
+        setIsLoading((prev) => !prev)
+        assessmentRegister(data)
+            .then(({ data: response }) => setData(response))
+            .catch((err: AxiosError) => console.log(err))
+            .finally(() => setIsLoading((prev) => !prev));
+
     };
 
     const handleLoginNavigation = (e: MouseEvent<HTMLAnchorElement>): void => {
@@ -30,5 +43,7 @@ export function useRegisterActions(): UseRegisterActionsReturn {
         handleFacebookAuth,
         handleContinue,
         handleLoginNavigation,
+        data,
+        isLoading
     };
 }

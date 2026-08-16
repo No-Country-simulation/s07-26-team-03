@@ -1,4 +1,3 @@
-import { LockIcon } from "@/shared/components/icons/LockIcon";
 import { LuClock, LuLockKeyholeOpen, LuChartColumn } from "react-icons/lu";
 
 /**

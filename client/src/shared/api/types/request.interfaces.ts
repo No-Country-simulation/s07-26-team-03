@@ -11,3 +11,8 @@ export interface IAssessmentData {
     utilization: number;
     coolingType: CoolingType;
 }
+
+export interface IAssessmentRegisterData {
+  email: string;
+  assessmentId: string;
+}

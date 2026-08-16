@@ -14,3 +14,8 @@ export interface IAssessmentResponse {
   algorithmVersion: string;
   calculatedAt: string;
 }
+
+export interface IAssessmentRegisterResponse {
+  message: string;
+  expiresInSeconds: number;
+}

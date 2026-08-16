@@ -1,15 +1,27 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { useRegisterActions } from "../../../shared/hooks/auth/useRegisterActions";
+import { useState } from "react";
 
 export default function RegisterPage() {
+    const [email, setEmail] = useState<string>("");
     const navigate = useNavigate();
     const {
         handleGoogleAuth,
         handleFacebookAuth,
         handleContinue,
+        isLoading,
     } = useRegisterActions();
+
+    const location = useLocation();
+
+    const assessmentId = location.state["id"] as string;
+
+    const handleRegister = () => {
+        const data = { email, assessmentId }
+        handleContinue(data);
+    }
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-background p-4">
@@ -50,6 +62,8 @@ export default function RegisterPage() {
                         id="email"
                         type="email"
                         placeholder="balamia@gmail.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         className="w-full rounded-lg border-[3px] border-[#E5E7EB] bg-transparent px-3 py-2 font-poppins text-[16px] font-normal text-text outline-none transition-colors placeholder:font-poppins placeholder:text-[16px] placeholder:font-normal placeholder:text-text focus:border-[#4B5563]"
                     />
                 </div>
@@ -58,13 +72,23 @@ export default function RegisterPage() {
                     By continuing, you agree that we create an account for you (unless already created), and accept our Terms and Conditions and Privacy Policy.
                 </p>
 
-                <button
-                    type="button"
-                    onClick={handleContinue}
-                    className="mb-6 flex h-[48px] w-full items-center justify-center rounded-[8px] bg-brand-primary font-poppins font-normal text-white transition-colors hover:bg-brand-primary-hover active:bg-brand-primary-active cursor-pointer"
-                >
-                    Continue
-                </button>
+                {isLoading
+                    ? <button
+                        type="button"
+                        disabled={true}
+                        className="mb-6 flex h-[48px] w-full items-center justify-center rounded-[8px] bg-brand-primary font-poppins font-normal text-white transition-colors hover:bg-brand-primary-hover active:bg-brand-primary-active cursor-pointer"
+                      >
+                        <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                      </button>
+
+                    : <button
+                        type="button"
+                        onClick={handleRegister}
+                        className="mb-6 flex h-[48px] w-full items-center justify-center rounded-[8px] bg-brand-primary font-poppins font-normal text-white transition-colors hover:bg-brand-primary-hover active:bg-brand-primary-active cursor-pointer"
+                    >
+                        Continue
+                    </button>
+                }
 
                 <p className="font-poppins text-[16px] font-normal text-[#70707B]">
                     Already Register your Email ?{" "}
