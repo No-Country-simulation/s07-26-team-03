@@ -10,10 +10,9 @@ type options = {
 const useRefresh = ({ onSuccess, onReject, setToken }: options ) => {
   const setRefresh = async () => {
     try {
-      const { data } = await refreshSession();
-      setToken?.(data.accessToken);
+      const { accessToken } = await refreshSession();
+      setToken?.(accessToken);
       onSuccess?.()
-      return data;
     } catch (error) {
       if (error instanceof AxiosError) onReject?.(error)
       // eslint-disable-next-line no-console

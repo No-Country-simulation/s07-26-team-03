@@ -64,7 +64,6 @@ export function useVerificationActions(): UseVerificationActionsReturn {
         response
             .then(({ data }) => {
                 setAccessToken(data.accessToken);
-                console.log(data.accessToken);
                 navigate("/dashboard", { state: { assessmentId }});
             }).catch((err: AxiosError) => {
                 console.log(err.message)

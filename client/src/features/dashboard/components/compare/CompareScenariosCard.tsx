@@ -8,27 +8,26 @@ export const CompareScenariosCard: React.FC = () => {
     useCompareScenariosActions();
 
   return (
-    <div className="w-full lg:w-[250px] shrink-0 flex flex-col gap-4">
+    <div className="w-full shrink-0 flex flex-col gap-4">
       <div className="flex flex-col justify-between rounded-none bg-white p-4 shadow-[4px_4px_4px_rgba(177,177,177,0.15)]">
         <div className="flex flex-col gap-1">
-          <h2 className="font-heading text-lg font-bold text-heading">
+          <h2 className="font-heading text-lg font-medium text-heading">
             Compare Scenarios
           </h2>
-          <p className="font-body text-sm leading-tight text-text-muted text-left">
+          <p className="font-body text-sm leading-tight text-text-muted text-left font-normal">
             See the impact of different optimization strategies
           </p>
         </div>
 
         <div className="mt-3.5 flex flex-col gap-2.5">
-          {/* Current State */}
           <div className="flex flex-col justify-center rounded-lg border border-brand-primary bg-[#E7F0EB] px-3 py-2.5">
-            <span className="font-heading text-sm font-semibold text-heading text-left">
+            <span className="font-heading text-sm font-medium text-heading text-left">
               Current State
             </span>
             <div className="flex items-center justify-between mt-1">
               <div className="flex items-center gap-1.5">
                 <span className="h-2 w-2 rounded-full bg-brand-primary shrink-0" />
-                <span className="font-body text-sm font-bold text-brand-primary">
+                <span className="font-body text-sm font-medium text-brand-primary">
                   62% wasted
                 </span>
               </div>
@@ -38,15 +37,14 @@ export const CompareScenariosCard: React.FC = () => {
             </div>
           </div>
 
-          {/* Moderate Optimization */}
           <div className="flex flex-col justify-center rounded-lg border border-[#9FDCFC] bg-[#E0F2FE] px-3 py-2.5">
-            <span className="font-heading text-sm font-semibold text-heading text-left">
+            <span className="font-heading text-sm font-medium text-heading text-left">
               Moderate Optimization
             </span>
             <div className="flex items-center justify-between mt-1">
               <div className="flex items-center gap-1.5">
                 <span className="h-2 w-2 rounded-full bg-[#0284C7] shrink-0" />
-                <span className="font-body text-sm font-bold text-[#0284C7]">
+                <span className="font-body text-sm font-medium text-[#0284C7]">
                   38% wasted
                 </span>
               </div>
@@ -56,15 +54,14 @@ export const CompareScenariosCard: React.FC = () => {
             </div>
           </div>
 
-          {/* Max Optimization */}
           <div className="flex flex-col justify-center rounded-lg border border-[#6FA587] bg-[#FEF3C7] px-3 py-2.5">
-            <span className="font-heading text-sm font-semibold text-heading text-left">
+            <span className="font-heading text-sm font-medium text-heading text-left">
               Max Optimization
             </span>
             <div className="flex items-center justify-between mt-1">
               <div className="flex items-center gap-1.5">
                 <span className="h-2 w-2 rounded-full bg-brand-primary shrink-0" />
-                <span className="font-body text-sm font-bold text-brand-primary">
+                <span className="font-body text-sm font-medium text-brand-primary">
                   22% wasted
                 </span>
               </div>
@@ -81,7 +78,7 @@ export const CompareScenariosCard: React.FC = () => {
           className="mt-4 flex w-full items-center justify-center gap-1.5 rounded-lg border border-[#E5E7EB] bg-[#F8F9FA] py-2 font-body text-xs font-medium text-[#4B5563] transition-colors hover:bg-gray-100 active:bg-gray-200 whitespace-nowrap"
         >
           <span>View Scenarios Comparation</span>
-          <LuArrowRight className="h-3.5 w-3.5 shrink-0 stroke-[2.5]" />
+          <LuArrowRight className="h-3.5 w-3.5 shrink-0 stroke-[2]" />
         </button>
       </div>
 
@@ -95,10 +92,10 @@ export const CompareScenariosCard: React.FC = () => {
         </div>
 
         <div className="flex flex-col items-center gap-1">
-          <h3 className="font-heading text-base font-bold text-heading leading-tight">
+          <h3 className="font-heading text-base font-medium text-heading leading-tight">
             Export &amp; Share your Report
           </h3>
-          <p className="font-body text-xs text-text-muted leading-tight">
+          <p className="font-body text-xs text-text-muted leading-tight font-normal">
             Download or share a professional report with detailed insights.
           </p>
         </div>
