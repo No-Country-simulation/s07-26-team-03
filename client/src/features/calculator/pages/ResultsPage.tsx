@@ -12,7 +12,6 @@ import { useEffect } from "react";
 
 const CalculatorPage = () => {
   const {
-    stepIndex,
     results,
     resultCard,
     formData,
