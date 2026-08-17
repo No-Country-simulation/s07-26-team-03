@@ -4,6 +4,7 @@ import type { IAssessmentRegisterData } from "@/shared/api";
 import type { AxiosError } from "axios";
 import type { IAssessmentRegisterResponse } from "@/shared/api/types/response.interface";
 import { useNavigate } from "react-router-dom";
+import { HTTP_ERROR_MESSAGES } from "@/shared/api/types/api.types";
 
 export interface UseRegisterActionsReturn {
     handleGoogleAuth: () => void;
@@ -38,7 +39,7 @@ export function useRegisterActions(): UseRegisterActionsReturn {
                 navigate("/verify", { state: { email: data.email, assessmentId }})
             })
             .catch((err: AxiosError) => {
-                setErrorMessage(err.message);
+                setErrorMessage(HTTP_ERROR_MESSAGES[err.response?.status ?? 500]);
             })
             .finally(() => {
                 setIsLoading((prev) => !prev);

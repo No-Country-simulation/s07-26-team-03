@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useOutletContext } from "react-router-dom";
 import type { DashboardTab } from "../types/dashboard-sidebar.types";
 import { CapacityFlowCard } from "../components/capacity/CapacityFlowCard";
@@ -12,6 +12,7 @@ import { LuDownload, LuShare2 } from "react-icons/lu";
 import graficoBarrasIcon from "@/assets/icons/barChart.png";
 
 const DashboardPage: React.FC = () => {
+  const [data, setData] = useState<IAssessmentLayersAnalysis | null>();
   const { activeTab, setActiveTab } = useOutletContext<{
     activeTab: DashboardTab;
     setActiveTab: (tab: DashboardTab) => void;
@@ -23,11 +24,10 @@ const DashboardPage: React.FC = () => {
 
   const assessmentId = location.state["assessmentId"] as string;
 
-
-  const response = protectedRoutes.get<IAssessmentLayersAnalysis>(`assessments/${assessmentId}/layer-analysis`);
-
-  response.then(({ data }) => console.log(data));
-
+  useEffect(() => {
+    protectedRoutes.get<IAssessmentLayersAnalysis>(`assessments/${assessmentId}/layer-analysis`)
+      .then(({ data }) => setData(data))
+  }, [])
 
   const [lastAnalysisDate, setLastAnalysisDate] = useState<string>(
     "May 12, 2025 at 10:25"

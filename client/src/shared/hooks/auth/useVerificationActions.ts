@@ -5,6 +5,7 @@ import type { UseVerificationActionsReturn } from "../../interfaces/verification
 import { verify } from "@/shared/api";
 import type { AxiosError } from "axios";
 import AuthContext from "@/shared/context/AuthContext";
+import { HTTP_ERROR_MESSAGES } from "@/shared/api/types/api.types";
 
 export function useVerificationActions(): UseVerificationActionsReturn {
     const [code, setCode] = useState<string[]>(["", "", "", "", "", ""]);
@@ -67,7 +68,7 @@ export function useVerificationActions(): UseVerificationActionsReturn {
                 setAccessToken(data.accessToken);
                 navigate("/dashboard", { state: { assessmentId }});
             }).catch((err: AxiosError) => {
-                setErrorMessage(err.message);
+                setErrorMessage(HTTP_ERROR_MESSAGES[err.response?.status ?? 500]);
             }).finally(() => {
                 setIsLoading((prev) => !prev);
                 setTimeout(() => {

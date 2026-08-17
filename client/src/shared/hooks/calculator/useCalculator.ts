@@ -9,6 +9,7 @@ import { sendAssessmentRequest, getAssessmentSavedResults } from '@/shared/api/p
 import type { IAssessmentData } from "@/shared/api";
 import type { IAssessmentResponse } from "@/shared/api/types/response.interface";
 import type { AxiosError } from "axios";
+import { HTTP_ERROR_MESSAGES } from "@/shared/api/types/api.types";
 
 export const STEPS_CONFIG = [
     FACILITY_SIZE_GROUP,
@@ -71,7 +72,7 @@ export function useCalculator() {
             setResultCard((prev) => !prev);
         })
         .catch((err: AxiosError) => {
-            setErrorMessage(`Error: ${err.message}`);
+            setErrorMessage(HTTP_ERROR_MESSAGES[err.response?.status ?? 500]);
         })
         .finally(() => {
             setIsLoading((prev) => !prev);
