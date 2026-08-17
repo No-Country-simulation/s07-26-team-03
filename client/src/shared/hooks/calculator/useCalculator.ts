@@ -20,9 +20,9 @@ export const STEPS_CONFIG = [
 export function useCalculator() {
     const [stepIndex, setStepIndex] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [resultCard, setResultCard] = useState<boolean>(false);
-    const [results, setResults] = useState<IAssessmentResponse>() 
-
+    const [results, setResults] = useState<IAssessmentResponse>()
     const [formData, setFormData] = useState<{ [key: number]: string }>({
         0: "medium",
         1: "healthy",
@@ -71,10 +71,13 @@ export function useCalculator() {
             setResultCard((prev) => !prev);
         })
         .catch((err: AxiosError) => {
-            console.log(err);
+            setErrorMessage(`Error: ${err.message}`);
         })
         .finally(() => {
             setIsLoading((prev) => !prev);
+            setTimeout(() => {
+                setErrorMessage(null);
+            }, 3000);
         })
     }
 
@@ -125,6 +128,7 @@ export function useCalculator() {
         currentCard,
         formData,
         fineTuneValues,
+        errorMessage,
         handleNext,
         handleBack,
         handleCardChange,

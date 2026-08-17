@@ -9,6 +9,7 @@ import AuthContext from "@/shared/context/AuthContext";
 export function useVerificationActions(): UseVerificationActionsReturn {
     const [code, setCode] = useState<string[]>(["", "", "", "", "", ""]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
     const { setAccessToken } = useContext(AuthContext);
 
@@ -66,16 +67,20 @@ export function useVerificationActions(): UseVerificationActionsReturn {
                 setAccessToken(data.accessToken);
                 navigate("/dashboard", { state: { assessmentId }});
             }).catch((err: AxiosError) => {
-                console.log(err.message)
+                setErrorMessage(err.message);
             }).finally(() => {
-                setIsLoading((prev) => !prev)
-            })
+                setIsLoading((prev) => !prev);
+                setTimeout(() => {
+                    setErrorMessage(null);
+                }, 3000);
+            });
     };
 
     return {
         code,
         inputRefs,
         isLoading,
+        errorMessage,
         handleChange,
         handleKeyDown,
         handlePaste,

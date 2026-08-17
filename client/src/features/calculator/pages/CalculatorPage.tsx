@@ -10,6 +10,7 @@ import { Modal } from "@/shared/components/ui/modal/Modal";
 import { useShareResult } from "@/shared/hooks/calculator/useShareResult";
 import { useCalculatorContext } from "@/app/contexts/CalculatorContext";
 import type { CoolingType } from "@/shared/api";
+import { LuMessageCircleWarning, LuTriangleAlert } from "react-icons/lu";
 
 const CalculatorPage = () => {
   const {
@@ -31,7 +32,8 @@ const CalculatorPage = () => {
     isModalOpen,
     setIsModalOpen,
     shareUrl,
-    setShareUrl
+    setShareUrl,
+    errorMessage,
   } = useCalculatorContext();
 
   const { alertMessage, handleCopy } = useShareResult();
@@ -55,11 +57,17 @@ const CalculatorPage = () => {
     setShareUrl("http://shrareurl.com");
   };
 
-  if (resultCard) console.log(results);
-
   return (
     <>
       <div className="mx-auto my-30 flex min-h-[600px] w-full max-w-[800px] flex-col gap-10 rounded-[32px] bg-white p-8 shadow-[0_2px_15px_rgba(25,33,61,0.1)]">
+        {/* Mensaje de error del servidor */}
+        {errorMessage && (
+          <div className="fixed inline-flex justify-center space-x-1 items-center left-1/2 top-6 z-50 -translate-x-1/2 animate-bounce rounded-lg bg-red-200 px-4 py-2 font-poppins text-xs font-medium text-[16px] text-red-900 shadow-lg">
+            <LuTriangleAlert />
+            <p>{errorMessage}</p>
+          </div>
+        )}
+        
         {/* Barra de pasos */}
         <ProgressStepper currentStep={currentStep} />
 

@@ -8,4 +8,5 @@ export interface UseVerificationActionsReturn {
     handlePaste: (e: ClipboardEvent<HTMLInputElement>) => void;
     handleVerify: (email: string, assessmentId: string) => void;
     isLoading: boolean;
+    errorMessage: string | null;
 }

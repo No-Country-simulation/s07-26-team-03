@@ -3,14 +3,13 @@ import axios from "axios";
 import { env } from "@/app/config/env";
 
 export const publicRoutes = axios.create({
-
-    baseURL: env.API_URL
-
+    baseURL: env.API_URL,
+    timeout: 10000,
 });
 
 export const protectedRoutes = axios.create({
   baseURL: env.API_URL,
-  timeout: 30000,
+  timeout: 10000,
   withCredentials: true,
 
   headers: {

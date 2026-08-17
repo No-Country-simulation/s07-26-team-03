@@ -11,12 +11,14 @@ export interface UseRegisterActionsReturn {
     handleContinue: (data: IAssessmentRegisterData, assessmentId: string) => void;
     handleLoginNavigation: (e: MouseEvent<HTMLAnchorElement>) => void;
     isLoading: boolean;
+    errorMessage: string | null;
     data?: IAssessmentRegisterResponse;
 }
 
 export function useRegisterActions(): UseRegisterActionsReturn {
     const [data, setData] = useState<IAssessmentRegisterResponse>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     const navigate = useNavigate();
 
@@ -35,8 +37,15 @@ export function useRegisterActions(): UseRegisterActionsReturn {
                 setData(response);
                 navigate("/verify", { state: { email: data.email, assessmentId }})
             })
-            .catch((err: AxiosError) => console.log(err))
-            .finally(() => setIsLoading((prev) => !prev));
+            .catch((err: AxiosError) => {
+                setErrorMessage(err.message);
+            })
+            .finally(() => {
+                setIsLoading((prev) => !prev);
+                setTimeout(() => {
+                    setErrorMessage(null);
+                }, 3000);
+            });
 
     };
 
@@ -51,6 +60,7 @@ export function useRegisterActions(): UseRegisterActionsReturn {
         handleContinue,
         handleLoginNavigation,
         data,
-        isLoading
+        isLoading,
+        errorMessage
     };
 }

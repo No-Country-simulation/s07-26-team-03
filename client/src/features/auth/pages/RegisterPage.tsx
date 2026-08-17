@@ -3,6 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { useRegisterActions } from "../../../shared/hooks/auth/useRegisterActions";
 import { useState } from "react";
+import { LuTriangleAlert } from "react-icons/lu";
 
 export default function RegisterPage() {
     const [email, setEmail] = useState<string>("");
@@ -12,6 +13,7 @@ export default function RegisterPage() {
         handleFacebookAuth,
         handleContinue,
         isLoading,
+        errorMessage,
     } = useRegisterActions();
 
     const location = useLocation();
@@ -25,6 +27,12 @@ export default function RegisterPage() {
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-background p-4">
+            {errorMessage && (
+                <div className="fixed inline-flex justify-center space-x-1 items-center left-1/2 top-6 z-50 -translate-x-1/2 animate-bounce rounded-lg bg-red-200 px-4 py-2 font-poppins text-xs font-medium text-[16px] text-red-900 shadow-lg">
+                    <LuTriangleAlert />
+                    <p>{errorMessage}</p>
+                </div>
+            )}
             <div className="register-card-border flex h-[546px] w-[540px] flex-col items-center justify-center rounded-[20px] bg-surface p-8 text-center shadow-card-figma">
                 <h2 className="mb-6 text-[22px] font-bold leading-tight text-[#171819]">
                     Register your Email
