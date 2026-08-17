@@ -25,3 +25,26 @@ export interface IVerifyResponse {
   tokenType: string;
   expiresIn: number;
 }
+
+export interface IAssessmentLayersAnalysis {
+  assessmentId: string;
+  layers: [
+    {
+      layer: string;
+      inputMw: number;
+      outputMw: number;
+      lossMw: number;
+      lossPercent: number;
+      displayOrder: number;
+      lossFactors: [
+        {
+          factor: string;
+          impactPercent: number;
+          impactMw: number;
+        }
+      ]
+    }
+  ],
+  strandedMw: number;
+  strandedPercent: number;
+}

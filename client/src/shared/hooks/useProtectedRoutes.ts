@@ -1,15 +1,18 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { AxiosError } from "axios";
-import { protectedRoutes } from "../api";
+import { protectedRoutes, refreshSession } from "../api";
+import AuthContext from "../context/AuthContext";
 
 
 const useProtectedRoutes = () => {
+    const { accessToken, setAccessToken } = useContext(AuthContext);
+
     useEffect(() => {
 
         const requestIntercept = protectedRoutes.interceptors.request.use(
             config => {
                 if (!config.headers["Authorization"]) {
-                    config.headers["Authorization"] = `Bearer "token"`
+                    config.headers["Authorization"] = `Bearer ${accessToken}`
                 }
                 return config;
             }, (error) => Promise.reject(error),
@@ -21,13 +24,13 @@ const useProtectedRoutes = () => {
                 const prevRequest = error.config;
                 if (!prevRequest) return
                 else if (error.response?.status === 401) {
-                    // const data = refresh();
-                    // if (data) {
-                    //   const { accessToken: newAccessToken } = data;
-                    //   setAccessToken(newAccessToken);
-                    //   prevRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-                    //   return protectedRoutes(prevRequest);
-                    // }
+                    const data = await refreshSession();
+                    if (data) {
+                      const { accessToken: newAccessToken } = data;
+                      setAccessToken(newAccessToken);
+                      prevRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+                      return protectedRoutes(prevRequest);
+                    }
                 };
                 return Promise.reject(error)
             }

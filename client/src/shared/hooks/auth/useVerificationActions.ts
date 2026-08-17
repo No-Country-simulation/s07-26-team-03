@@ -58,13 +58,14 @@ export function useVerificationActions(): UseVerificationActionsReturn {
         inputRefs.current[nextIndex]?.focus();
     };
 
-    const handleVerify = (email: string): void => {
+    const handleVerify = (email: string, assessmentId: string): void => {
         const response = verify({ email, code: code.join("") });
         setIsLoading((prev) => !prev);
         response
             .then(({ data }) => {
                 setAccessToken(data.accessToken);
-                navigate("/dashboard");
+                console.log(data.accessToken);
+                navigate("/dashboard", { state: { assessmentId }});
             }).catch((err: AxiosError) => {
                 console.log(err.message)
             }).finally(() => {

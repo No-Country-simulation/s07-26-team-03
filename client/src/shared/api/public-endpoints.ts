@@ -28,9 +28,9 @@ export const verify = (data: IVerifyData): Promise<AxiosResponse<IVerifyResponse
     ) ;
 }
 
-export const refreshSession = (): Promise<AxiosResponse<{ accessToken: string }>> => {
-    return publicRoutes.get<{ accessToken: string }>(
-        "/auth/refresh",
+export const refreshSession = async (): Promise<{ accessToken: string }> => {
+    const response = await publicRoutes.get<{ accessToken: string }>(
+        "auth/refresh",
         { 
             withCredentials: true,
             headers: {
@@ -38,7 +38,9 @@ export const refreshSession = (): Promise<AxiosResponse<{ accessToken: string }>
                 'Access-Control-Allow-Credentials': 'true',
             }
         },
-    ) ;
+    );
+
+    return response.data;
 }
 
 export const sendAssessmentRequest = (data: IAssessmentData): Promise<AxiosResponse<IAssessmentResponse>> => {

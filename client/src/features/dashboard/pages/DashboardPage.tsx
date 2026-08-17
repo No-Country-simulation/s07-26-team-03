@@ -1,15 +1,29 @@
 import React, { useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { data, useLocation, useOutletContext } from "react-router-dom";
 import type { DashboardTab } from "../types/dashboard-sidebar.types";
 import { CapacityFlowCard } from "../components/capacity/CapacityFlowCard";
 import { CompareScenariosCard } from "../components/CompareScenariosCard";
 import { CalculatorCards } from "../../calculator/components/CalculatorCards";
+import useProtectedRoutes from "@/shared/hooks/useProtectedRoutes";
+import type { IAssessmentLayersAnalysis } from "@/shared/api/types/response.interface";
 
 const DashboardPage: React.FC = () => {
   const { activeTab } = useOutletContext<{
     activeTab: DashboardTab;
     setActiveTab: (tab: DashboardTab) => void;
   }>();
+
+  const location = useLocation();
+
+  const { protectedRoutes } = useProtectedRoutes();
+
+  const assessmentId = location.state["assessmentId"] as string;
+
+
+  const response = protectedRoutes.get<IAssessmentLayersAnalysis>(`assessments/${assessmentId}/layer-analysis`);
+
+  response.then(({ data }) => console.log(data));
+
 
   const [lastAnalysisDate, setLastAnalysisDate] = useState<string>(
     "May 12, 2025 at 10:25"

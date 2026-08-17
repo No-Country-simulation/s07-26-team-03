@@ -7,9 +7,10 @@ export default function VerifyPage() {
     const location = useLocation();
 
     const email = location.state["email"] as string;
+    const assessmentId = location.state["assessmentId"] as string;
 
     const verify = () => {
-        handleVerify(email);
+        handleVerify(email, assessmentId);
     }
 
     return (

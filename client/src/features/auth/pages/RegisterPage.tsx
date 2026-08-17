@@ -16,11 +16,11 @@ export default function RegisterPage() {
 
     const location = useLocation();
 
-    const assessmentId = location.state["id"] as string;
+    const assessmentId = location.state["assessmentId"] as string;
 
     const handleRegister = () => {
-        const data = { email, assessmentId }
-        handleContinue(data);
+        const data = { email, assessmentId };
+        handleContinue(data, assessmentId);
     }
 
     return (

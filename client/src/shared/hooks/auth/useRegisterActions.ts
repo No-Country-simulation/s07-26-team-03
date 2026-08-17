@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 export interface UseRegisterActionsReturn {
     handleGoogleAuth: () => void;
     handleFacebookAuth: () => void;
-    handleContinue: (data: IAssessmentRegisterData) => void;
+    handleContinue: (data: IAssessmentRegisterData, assessmentId: string) => void;
     handleLoginNavigation: (e: MouseEvent<HTMLAnchorElement>) => void;
     isLoading: boolean;
     data?: IAssessmentRegisterResponse;
@@ -28,12 +28,12 @@ export function useRegisterActions(): UseRegisterActionsReturn {
         alert("Cargando autenticación con Facebook...");
     };
 
-    const handleContinue = (data: IAssessmentRegisterData) => {
+    const handleContinue = (data: IAssessmentRegisterData, assessmentId: string) => {
         setIsLoading((prev) => !prev)
         assessmentRegister(data)
             .then(({ data: response }) => {
                 setData(response);
-                navigate("/verify", { state: { email: data.email }})
+                navigate("/verify", { state: { email: data.email, assessmentId }})
             })
             .catch((err: AxiosError) => console.log(err))
             .finally(() => setIsLoading((prev) => !prev));

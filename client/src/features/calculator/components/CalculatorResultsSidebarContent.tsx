@@ -20,7 +20,7 @@ export default function CalculatorResultsSidebarContent() {
     };
 
     const navigateToRegister = () => {
-        navigate("/register", { state: { id: results?.assessmentId }});
+        navigate("/register", { state: { assessmentId: results?.assessmentId }});
     }
 
     return (

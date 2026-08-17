@@ -16,7 +16,5 @@ export const protectedRoutes = axios.create({
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
-    "Access-Control-Allow-origin": "*",
-    'Access-Control-Allow-Credentials': 'true',
   },
 });
