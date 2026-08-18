@@ -18,6 +18,8 @@ const DashboardPage: React.FC = () => {
     setActiveTab: (tab: DashboardTab) => void;
   }>();
 
+  console.log(data);
+
   const location = useLocation();
 
   const { protectedRoutes } = useProtectedRoutes();

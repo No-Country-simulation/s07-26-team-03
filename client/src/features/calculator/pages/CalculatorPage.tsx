@@ -10,7 +10,7 @@ import { Modal } from "@/shared/components/ui/modal/Modal";
 import { useShareResult } from "@/shared/hooks/calculator/useShareResult";
 import { useCalculatorContext } from "@/app/contexts/CalculatorContext";
 import type { CoolingType } from "@/shared/api";
-import { LuMessageCircleWarning, LuTriangleAlert } from "react-icons/lu";
+import { LuTriangleAlert } from "react-icons/lu";
 
 const CalculatorPage = () => {
   const {
