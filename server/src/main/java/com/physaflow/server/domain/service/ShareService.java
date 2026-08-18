@@ -91,6 +91,22 @@ public class ShareService {
         return shareMapper.toPublicResponse(result);
     }
 
+    /**
+     * Resolves the assessment ID behind a valid public share token.
+     * Does not increment the view counter.
+     */
+    @Transactional(readOnly = true)
+    public UUID getAssessmentIdByPublicToken(String token) {
+        Share share = shareRepository.findByPublicToken(token)
+                .orElseThrow(() -> new NotFoundException("Link not found or expired."));
+
+        if (isExpired(share)) {
+            throw new NotFoundException("Link not found or expired.");
+        }
+
+        return share.getAssessment().getId();
+    }
+
     @Transactional
     public void revokeShare(UUID shareId) {
         log.info("Revoking share ID: {}", shareId);

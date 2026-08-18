@@ -41,6 +41,7 @@ public class SecurityConfig {
             new PublicEndpoint("/api/v1/assessments", HttpMethod.POST),
             new PublicEndpoint("/api/v1/assessments/{id}", HttpMethod.GET),
             new PublicEndpoint("/api/v1/public/shares/{token}", HttpMethod.GET),
+            new PublicEndpoint("/api/v1/public/shares/{token}/report/pdf", HttpMethod.GET),
             new PublicEndpoint("/api/v1/auth/request-otp", HttpMethod.POST),
             new PublicEndpoint("/api/v1/auth/verify-otp", HttpMethod.POST),
             new PublicEndpoint("/swagger-ui/**", HttpMethod.GET),
