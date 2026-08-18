@@ -8,7 +8,7 @@ const controller = new AbortController();
 
 export const assessmentRegister = (data: IAssessmentRegisterData): Promise<AxiosResponse<IAssessmentRegisterResponse>> => {
     return publicRoutes.post<IAssessmentRegisterResponse>(
-        "auth/request-otp",
+        "api/v1/auth/request-otp",
         data,
         {
             signal: controller.signal,
@@ -18,7 +18,7 @@ export const assessmentRegister = (data: IAssessmentRegisterData): Promise<Axios
 
 export const verify = (data: IVerifyData): Promise<AxiosResponse<IVerifyResponse>> => {
     return publicRoutes.post<IVerifyResponse>(
-        "auth/verify-otp",
+        "api/v1/auth/verify-otp",
         { email: data.email, code: data.code },
         {
             signal: controller.signal,
@@ -28,7 +28,7 @@ export const verify = (data: IVerifyData): Promise<AxiosResponse<IVerifyResponse
 
 export const refreshSession = async (): Promise<{ accessToken: string }> => {
     const response = await publicRoutes.get<{ accessToken: string }>(
-        "auth/refresh",
+        "api/v1/auth/refresh",
         { 
             withCredentials: true,
             headers: {
@@ -43,7 +43,7 @@ export const refreshSession = async (): Promise<{ accessToken: string }> => {
 
 export const sendAssessmentRequest = (data: IAssessmentData): Promise<AxiosResponse<IAssessmentResponse>> => {
     return publicRoutes.post<IAssessmentResponse>(
-        "assessments",
+        "api/v1/assessments",
         data,
         {
             signal: controller.signal,
@@ -52,5 +52,5 @@ export const sendAssessmentRequest = (data: IAssessmentData): Promise<AxiosRespo
 }
 
 export const getAssessmentSavedResults = (id: string): Promise<AxiosResponse<IAssessmentResponse>> => {
-    return publicRoutes.get<IAssessmentResponse>(`assessments/${id}`);
+    return publicRoutes.get<IAssessmentResponse>(`api/v1/assessments/${id}`);
 }

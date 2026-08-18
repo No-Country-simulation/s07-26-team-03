@@ -27,7 +27,7 @@ const DashboardPage: React.FC = () => {
   const assessmentId = location.state["assessmentId"] as string;
 
   useEffect(() => {
-    protectedRoutes.get<IAssessmentLayersAnalysis>(`assessments/${assessmentId}/layer-analysis`)
+    protectedRoutes.get<IAssessmentLayersAnalysis>(`api/v1/assessments/${assessmentId}/layer-analysis`)
       .then(({ data }) => setData(data))
   }, [])
 
