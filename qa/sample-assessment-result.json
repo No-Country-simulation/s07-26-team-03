@@ -1,0 +1,12 @@
+{
+  "facilityMw": 1.00,
+  "utilization": 100.00,
+  "coolingType": "AIR",
+  "strandedMw": 0.54,
+  "strandedPercent": 54.00,
+  "annualCostMin": 638604.00,
+  "annualCostMax": 780516.00,
+  "capacityScore": "B-",
+  "recommendationSummary": "Hay espacio para una mejora significativa. Una porción importante de tu capacidad instalada no está generando valor — revisa el desglose por capas para ubicar dónde ocurren las mayores pérdidas.",
+  "algorithmVersion": "v1.2.0-core"
+}
