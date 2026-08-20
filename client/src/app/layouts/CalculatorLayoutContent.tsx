@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import CalculatorSidebar from "@/features/calculator/components/CalculatorSidebar";
-import { useCalculatorContext } from "../contexts/CalculatorContext";
 
 export default function CalculatorLayoutContent() {
     return (

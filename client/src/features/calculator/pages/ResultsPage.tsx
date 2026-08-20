@@ -1,5 +1,4 @@
-import ProgressStepper from "@/shared/components/stepper/ProgressStepper";
-import RadioCards from "@/shared/components/stepper/RadioCards";
+import { useParams } from "react-router-dom";
 import ProgressBar from "@/shared/components/stepper/Progressbar";
 import AssessmentCard from "@/shared/components/stepper/AssessmentCard";
 import ResultCard from "@/shared/components/stepper/ResultCard";
@@ -9,121 +8,45 @@ import { LockIcon } from "@/shared/components/icons/LockIcon";
 import { Modal } from "@/shared/components/ui/modal/Modal";
 import { useShareResult } from "@/shared/hooks/calculator/useShareResult";
 import { useCalculatorContext } from "@/app/contexts/CalculatorContext";
-import type { CoolingType } from "@/shared/api";
-import { LuTriangleAlert } from "react-icons/lu";
+import { useEffect } from "react";
 
 const CalculatorPage = () => {
   const {
-    stepIndex,
     results,
     resultCard,
-    isLoading,
-    totalSteps,
-    currentGroup,
-    currentCard,
     formData,
     fineTuneValues,
-    handleNext,
-    handleBack,
-    handleCardChange,
-    handleSliderChange,
-    handleRequest,
     getCurrentCardConfig,
     isModalOpen,
     setIsModalOpen,
     shareUrl,
-    setShareUrl,
-    errorMessage,
+    handleSavedResults,
+    setResultCard,
   } = useCalculatorContext();
 
+  const { id } = useParams<{ id: string }>();
+
+
   const { alertMessage, handleCopy } = useShareResult();
-
-  const currentFineTuneValue =
-    fineTuneValues[stepIndex] ?? currentCard.range?.default ?? 0;
-
-  const currentStep = resultCard  ? 4 : stepIndex + 1;
 
   const handleModal = () => {
     setIsModalOpen(true);
   }
 
-  const sendRequest = () => {
-    const data = {
-      facilityMw: fineTuneValues[0],
-      utilization: fineTuneValues[1],
-      coolingType: formData[2].toUpperCase() as CoolingType,
-    }
-    handleRequest(data);
-    setShareUrl("http://shrareurl.com");
-  };
+  useEffect(() => {
+    if (!id) return;
+    setResultCard((prev) => {
+        if (prev) return prev;
+        return true;
+    });
+    handleSavedResults(id);
+  }, [id])
 
   return (
     <>
       <div className="mx-auto my-30 flex min-h-[600px] w-full max-w-[800px] flex-col gap-10 rounded-[32px] bg-white p-8 shadow-[0_2px_15px_rgba(25,33,61,0.1)]">
-        {/* Mensaje de error del servidor */}
-        {errorMessage && (
-          <div className="fixed inline-flex justify-center space-x-1 items-center left-1/2 top-6 z-50 -translate-x-1/2 animate-bounce rounded-lg bg-red-200 px-4 py-2 font-poppins text-xs font-medium text-[16px] text-red-900 shadow-lg">
-            <LuTriangleAlert />
-            <p>{errorMessage}</p>
-          </div>
-        )}
-        
-        {/* Barra de pasos */}
-        <ProgressStepper currentStep={currentStep} />
 
         <section className="flex flex-1 flex-col justify-between gap-6">
-          {!resultCard && (
-            <RadioCards
-              group={currentGroup}
-              selectedId={formData[stepIndex]}
-              onChange={handleCardChange}
-            />
-          )}
-
-          {/* Barra de ajuste */}
-          {stepIndex === 0 && currentCard.range && (
-            <ProgressBar
-              key={`step-0-${formData[0]}`} 
-              title="Fine tune your capacity (MW)"
-              startValue={currentCard.range.min}
-              activeValue={currentFineTuneValue}
-              endValue={currentCard.range.max}
-              unit="MW"
-              onChange={handleSliderChange}
-            />
-          )}
-
-          {/* Barra de ajuste */}
-          {stepIndex === 1 && currentCard.range && (
-            <ProgressBar
-              key={`step-1-${formData[1]}`} 
-              title="Fine tune your utilization (%)"
-              startValue={currentCard.range.min}
-              activeValue={currentFineTuneValue}
-              endValue={currentCard.range.max}
-              unit="%"
-              onChange={handleSliderChange}
-            />
-          )}
-
-          {/* Tarjeta de datos a enviar */}
-          {stepIndex === 2 && !resultCard && (
-            <AssessmentCard
-              data={{
-                facilitySize: {
-                  label: getCurrentCardConfig(0).title,
-                  value: fineTuneValues[0],
-                },
-                utilization: {
-                  label: getCurrentCardConfig(1).title,
-                  value: fineTuneValues[1],
-                },
-                coolingType: {
-                  value: getCurrentCardConfig(2).title.toUpperCase(),
-                },
-              }}
-            />
-          )}
 
           {/* Tarjeta de resultados */}
           {resultCard && (
@@ -160,43 +83,7 @@ const CalculatorPage = () => {
         </section>
 
         <footer className="flex items-center justify-between">
-          <p className="font-body text-base text-placeholder">
-            Step {resultCard ? totalSteps + 1 : stepIndex + 1} of {totalSteps + 1}
-          </p>
-
           <div className="flex gap-4">
-            {stepIndex > 0 && (
-              <button
-                type="button"
-                onClick={handleBack}
-                className="flex h-[40px] w-[120px] items-center justify-center rounded-[8px] border border-brand-primary text-base font-medium text-brand-primary transition-colors hover:bg-gray-50 cursor-pointer"
-              >
-                Back
-              </button>
-            )}
-
-            {/* Botón de carga deshabilitado */}
-            {isLoading &&
-              <button
-                type="button"
-                disabled={true}
-                className="flex h-[40px] w-[165px] items-center justify-center rounded-[8px] bg-brand-primary text-base font-medium text-white transition-opacity opacity-50"
-              >
-                <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-              </button>
-            }
-
-            {/* Botón de siguiente o de calcular */}
-            {!isLoading && !resultCard &&
-              <button
-                type="button"
-                onClick={stepIndex === totalSteps - 1  ? sendRequest : handleNext}
-                className="flex h-[40px] w-[165px] items-center justify-center rounded-[8px] bg-brand-primary text-base font-medium text-white transition-opacity hover:opacity-90 cursor-pointer"
-              >
-                {stepIndex === totalSteps - 1 ? "Calculate" : "Next"}
-              </button>
-            }
-
             {/* Botón para compartir link */}
             {resultCard &&
               <button

@@ -1,19 +1,35 @@
-import React, { useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useOutletContext } from "react-router-dom";
 import type { DashboardTab } from "../types/dashboard-sidebar.types";
 import { CapacityFlowCard } from "../components/capacity/CapacityFlowCard";
 import { ScenarioComparisonCard } from "../components/compare/ScenarioComparisonCard";
 import { CompareScenariosCard } from "../components/compare/CompareScenariosCard";
 import { CalculatorCards } from "../../calculator/components/CalculatorCards";
+import useProtectedRoutes from "@/shared/hooks/useProtectedRoutes";
+import type { IAssessmentLayersAnalysis } from "@/shared/api/types/response.interface";
 import { ScenarioCards } from "../components/compare/ScenarioCards";
 import { LuDownload, LuShare2 } from "react-icons/lu";
 import graficoBarrasIcon from "@/assets/icons/barChart.png";
 
 const DashboardPage: React.FC = () => {
+  const [data, setData] = useState<IAssessmentLayersAnalysis | null>();
   const { activeTab, setActiveTab } = useOutletContext<{
     activeTab: DashboardTab;
     setActiveTab: (tab: DashboardTab) => void;
   }>();
+
+  console.log(data);
+
+  const location = useLocation();
+
+  const { protectedRoutes } = useProtectedRoutes();
+
+  const assessmentId = location.state["assessmentId"] as string;
+
+  useEffect(() => {
+    protectedRoutes.get<IAssessmentLayersAnalysis>(`api/v1/assessments/${assessmentId}/layer-analysis`)
+      .then(({ data }) => setData(data))
+  }, [])
 
   const [lastAnalysisDate, setLastAnalysisDate] = useState<string>(
     "May 12, 2025 at 10:25"

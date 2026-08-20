@@ -28,7 +28,7 @@ import { ROUTES } from "./route.constants";
 */
 
 import { LandingPage } from "@/features/landing";
-import { CalculatorPage } from "@/features/calculator";
+import { CalculatorPage, ResultsPage } from "@/features/calculator";
 import { NotFoundPage } from "@/features/not-found";
 
 /*
@@ -85,6 +85,11 @@ export default function AppRoutes() {
                     <Route
                         path={ROUTES.CALCULATOR}
                         element={<CalculatorPage />}
+                    />
+
+                    <Route
+                        path={ROUTES.RESULTS}
+                        element={<ResultsPage />}
                     />
                 </Route>
 

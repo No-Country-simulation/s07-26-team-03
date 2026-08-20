@@ -1,46 +1,14 @@
 import type { AxiosResponse } from "axios";
 import { publicRoutes } from "./axios";
-import type { IDataForCalculation } from "./types/request.interfaces";
+import type { IAssessmentData, IAssessmentRegisterData, IVerifyData } from "./types/request.interfaces";
+import type { IAssessmentRegisterResponse, IAssessmentResponse, IVerifyResponse } from "./types/response.interface";
 
 const controller = new AbortController();
 
 
-export const signup = (): Promise<AxiosResponse> => {
-    return publicRoutes.post(
-        "/auth/signup",
-        {},
-        {
-            signal: controller.signal,
-        }
-    ) ;
-}
-
-export const login = (): Promise<AxiosResponse<{ accessToken: string }>> => {
-    return publicRoutes.post<{ accessToken: string }>(
-        "/auth/login",
-        {},
-        {
-            signal: controller.signal,
-        }
-    ) ;
-}
-
-export const refreshSession = (): Promise<AxiosResponse<{ accessToken: string }>> => {
-    return publicRoutes.get<{ accessToken: string }>(
-        "/auth/refresh",
-        { 
-            withCredentials: true,
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': 'true',
-            }
-        },
-    ) ;
-}
-
-export const calculate = (data: IDataForCalculation): Promise<AxiosResponse> => {
-    return publicRoutes.post<{ accessToken: string }>(
-        "calculator/calculate",
+export const assessmentRegister = (data: IAssessmentRegisterData): Promise<AxiosResponse<IAssessmentRegisterResponse>> => {
+    return publicRoutes.post<IAssessmentRegisterResponse>(
+        "api/v1/auth/request-otp",
         data,
         {
             signal: controller.signal,
@@ -48,8 +16,41 @@ export const calculate = (data: IDataForCalculation): Promise<AxiosResponse> => 
     ) ;
 }
 
-export const getScenarios = (): Promise<AxiosResponse> => {
-    return publicRoutes.get(
-        "/calculator/scenarios",
+export const verify = (data: IVerifyData): Promise<AxiosResponse<IVerifyResponse>> => {
+    return publicRoutes.post<IVerifyResponse>(
+        "api/v1/auth/verify-otp",
+        { email: data.email, code: data.code },
+        {
+            signal: controller.signal,
+        }
     ) ;
+}
+
+export const refreshSession = async (): Promise<{ accessToken: string }> => {
+    const response = await publicRoutes.get<{ accessToken: string }>(
+        "api/v1/auth/refresh",
+        { 
+            withCredentials: true,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': 'true',
+            }
+        },
+    );
+
+    return response.data;
+}
+
+export const sendAssessmentRequest = (data: IAssessmentData): Promise<AxiosResponse<IAssessmentResponse>> => {
+    return publicRoutes.post<IAssessmentResponse>(
+        "api/v1/assessments",
+        data,
+        {
+            signal: controller.signal,
+        }
+    );
+}
+
+export const getAssessmentSavedResults = (id: string): Promise<AxiosResponse<IAssessmentResponse>> => {
+    return publicRoutes.get<IAssessmentResponse>(`api/v1/assessments/${id}`);
 }

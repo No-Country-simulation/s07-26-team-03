@@ -5,6 +5,11 @@ import {
     COOLING_TYPE_GROUP,
     type CustomRadioCardItem,
 } from "@/shared/constants/RadioCards.constants";
+import { sendAssessmentRequest, getAssessmentSavedResults } from '@/shared/api/public-endpoints';
+import type { IAssessmentData } from "@/shared/api";
+import type { IAssessmentResponse } from "@/shared/api/types/response.interface";
+import type { AxiosError } from "axios";
+import { HTTP_ERROR_MESSAGES } from "@/shared/api/types/api.types";
 
 export const STEPS_CONFIG = [
     FACILITY_SIZE_GROUP,
@@ -12,11 +17,13 @@ export const STEPS_CONFIG = [
     COOLING_TYPE_GROUP,
 ];
 
+
 export function useCalculator() {
     const [stepIndex, setStepIndex] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [resultCard, setResultCard] = useState<boolean>(false);
-
+    const [results, setResults] = useState<IAssessmentResponse>()
     const [formData, setFormData] = useState<{ [key: number]: string }>({
         0: "medium",
         1: "healthy",
@@ -43,15 +50,40 @@ export function useCalculator() {
 
     const currentCard = getCurrentCardConfig(stepIndex);
 
-    const handleNext = () => {
-        if (stepIndex === totalSteps - 1) {
+    const handleSavedResults = async (id: string) => {
+        const response = getAssessmentSavedResults(id);
+        response.then(({ data }) => {
+            setResults(data);
+            setResultCard((prev) => !prev);
+        })
+        .catch((err: AxiosError) => {
+            console.log(err);
+        })
+        .finally(() => {
+            setIsLoading((prev) => !prev);
+        })
+    }
+
+    const handleRequest = async (data: IAssessmentData) => {
+        setIsLoading((prev) => !prev);
+        const response = sendAssessmentRequest(data);
+        response.then(({ data }) => {
+            setResults(data);
+            setResultCard((prev) => !prev);
+        })
+        .catch((err: AxiosError) => {
+            setErrorMessage(HTTP_ERROR_MESSAGES[err.response?.status ?? 500]);
+        })
+        .finally(() => {
             setIsLoading((prev) => !prev);
             setTimeout(() => {
-                setIsLoading((prev) => !prev);
-                setResultCard((prev) => !prev)
-            }, 1000)
-        } 
-        else setStepIndex((prev) => prev + 1);
+                setErrorMessage(null);
+            }, 3000);
+        })
+    }
+
+    const handleNext = () => {
+        setStepIndex((prev) => prev + 1);
     };
 
     const handleBack = () => {
@@ -89,6 +121,7 @@ export function useCalculator() {
 
     return {
         stepIndex,
+        results,
         resultCard,
         isLoading,
         totalSteps,
@@ -96,10 +129,14 @@ export function useCalculator() {
         currentCard,
         formData,
         fineTuneValues,
+        errorMessage,
         handleNext,
         handleBack,
         handleCardChange,
         handleSliderChange,
+        handleRequest,
+        handleSavedResults,
         getCurrentCardConfig,
+        setResultCard,
     };
 }
