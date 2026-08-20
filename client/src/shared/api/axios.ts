@@ -9,6 +9,7 @@ export const publicRoutes = axios.create({
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
     },
 });
 
@@ -19,5 +20,6 @@ export const protectedRoutes = axios.create({
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
   },
 });
