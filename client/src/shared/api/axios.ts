@@ -4,7 +4,8 @@ import { env } from "@/app/config/env";
 
 export const publicRoutes = axios.create({
     baseURL: env.API_URL,
-    timeout: 10000,
+    timeout: 30000,
+    withCredentials: true,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
