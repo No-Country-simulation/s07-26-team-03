@@ -1,10 +1,27 @@
+import { useLocation } from "react-router-dom";
 import { useVerificationActions } from "../../../shared/hooks/auth/useVerificationActions";
+import { LuTriangleAlert } from "react-icons/lu";
 
 export default function VerifyPage() {
-    const { code, inputRefs, handleChange, handleKeyDown, handlePaste, handleVerify } = useVerificationActions();
+    const { code, inputRefs, errorMessage, handleChange, handleKeyDown, handlePaste, handleVerify } = useVerificationActions();
+
+    const location = useLocation();
+
+    const email = location.state["email"] as string;
+    const assessmentId = location.state["assessmentId"] as string;
+
+    const verify = () => {
+        handleVerify(email, assessmentId);
+    }
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm p-4">
+            {errorMessage && (
+                <div className="fixed inline-flex justify-center space-x-1 items-center left-1/2 top-6 z-50 -translate-x-1/2 animate-bounce rounded-lg bg-red-200 px-4 py-2 font-poppins text-xs font-medium text-[16px] text-red-900 shadow-lg">
+                    <LuTriangleAlert />
+                    <p>{errorMessage}</p>
+                </div>
+            )}
             <div className="register-card-border flex h-[358px] w-[540px] flex-col items-center justify-center rounded-[20px] bg-surface p-8 text-center shadow-card-figma border border-[#E5E7EB]">
                 <h2 className="mb-4 font-poppins text-[22px] font-bold leading-tight text-[#171819]">
                     Verify your code
@@ -41,7 +58,7 @@ export default function VerifyPage() {
 
                 <button
                     type="button"
-                    onClick={handleVerify}
+                    onClick={verify}
                     className="flex h-[48px] w-[438px] items-center justify-center rounded-[8px] bg-brand-primary font-poppins font-semibold text-white transition-colors hover:bg-brand-primary-hover active:bg-brand-primary-active"
                 >
                     Verify

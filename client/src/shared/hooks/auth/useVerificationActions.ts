@@ -1,10 +1,20 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import type { KeyboardEvent, ClipboardEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import type { UseVerificationActionsReturn } from "../../interfaces/verification.interface";
+import { verify } from "@/shared/api";
+import type { AxiosError } from "axios";
+import AuthContext from "@/shared/context/AuthContext";
+import { HTTP_ERROR_MESSAGES } from "@/shared/api/types/api.types";
 
 export function useVerificationActions(): UseVerificationActionsReturn {
     const [code, setCode] = useState<string[]>(["", "", "", "", "", ""]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+    const { setAccessToken } = useContext(AuthContext);
+
+    const navigate = useNavigate();
 
     const handleChange = (value: string, index: number): void => {
         const cleanValue = value.replace(/\D/g, "").slice(-1);
@@ -50,13 +60,28 @@ export function useVerificationActions(): UseVerificationActionsReturn {
         inputRefs.current[nextIndex]?.focus();
     };
 
-    const handleVerify = (): void => {
-        alert(`Verificando código: ${code.join("")}`);
+    const handleVerify = (email: string, assessmentId: string): void => {
+        const response = verify({ email, code: code.join("") });
+        setIsLoading((prev) => !prev);
+        response
+            .then(({ data }) => {
+                setAccessToken(data.accessToken);
+                navigate("/dashboard", { state: { assessmentId }});
+            }).catch((err: AxiosError) => {
+                setErrorMessage(HTTP_ERROR_MESSAGES[err.response?.status ?? 500]);
+            }).finally(() => {
+                setIsLoading((prev) => !prev);
+                setTimeout(() => {
+                    setErrorMessage(null);
+                }, 3000);
+            });
     };
 
     return {
         code,
         inputRefs,
+        isLoading,
+        errorMessage,
         handleChange,
         handleKeyDown,
         handlePaste,

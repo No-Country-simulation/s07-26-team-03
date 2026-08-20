@@ -9,7 +9,7 @@ import { useCalculatorContext } from "@/app/contexts/CalculatorContext";
  */
 export default function CalculatorResultsSidebarContent() {
     const navigate = useNavigate();
-    const { setIsModalOpen, setShareUrl } = useCalculatorContext();
+    const { setIsModalOpen, setShareUrl, results } = useCalculatorContext();
 
     const handleModal = () => {
         setIsModalOpen(true);
@@ -18,6 +18,10 @@ export default function CalculatorResultsSidebarContent() {
     const handleExport = () => {
         setShareUrl("http://shrareurl.com")
     };
+
+    const navigateToRegister = () => {
+        navigate("/register", { state: { assessmentId: results?.assessmentId }});
+    }
 
     return (
         <>
@@ -104,7 +108,7 @@ export default function CalculatorResultsSidebarContent() {
             <div className="flex justify-center">
                 <button
                     type="button"
-                    onClick={() => navigate("/register")}
+                    onClick={navigateToRegister}
                     className="inline-flex items-center h-[40px] w-[250px] justify-between rounded-[8px] bg-brand-primary px-4 py-2 text-white transition-opacity hover:opacity-90 cursor-pointer"
                 >
                     <LockIcon size={24} />

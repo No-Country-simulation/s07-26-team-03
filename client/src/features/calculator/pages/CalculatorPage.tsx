@@ -5,15 +5,17 @@ import AssessmentCard from "@/shared/components/stepper/AssessmentCard";
 import ResultCard from "@/shared/components/stepper/ResultCard";
 import { CopyIcon } from "@/shared/components/icons/CopyIcon";
 import { LockIcon } from "@/shared/components/icons/LockIcon";
-// import type { CoolingType, IDataForCalculation } from "@/shared/api";
 
 import { Modal } from "@/shared/components/ui/modal/Modal";
 import { useShareResult } from "@/shared/hooks/calculator/useShareResult";
 import { useCalculatorContext } from "@/app/contexts/CalculatorContext";
+import type { CoolingType } from "@/shared/api";
+import { LuTriangleAlert } from "react-icons/lu";
 
 const CalculatorPage = () => {
   const {
     stepIndex,
+    results,
     resultCard,
     isLoading,
     totalSteps,
@@ -25,11 +27,13 @@ const CalculatorPage = () => {
     handleBack,
     handleCardChange,
     handleSliderChange,
+    handleRequest,
     getCurrentCardConfig,
     isModalOpen,
     setIsModalOpen,
     shareUrl,
-    setShareUrl
+    setShareUrl,
+    errorMessage,
   } = useCalculatorContext();
 
   const { alertMessage, handleCopy } = useShareResult();
@@ -43,13 +47,31 @@ const CalculatorPage = () => {
     setIsModalOpen(true);
   }
 
-  const handleExport = () => {
-    setShareUrl("http://shrareurl.com")
+  const sendRequest = () => {
+    const data = {
+      facilityMw: fineTuneValues[0],
+      utilization: fineTuneValues[1],
+      coolingType: formData[2].toUpperCase() as CoolingType,
+    }
+    handleRequest(data);
+    setShareUrl("http://shrareurl.com");
   };
 
   return (
     <>
+<<<<<<< HEAD
       <div className="mx-auto my-30 flex min-h-[600px] w-full max-w-[800px] flex-col gap-10 rounded-[32px] bg-white dark:bg-black border dark:border-gray-600 p-8 shadow-[0_2px_15px_rgba(25,33,61,0.1)]">
+=======
+      <div className="mx-auto my-30 flex min-h-[600px] w-full max-w-[800px] flex-col gap-10 rounded-[32px] bg-white p-8 shadow-[0_2px_15px_rgba(25,33,61,0.1)]">
+        {/* Mensaje de error del servidor */}
+        {errorMessage && (
+          <div className="fixed inline-flex justify-center space-x-1 items-center left-1/2 top-6 z-50 -translate-x-1/2 animate-bounce rounded-lg bg-red-200 px-4 py-2 font-poppins text-xs font-medium text-[16px] text-red-900 shadow-lg">
+            <LuTriangleAlert />
+            <p>{errorMessage}</p>
+          </div>
+        )}
+        
+>>>>>>> client-dev
         {/* Barra de pasos */}
         <ProgressStepper currentStep={currentStep} />
 
@@ -125,7 +147,7 @@ const CalculatorPage = () => {
                   },
                 }}
               />
-              <ResultCard />
+              <ResultCard data={results} />
               <ProgressBar
                 key={`step-0-${formData[0]}`} 
                 title="Anual financial impact range"
@@ -172,7 +194,7 @@ const CalculatorPage = () => {
             {!isLoading && !resultCard &&
               <button
                 type="button"
-                onClick={handleNext}
+                onClick={stepIndex === totalSteps - 1  ? sendRequest : handleNext}
                 className="flex h-[40px] w-[165px] items-center justify-center rounded-[8px] bg-brand-primary text-base font-medium text-white transition-opacity hover:opacity-90 cursor-pointer"
               >
                 {stepIndex === totalSteps - 1 ? "Calculate" : "Next"}
@@ -185,7 +207,6 @@ const CalculatorPage = () => {
                 type="button"
                 onClick={() => {
                   handleModal();
-                  handleExport();
                 }}
                 className="inline-flex items-center h-[40px] w-[165px] justify-between rounded-[8px] bg-brand-primary px-4 py-2 text-white transition-opacity hover:opacity-90 cursor-pointer"
               >
