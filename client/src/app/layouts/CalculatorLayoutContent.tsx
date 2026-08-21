@@ -1,12 +1,22 @@
 import { Outlet } from "react-router-dom";
 import CalculatorSidebar from "@/features/calculator/components/CalculatorSidebar";
+import Toggle from "@/shared/components/buttons/Toggle";
+import { useDarkMode } from "@/shared/hooks/useDarkMode";
 
 export default function CalculatorLayoutContent() {
+    const { isDark, toggleDarkMode} = useDarkMode();
+
     return (
-        <div className="flex min-h-screen flex-col bg-background bg-layout bg-cover bg-center bg-no-repeat md:flex-row">
+        <div className="flex min-h-screen flex-col bg-background dark:bg-black bg-layout dark:bg-layout-dark bg-cover bg-center bg-no-repeat md:flex-row">
             <CalculatorSidebar />
 
             <div className="flex flex-1 flex-col">
+                <div className="flex justify-end items-center gap-2 px-6 py-3 text-[20px]">
+                    <span>☀️</span>
+                    <Toggle isActive={isDark} onClick={toggleDarkMode} />
+                    <span>🌙</span>
+                </div>
+
                 <main className="flex-1">
                     <Outlet />
                 </main>

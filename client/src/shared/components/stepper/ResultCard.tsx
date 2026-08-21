@@ -16,11 +16,11 @@ export default function ResultCard({ data }: ResultCardProps) {
   };
 
   return (
-    <div className="w-full rounded-[24px] border border-[#E5E7EB] bg-white p-6 shadow-[0px_0.5px_8px_rgba(25,33,61,0.06)]">
+    <div className="w-full rounded-[24px] border border-[#E5E7EB] dark:border-[#252525] bg-white dark:bg-black dark:text-white p-6 shadow-[0px_0.5px_8px_rgba(25,33,61,0.06)]">
       <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
-        <div className="flex flex-col justify-between gap-2 rounded-xl bg-[#FAFBFD] px-5 py-4">
+        <div className="flex flex-col justify-between gap-2 rounded-xl bg-[#E5E7EB] dark:bg-[#141414] text-[#4B5563] dark:text-[#E5E7EB] px-5 py-4">
           <PulseIcon size={36} className="text-[#0E6A37]" />
-          <span className="font-heading text-base font-bold text-[#170F49]">
+          <span className="font-heading text-base font-bold text-gray-800 dark:text-gray-300">
             Estimated Stranded Capacity
           </span>
           <div className="flex w-full items-center justify-between font-body text-base">
@@ -29,7 +29,7 @@ export default function ResultCard({ data }: ResultCardProps) {
             </span>
           </div>
           <div className="flex w-full items-center justify-between font-body text-base">
-            <span className="font-bold text-[16px] text-black ">
+            <span className="font-bold text-[16px] text-black dark:text-gray-200">
               {data.facilityMw}MV
             </span>
             <StatusBadge />
@@ -41,9 +41,9 @@ export default function ResultCard({ data }: ResultCardProps) {
           </div>
         </div>
 
-        <div className="flex flex-col justify-between gap-2 rounded-xl bg-[#FAFBFD] px-5 py-4">
+        <div className="flex flex-col justify-between gap-2 rounded-xl bg-[#E5E7EB] dark:bg-[#141414] text-[#4B5563] dark:text-[#E5E7EB] px-5 py-4">
           <MoneyIcon size={36} className="text-[#ea8800]"/>
-          <span className="font-heading text-base font-bold text-[#170F49]">
+          <span className="font-heading text-base font-bold text-gray-800 dark:text-gray-300">
             Estimated Annual Cost
           </span>
           <div className="flex w-full items-center justify-between font-body text-base">
@@ -52,7 +52,7 @@ export default function ResultCard({ data }: ResultCardProps) {
             </span>
           </div>
           <div className="flex w-full items-center justify-between font-body text-base">
-            <span className="text-[16px] font-semibold text-black ">
+            <span className="text-[16px] font-semibold text-black dark:text-gray-200">
               USD per year
             </span>
           </div>
@@ -63,13 +63,13 @@ export default function ResultCard({ data }: ResultCardProps) {
           </div>
         </div>
 
-        <div className="flex flex-col justify-between gap-2 rounded-xl bg-[#FAFBFD] px-5 py-4">
+        <div className="flex flex-col justify-between gap-2 rounded-xl bg-[#E5E7EB] dark:bg-[#141414] text-[#4B5563] dark:text-[#E5E7EB] px-5 py-4">
           <StarIcon size={36} className="text-[#ea0000]"/>
-          <span className="font-heading text-base font-bold text-[#170F49]">
+          <span className="font-heading text-base font-bold text-gray-800 dark:text-gray-300">
             Capacity Score
           </span>
           <div className="flex w-full items-center justify-between font-body text-base">
-            <span className="text-black font-bold text-[20px]">
+            <span className="text-black dark:text-gray-200 font-bold text-[20px]">
               {data.capacityScore}
             </span>
           </div>

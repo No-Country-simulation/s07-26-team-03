@@ -47,7 +47,11 @@
 
   --color-brand-accent: #C5922C;
 
+  /* Light */
   --background-image-layout: url("../../assets/background.png");
+
+  /* Dark */
+  --background-image-layout-dark: url("../../assets/background-dark.png");
 
   --background-image-layout-gradient:
     linear-gradient(
@@ -58,6 +62,17 @@
       #0B321D 55%,
       #06100B 88%,
       #020403 100%
+    );
+
+  --background-image-layout-gradient-dark:
+    linear-gradient(
+      180deg,
+      #020303 0%,
+      #050807 20%,
+      #070A09 45%,
+      #070A09 55%,
+      #040605 80%,
+      #010202 100%
     );
 
   --color-background: #F8F9FA;

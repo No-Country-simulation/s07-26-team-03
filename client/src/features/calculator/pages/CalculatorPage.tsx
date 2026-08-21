@@ -59,7 +59,7 @@ const CalculatorPage = () => {
 
   return (
     <>
-      <div className="mx-auto my-30 flex min-h-[600px] w-full max-w-[800px] flex-col gap-10 rounded-[32px] bg-white p-8 shadow-[0_2px_15px_rgba(25,33,61,0.1)]">
+      <div className="mx-auto my-30 flex min-h-[600px] w-full max-w-[800px] flex-col gap-10 rounded-[32px] bg-white dark:bg-black border dark:border-gray-600 p-8 shadow-[0_2px_15px_rgba(25,33,61,0.1)]">
         {/* Mensaje de error del servidor */}
         {errorMessage && (
           <div className="fixed inline-flex justify-center space-x-1 items-center left-1/2 top-6 z-50 -translate-x-1/2 animate-bounce rounded-lg bg-red-200 px-4 py-2 font-poppins text-xs font-medium text-[16px] text-red-900 shadow-lg">
@@ -169,7 +169,7 @@ const CalculatorPage = () => {
               <button
                 type="button"
                 onClick={handleBack}
-                className="flex h-[40px] w-[120px] items-center justify-center rounded-[8px] border border-brand-primary text-base font-medium text-brand-primary transition-colors hover:bg-gray-50 cursor-pointer"
+                className="flex h-[40px] w-[120px] items-center justify-center rounded-[8px] border border-brand-primary text-base font-medium text-brand-primary hover:bg-gray-50 transition-colors dark:border-green-600 dark:text-green-600 dark:hover:bg-gray-900 dark:hover:border-white dark:hover:text-white cursor-pointer"
               >
                 Back
               </button>

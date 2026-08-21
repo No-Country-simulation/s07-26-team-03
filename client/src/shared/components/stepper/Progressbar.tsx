@@ -33,7 +33,7 @@ export default function ProgressBar({
 
     return (
         <div className="w-full">
-            <p className="mb-4 font-heading text-base font-semibold text-heading">
+            <p className="mb-4 font-heading text-base font-semibold text-heading dark:text-[#f4faf6d1]">
                 {title}
             </p>
 
@@ -51,7 +51,7 @@ export default function ProgressBar({
                         <div className="flex flex-col items-center">
                             
                             {/* Label */}
-                            <div className="whitespace-nowrap rounded-[3px] bg-[#74A98D] px-2 py-1 text-[13px] font-semibold leading-none text-white">
+                            <div className="whitespace-nowrap rounded-[3px] bg-[#74A98D] dark:bg-[#0E6A37] px-2 py-1 text-[13px] font-semibold leading-none text-white">
                                 {dolarSign && "$"}
                                 {activeValue} {unit}
                             </div>
@@ -70,7 +70,7 @@ export default function ProgressBar({
                 )}
 
                 {/* Barra */}
-                <div className="relative h-2 w-full rounded-full bg-[#E5E7EB]">
+                <div className="relative h-2 w-full rounded-full bg-[#E5E7EB] dark:bg-[#252525]">
                     {/* Progreso */}
                     <div
                         className="absolute left-0 top-0 h-full rounded-full bg-[#0E6A37] transition-all duration-150"
